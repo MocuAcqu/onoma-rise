@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+## 專案名稱
+### 音擬而起 OnomaRise
+- Onoma（來自 Onomatopoeia 擬聲詞）
+- Rise（而起）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 技術
+建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。
+前端框架: React.js - 元件化開發，管理複雜的 UI 狀態。
+程式語言: TypeScript - 增加程式碼的穩定性，避免很多低級錯誤。
+核心音訊庫: Tone.js - Web Audio API 的最佳封裝，處理聲音合成、錄音、節拍都非常方便。
+樣式方案: Styled-components 或 Tailwind CSS - 依團隊喜好選擇，前者適合元件化的精細樣式，後者適合快速排版。
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 預計資料夾結構
+```
+音擬而起/
+├── public/              # 靜態資源，如 favicon.ico
+├── src/
+│   ├── assets/          # 圖片 (svg, png), 音檔範本 (mp3)
+│   ├── components/      # 可重用的 React 元件
+│   ├── core/            # 核心商業邏輯 (純 TS/JS)
+│   │   ├── piano.ts     # 鋼琴的音高、琴鍵
+│   │   └── Tonnetz.ts   # Tonnetz 座標、音高計算的核心演算法
+│   ├── hooks/           # 自定義 Hooks (例如 useAudioPlayer)
+│   ├── pages/           # 頁面對應的元件 (HomePage, AboutPage)
+│   └── App.tsx          # 應用程式主進入點
+├── package.json         # 專案設定檔
+└── tsconfig.json        # TypeScript 設定檔
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 啟動方式
+移動到資料夾的位置:
+```
+cd onoma-rise
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+啟動本地端:
+```
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+
+## 初步建立步驟 (供參考)
+```
+npm create vite@latest onoma-rise --template react-ts
+```
+
+```
+cd onoma-rise
+```
+
+```
+npm install tone
+git init
+git add .
+git commit -m "Initial commit: Setup project with Vite, React, TS"
+```
+
+```
+git remote add origin https://github.com/MocuAcqu/onoma-rise.git
+```
+
+```
+git branch -M main
+git push -u origin main
 ```

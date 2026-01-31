@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import SphereTransition from './components/SphereTransition';
+import Navbar from './components/Navbar';
+
+type SpherePosition = {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [spherePosition, setSpherePosition] = useState<SpherePosition | null>(null);
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigate = (path: string, element: HTMLElement | null) => {
+    if (!element || isTransitioning) return; 
+
+    const rect = element.getBoundingClientRect();
+    setSpherePosition({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+    });
+    
+    setIsTransitioning(true);
+
+    setTimeout(() => {
+      navigate(path);
+    }, 600); 
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setSpherePosition(null); 
+    }, 1200);
+  };
+
+  const shouldShowNavbar = location.pathname !== '/';
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {shouldShowNavbar && <Navbar />}
+      <SphereTransition
+        isActive={isTransitioning}
+        initialPosition={spherePosition}
+      />
+      
+      <Outlet context={{ handleNavigate }} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

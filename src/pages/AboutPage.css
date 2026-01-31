@@ -1,0 +1,108 @@
+.about-container {
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding-bottom: 2rem;
+  animation: slideUpFade 0.8s ease-out;
+}
+
+.about-card {
+  background: white;
+  width: 90%;
+  max-width: 600px;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* 柔和的陰影 */
+  text-align: center;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, #FFD700, #FF69B4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.about-tagline {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+}
+
+.about-content {
+  text-align: left;
+  line-height: 1.8;
+  color: #555;
+}
+
+.about-content section {
+  margin-bottom: 2rem;
+}
+
+.about-content h3 {
+  color: #333;
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  border-left: 4px solid #FF69B4; 
+  padding-left: 10px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: '•';
+  color: #FFD700;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.footer-note {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.version {
+  font-family: monospace;
+  margin-top: 5px;
+  opacity: 0.6;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 2rem 1.5rem;
+  }
+  .about-title {
+    font-size: 2rem;
+  }
+}

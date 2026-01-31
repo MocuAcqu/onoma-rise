@@ -1,16 +1,16 @@
-## 專案名稱
+# 專案名稱
 ### 音擬而起 OnomaRise
 - Onoma（來自 Onomatopoeia 擬聲詞）
 - Rise（而起）
 
-## 技術
-建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。
-前端框架: React.js - 元件化開發，管理複雜的 UI 狀態。
-程式語言: TypeScript - 增加程式碼的穩定性，避免很多低級錯誤。
-核心音訊庫: Tone.js - Web Audio API 的最佳封裝，處理聲音合成、錄音、節拍都非常方便。
-樣式方案: Styled-components 或 Tailwind CSS - 依團隊喜好選擇，前者適合元件化的精細樣式，後者適合快速排版。
+# 技術
+- 建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。
+- 前端框架: React.js - 元件化開發，管理複雜的 UI 狀態。
+- 程式語言: TypeScript - 增加程式碼的穩定性，避免很多低級錯誤。
+- 核心音訊庫: Tone.js - Web Audio API 的最佳封裝，處理聲音合成、錄音、節拍都非常方便。
+- 樣式方案: Styled-components 或 Tailwind CSS - 依團隊喜好選擇，前者適合元件化的精細樣式，後者適合快速排版。
 
-## 預計資料夾結構
+# 預計資料夾結構
 ```
 音擬而起/
 ├── public/              # 靜態資源，如 favicon.ico
@@ -27,7 +27,7 @@
 └── tsconfig.json        # TypeScript 設定檔
 ```
 
-## 啟動方式
+# 啟動方式
 移動到資料夾的位置:
 ```
 cd onoma-rise
@@ -39,7 +39,7 @@ npm run dev
 ```
 
 
-## 初步建立步驟 (供參考)
+# 初步建立步驟 (供參考)
 ```
 npm create vite@latest onoma-rise --template react-ts
 ```

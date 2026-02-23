@@ -6,7 +6,7 @@
 ### 介面畫面
 | 起始畫面 | 登入畫面 | Home | About |
 |:--:|:--:|:--:|:--:|
-|<img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E7%99%BB%E5%85%A5%E7%95%AB%E9%9D%A2.png"> | <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E7%99%BB%E5%85%A5%E7%95%AB%E9%9D%A2.png"> | | |
+|<img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E8%B5%B7%E5%A7%8B%E7%95%AB%E9%9D%A2.png"> | <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E7%99%BB%E5%85%A5%E7%95%AB%E9%9D%A2.png"> |  |  |
 
 # 技術
 - 建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。

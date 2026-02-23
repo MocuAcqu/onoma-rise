@@ -3,6 +3,11 @@
 - Onoma（來自 Onomatopoeia 擬聲詞）
 - Rise（而起）
 
+### 介面畫面
+| 起始畫面 | 登入畫面 | Home | About |
+|:--:|:--:|:--:|:--:|
+|
+
 # 技術
 - 建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。
 - 前端框架: React.js - 元件化開發，管理複雜的 UI 狀態。
@@ -14,6 +19,10 @@
 ```
 音擬而起/
 ├── public/              # 靜態資源，如 favicon.ico
+├── server/
+│   ├── server.js        # 主程式，設置 API
+│   └── models/             
+│       └── User.js      # 定義使用者的資料格式
 ├── src/
 │   ├── assets/          # 圖片 (svg, png), 音檔範本 (mp3)
 │   ├── components/      # 可重用的 React 元件
@@ -33,9 +42,15 @@
 cd onoma-rise
 ```
 
-啟動本地端:
+啟動本地前端:
 ```
 npm run dev
+```
+
+啟動本地後端:
+```
+cd server
+node server.js
 ```
 
 
@@ -63,3 +78,4 @@ git remote add origin https://github.com/MocuAcqu/onoma-rise.git
 git branch -M main
 git push -u origin main
 ```
+

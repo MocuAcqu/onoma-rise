@@ -12,7 +12,7 @@ const LandingPage = () => {
     const sphereRef = useRef<HTMLDivElement>(null);
     
     const handleClick = () => {
-        handleNavigate('/home', sphereRef.current);
+        handleNavigate('/login', sphereRef.current);
     };
 
     return (

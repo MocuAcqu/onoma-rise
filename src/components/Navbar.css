@@ -50,6 +50,33 @@
 
 .navbar-right {
   position: relative;
+  display: flex;      
+  align-items: center; 
+  gap: 35px;
+}
+
+.user-greeting {
+  font-weight: 600;
+  color: #555;
+  font-size: 1rem;
+}
+
+.logout-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #e74c3c; 
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #e74c3c;
+  color: #ffe9e7; 
 }
 
 .hamburger-btn {
@@ -117,13 +144,13 @@
   padding: 10px 20px;
   text-decoration: none;
   color: #555;
-  font-weight: 500;
+  font-weight: 600;
   transition: background-color 0.2s;
 }
 
 .nav-menu li a:hover {
-  background-color: #f5f5f5;
-  color: #FF69B4;
+  background-color: #b89c00;
+  color: #f5f5f5;
 }
 
 .menu-overlay {
@@ -134,4 +161,10 @@
   height: 100vh;
   z-index: 1500;
   background: transparent;
+}
+
+@media (max-width: 480px) {
+  .user-greeting {
+    display: none;
+  }
 }

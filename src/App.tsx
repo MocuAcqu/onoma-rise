@@ -32,7 +32,7 @@ function App() {
 
     setTimeout(() => {
       navigate(path);
-    }, 600); 
+    }, 1000); 
 
     setTimeout(() => {
       setIsTransitioning(false);
@@ -40,7 +40,7 @@ function App() {
     }, 1200);
   };
 
-  const shouldShowNavbar = location.pathname !== '/';
+  const shouldShowNavbar = location.pathname !== '/' && location.pathname !== '/login';
 
   return (
     <>

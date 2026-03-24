@@ -1,6 +1,6 @@
 .sphere-transition {
   position: fixed;
-  background: linear-gradient(135deg, #FFD700, #FF69B4);
+  background: linear-gradient(135deg, var(--color-blue1), var(--color-sunset-pink));
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
@@ -9,14 +9,14 @@
 
 .sphere-transition.active {
   opacity: 1;
-  animation: grow-and-whiten 2.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation: grow-and-whiten 3s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 @keyframes grow-and-whiten {
   0% {
-    transform: scale(1);
+    transform: scale(0);
     border-radius: 50%;
-    background: linear-gradient(135deg, #FFD700, #FF69B4);
+    background: #333333;
   }
   
   100% {

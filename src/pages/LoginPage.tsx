@@ -5,6 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FiEye, FiEyeOff, FiMail, FiLock, FiUser } from 'react-icons/fi'; 
 import { useGoogleLogin } from '@react-oauth/google'; 
 import axios from 'axios';
+import logoImage from '../assets/images/login-logo.png';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -90,13 +91,13 @@ const LoginPage = () => {
                 <div className="bar bar4"></div>
                 <div className="bar bar5"></div>
             </div>
-            <h2 className="brand-slogan">聽見你的聲音</h2>
+            <h2 className="brand-slogan">I can hear you.</h2>
             </div>
 
             <div className="login-right">
             <div className="login-form-container">
                 <div className="login-header">
-                <div className="logo-circle"></div>
+                <img src={logoImage} alt="OnomaRise Logo" className="login-logo-img" />
                 <h1>開始您的音樂旅程</h1>
                 </div>
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import SphereTransition from './components/SphereTransition';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 type SpherePosition = {
   top: number;
@@ -41,6 +42,7 @@ function App() {
   };
 
   const shouldShowNavbar = location.pathname !== '/' && location.pathname !== '/login';
+  const shouldShowLayout = location.pathname !== '/' && location.pathname !== '/login';
 
   return (
     <>
@@ -50,7 +52,11 @@ function App() {
         initialPosition={spherePosition}
       />
       
-      <Outlet context={{ handleNavigate }} />
+      <main>
+        <Outlet context={{ handleNavigate }} />
+      </main>
+
+      {shouldShowLayout && <Footer />}
     </>
   );
 }

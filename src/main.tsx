@@ -8,6 +8,10 @@ import LandingPage from './components/LandingPage.tsx';
 import HomePage from './pages/HomePage.tsx';
 import AboutPage from './pages/AboutPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
+import TonnetzPage from './pages/TonnetzPage.tsx';
+import Identify from './pages/Identify.tsx';
+import Knowledge from './pages/Knowledge.tsx';
+import Profile from './pages/Profile.tsx';
 import './index.css';
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -26,6 +30,10 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'login', element: <LoginPage /> },
+      { path: 'identify', element: <Identify /> },
+      { path: 'knowledge', element: <Knowledge /> },
+      { path: 'tonnetz', element: <TonnetzPage /> },
+      { path: 'profile', element: <Profile /> },
     ],
   },
 ]);

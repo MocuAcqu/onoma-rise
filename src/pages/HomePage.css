@@ -1,40 +1,77 @@
-.homepage-content {
-  padding-top: 80px; 
+.home-content-new {
+  padding-top: 5%; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+}
+
+.home-menu-grid {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  gap: 1.5rem;     
+  width: 90%;
+  max-width: 700px; 
+  padding: 0 1rem;
+  margin-bottom: 5rem;
+}
+
+.menu-row-top {
+  display: flex;      
   justify-content: center;
-  width: 100%;  
-  max-width: 100vw; 
-  text-align: center;
-  box-sizing: border-box;
-  min-height: calc(100vh - 80px); 
-  animation: pageFadeIn 1s ease-out;
+  gap: 1.5rem;
+  width: 100%;
 }
 
-.status-title {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 1rem;
+.menu-row-bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.menu-button-new {
+  flex: 1; 
+  padding: 1.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 1.6rem;
   font-weight: 700;
+  text-align: center;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background-size: 200% auto;
 }
 
-.status-desc {
-  color: #666;
-  font-size: 1.2rem;
-  margin-bottom: 3rem;
+.menu-button-new:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
+  background-position: right center;
 }
 
-.placeholder-box {
-  padding: 2rem 4rem;
-  border: 2px dashed #ddd;
-  border-radius: 12px;
-  color: #aaa;
-  font-size: 1.5rem;
-  background-color: #fafafa;
+/* 按鈕顏色 */
+.btn-identify {
+  background-image: linear-gradient(to right, var(--color-blue1) 0%, var(--color-blue2) 35%, var(--color-blue3) 60%);
 }
 
-@keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.btn-knowledge {
+  background-image: linear-gradient(to right, var(--color-btn1) 0%, var(--color-btn2) 15%, var(--color-btn3) 35%, var(--color-btn4) 60%);
+}
+
+.btn-tonnetz {
+  width: 100%;
+  flex: none;
+  background-image: linear-gradient(to right, var(--color-blue3) 0%, var(--color-btn6) 30%, var(--color-btn5) 50%);
+}
+
+.main-logo-container {
+  margin-bottom: 1rem;
+}
+
+.main-logo-img {
+  max-width: 400px; 
+  width: 95%; 
+  height: auto; 
+  margin-left: 5%;
 }

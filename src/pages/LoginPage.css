@@ -4,14 +4,14 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at center, #f8f9fa 0%, #e9ecef 100%);
+  background: radial-gradient(circle at center, #E9ECFF 0%, #fbe8ff 80%);
   animation: pageFadeIn 1s ease-out;
 }
 
 .login-card {
   display: flex;
   width: 950px; 
-  height: 600px; 
+  height: 90%; 
   background-color: #fff;
   border-radius: 20px; 
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
@@ -40,7 +40,7 @@
 
 .bar {
   width: 15px;
-  background: linear-gradient(to top, #FFD700, #FF69B4);
+  background: linear-gradient(to top, var(--color-lavender-pink), var(--color-sky-cyan));
   border-radius: 5px;
   animation: equalize 1s ease-in-out infinite alternate;
 }
@@ -85,16 +85,8 @@
   margin-bottom: 1rem;
 }
 
-.logo-circle {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #FFD700, #FF69B4);
-  border-radius: 50%;
-  margin: 0 auto 0.3rem;
-}
-
 .login-header h1 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #333;
   margin-bottom: 0.1rem;
 }
@@ -237,9 +229,14 @@
   margin-top: 1.5rem;
 }
 
+.login-logo-img{
+  width: 120px;
+  margin: 5px;
+}
 /* 響應式：手機版變垂直排列 */
 @media (max-width: 950px) {
   .login-card {
+    margin-top: 40%;
     width: 90%;
     height: auto;
     flex-direction: column;

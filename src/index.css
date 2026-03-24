@@ -1,14 +1,40 @@
+:root {
+  --color-sunset-pink: #DA8F86;
+  --color-lavender-pink: #F0B2DE;
+  --color-violet: #CE97ED;
+  --color-lilac: #D0B9D2;
+  --color-sky-cyan: #8BD8F0;
+  --color-bright-blue: #6DC3F4;
+  --color-button-blue: #80A2F2;
+
+  --color-blue1: #A7E9FE;
+  --color-blue2: #5E91BC;
+  --color-blue3: #27468F;
+
+  --color-btn1: #6182D0;
+  --color-btn2: #CE97ED;
+  --color-btn3: #F0B2DE;
+  --color-btn4: #E7A8A0;
+  --color-btn5: #EFB1DE;
+  --color-btn6: #B393EE;
+
+  --font-main: 'Noto Serif TC', serif; 
+}
+
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  background-color: #fdfdfd;
-  color: #333;
+  font-family: var(--font-main); 
+  font-weight: 500; 
+  background: linear-gradient(180deg, #FFFFFF 0%, #F6E8FF 78%, #f4f8ff 100%);
+  color: #3f3d56;
 }

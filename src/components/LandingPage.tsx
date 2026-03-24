@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import './LandingPage.css';
 import { useOutletContext } from 'react-router-dom';
+import mainLogoImage from '../assets/images/main-logo.png';
 
 type AppContext = {
   handleNavigate: (path: string, element: HTMLElement | null) => void;
@@ -24,9 +25,8 @@ const LandingPage = () => {
             </div>
         </div>
 
-        <div className="title-container">
-            <h1 className="main-title">音擬而起</h1>
-            <p className="subtitle">OnomaRise</p>
+        <div className="main-logo-container">
+            <img src={mainLogoImage} alt="音擬而起 OnomaRise" className="main-logo-img-start" />
         </div>
         </div>
     );

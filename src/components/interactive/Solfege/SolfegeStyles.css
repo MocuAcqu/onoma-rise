@@ -1,0 +1,95 @@
+.solfege-buttons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.solfege-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--color-violet);
+  background-color: #fff;
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.solfege-button:hover {
+  background-color: var(--color-violet);
+  color: white;
+  transform: scale(1.1);
+}
+
+.relative-pitch-tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.relative-pitch-tool .controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.key-selector {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  background-color: #f8f8f8;
+}
+
+.key-info {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.solfege-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.solfege-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.note-box {
+  padding: 1rem 0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.solfege-box {
+  background: linear-gradient(180deg, #92a6bb, #e2e6eb);
+  color: #343a40;
+}
+
+.pitch-box {
+  background: white;
+  border: 2px solid #ced4da;
+  color: #495057;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pitch-box:hover {
+  background-color: #e9ecef;
+}

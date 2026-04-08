@@ -1,0 +1,145 @@
+.staff-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  margin: 2rem auto 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.staff-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  left: 0;
+  z-index: 1;
+}
+/* 定位五條線 */
+.staff-line:nth-child(1) { bottom: 20px; }
+.staff-line:nth-child(2) { bottom: 30px; }
+.staff-line:nth-child(3) { bottom: 40px; }
+.staff-line:nth-child(4) { bottom: 50px; }
+.staff-line:nth-child(5) { bottom: 60px; }
+
+.notes-wrapper {
+  position: relative;
+  height: 100%;
+  z-index: 2; 
+}
+
+.staff-note {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.5s;
+  padding: 10px;
+  transform: translateX(-50%) translateY(50%); 
+}
+
+.ledger-line {
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #333;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: background-color 0.3s;
+}
+
+.note-head {
+  width: 20px;
+  height: 14px;
+  background-color: #333;
+  border-radius: 50%;
+  transform: rotate(-20deg);
+  transition: background-color 0.3s;
+}
+
+.note-stem {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background-color: #333;
+  left: calc(50% + 8px); 
+  bottom: calc(50% - 2px);
+  transition: background-color 0.3s;
+}
+
+/* 點擊時的 active 狀態 */
+.staff-note.active .note-head,
+.staff-note.active .note-stem,
+.staff-note.active .ledger-line {
+  background-color: var(--color-violet);
+}
+
+.staff-note:hover .note-head,
+.staff-note:hover .note-stem,
+.staff-note.active .ledger-line {
+  background-color: var(--color-violet);
+}
+
+.note-labels {
+  position: absolute;
+  bottom: -70px; 
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  width: 50px;
+  pointer-events: none; 
+}
+
+.note-pitch-name { color: var(--color-text-primary); font-size: 1.1rem; }
+.note-solfege { color: var(--color-text-secondary); font-size: 1rem; }
+.note-number {
+  color: #e67e22;
+  font-size: 1.1rem;
+  font-weight: 700;
+  position: relative; 
+  display: inline-block; 
+  line-height: 1; 
+}
+
+.note-number.high-octave::after {
+  content: ''; 
+  position: absolute;
+  top: -5px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #e67e22; 
+}
+
+.note-head-whole {
+  width: 24px;
+  height: 14px;
+  border-radius: 50%;
+  border: 4px solid #333;
+  box-shadow: inset 2px 0 0 #333, inset -2px 0 0 #333;
+  transform: rotate(-10deg);
+  transition: all 0.3s;
+  background-color: transparent;
+}
+
+.staff-note.active .note-head-whole {
+  border-color: var(--color-violet, #8a2be2);
+  box-shadow: inset 2px 0 0 var(--color-violet, #8a2be2), inset -2px 0 0 var(--color-violet, #8a2be2);
+}
+
+.accidental-inline {
+  position: absolute;
+  left: -20px; 
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.8rem;
+  font-family: serif;
+  color: #333;
+  pointer-events: none; /* 避免擋住點擊 */
+}

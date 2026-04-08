@@ -1,0 +1,153 @@
+.accidental-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.base-note-box {
+  width: 200px;
+  height: 60px;
+  border: 3px solid #666;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.accidental-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.acc-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #a0a0b8;
+  background-color: white;
+  font-size: 2.5rem;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.acc-btn:hover {
+  border-color: var(--color-violet);
+  color: var(--color-violet);
+  transform: scale(1.05);
+}
+
+.acc-btn.active {
+  border-color: var(--color-bright-blue);
+  color: var(--color-bright-blue);
+  box-shadow: 0 0 15px rgba(109, 195, 244, 0.4);
+}
+
+/* Page 2: 同音異名展示區 */
+.enharmonic-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* 為了讓這個頁面的鋼琴小一點，我們針對性地縮放它 */
+.enharmonic-container .piano-container {
+  transform: scale(0.85);
+  transform-origin: left center;
+  margin: 0;
+}
+
+.diagram-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+.diagram-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.note-box {
+  border: 2px solid #555;
+  border-radius: 8px;
+  width: auto;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background-color: white;
+}
+
+.arrow-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.arrow-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.arrow-line {
+  width: 95%;
+  height: 2px;
+  background-color: #888;
+  position: relative;
+}
+
+.arrow-line::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  border-left: 10px solid #888;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.result-box {
+  width: 5rem;
+  border: 2px solid #DA8F86; /* 夕陽粉 */
+  color: #DA8F86;
+}
+
+.result-box.blue-border {
+  border-color: #DA8F86; /* 亮天藍 */
+}
+
+.input-box{
+    width: 5rem;
+}
+
+@media (max-width: 768px) {
+  .enharmonic-container {
+    flex-direction: column;
+  }
+  .enharmonic-container .piano-container {
+    transform: scale(0.8);
+    transform-origin: center;
+  }
+}

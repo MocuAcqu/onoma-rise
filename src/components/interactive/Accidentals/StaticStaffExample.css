@@ -1,0 +1,35 @@
+.static-staff-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 3rem;
+  width: 100%;
+  margin: 3rem 0;
+  padding: 1rem;
+}
+
+.staff-section.image-section {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 45%; 
+}
+
+.staff-example-img {
+  width: 100%;
+  height: auto; 
+  object-fit: contain;
+  border-radius: 8px; 
+}
+
+@media (max-width: 768px) {
+  .static-staff-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .staff-section.image-section {
+    max-width: 100%; 
+  }
+}

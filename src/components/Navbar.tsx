@@ -6,6 +6,8 @@ import logoImage from '../assets/images/navbar-logo.png';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
 
   const toggleMenu = () => { setIsMenuOpen(!isMenuOpen) };
@@ -17,6 +19,27 @@ const Navbar = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false); // 向下捲動且超過 100px
+      } else {
+        setIsVisible(true); // 向上捲動
+      }
+      setLastScrollY(currentScrollY);
+
+    };
+
+    window.addEventListener('scroll', controlNavbar);
+
+    // 清除監聽器，避免記憶體洩漏
+    return () => {
+      window.removeEventListener('scroll', controlNavbar);
+    };
+  }, [lastScrollY]);
+
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
@@ -25,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="navbar-new">
+    <header className={`navbar-new ${!isVisible && !isMenuOpen ? 'hidden' : ''}`}>
       <div className="nav-container">
         <Link to="/home" className="nav-brand-new">
           <img src={logoImage} alt="OnomaRise Logo" className="navbar-logo-img" />
@@ -54,7 +77,7 @@ const Navbar = () => {
               <>
                 <div className="user-info">Hi, {user}</div>
                 <ul>
-                  <li><Link to="/Profile" onClick={() => setIsMenuOpen(false)}>個人資料</Link></li>
+                  <li><Link to="/profile" onClick={() => setIsMenuOpen(false)}>個人資料</Link></li>
                   <li><button onClick={handleLogout} className="logout-btn">登出</button></li>
                 </ul>
               </>

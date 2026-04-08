@@ -1,0 +1,263 @@
+.chapter-content-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 2rem 5rem;
+}
+
+.content-not-found { 
+    color: #DA8F86;
+    font-size: larger;
+}
+
+.chapter-header { text-align: center; margin-bottom: 1rem; }
+.chapter-main-title {
+  font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;
+  background: linear-gradient(180deg, #DA8F86 25%, #377589 90%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+.breadcrumbs-container{
+    margin-bottom: 3rem;
+}
+.breadcrumbs-content { color: var(--color-text-secondary); font-size: 1.3rem; }
+.breadcrumbs-content a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.breadcrumbs-content a:hover {
+  color: var(--color-violet);
+}
+
+.breadcrumbs-container{
+    margin-bottom: 3rem;
+}
+
+.content-area {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.content-card {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 500px;
+  background: linear-gradient(180deg, #a48d8a52 20%, #377489b0 100%);
+  background: linear-gradient(180deg, #ffffff39 20%, #37748936 100%);
+  border: 3px solid #377489; 
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 20px 60px -10px rgba(128, 162, 242, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-indicator {
+  display: flex;         
+  justify-content: center; 
+  align-items: center;   
+  width: 100%;           
+  padding: 0 25%;      
+}
+
+.progress-line {
+  flex-grow: 1;    
+  height: 2px;
+  background-color: var(--color-blue2);
+}
+
+.progress-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #d0d0e0; 
+  border-color: var(--color-blue2);   
+  box-shadow: none;          
+  transition: all 0.4s ease;
+  flex-shrink: 0;         
+}
+
+.progress-dot.active {
+  border-color: var(--color-blue2); 
+  background-color: var(--color-blue2); 
+  transform: scale(1.2);
+}
+
+.interactive-content {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+  font-size: 1.2rem;
+}
+
+.card-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.card-nav-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* 使用非襯線字體 */
+  transition: all 0.3s;
+}
+
+.card-nav-button:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+
+.card-nav-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  text-align: left;
+  gap: 1rem;
+  margin-top: 2%;
+}
+
+.page-content > .piano-container,
+.page-content > img {
+  align-self: center; /* 只讓這個元素自己水平置中 */
+}
+
+.instruction-text {
+  width: 100%; 
+  text-align: center; 
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.2rem;
+}
+
+.freq-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 2rem;
+}
+
+/* 頻率顯示和靜音按鈕的容器 */
+.freq-display-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.freq-value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #555;
+  width: 150px; 
+  text-align: right;
+}
+
+.mute-btn {
+  background: none;
+  border: 2px solid #ccc;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.mute-btn:hover {
+  border-color: var(--color-sunset-pink);
+  color: var(--color-sunset-pink);
+}
+
+.slider-container {
+  width: 100%;
+  position: relative;
+  padding-bottom: 25px; 
+}
+
+/* 自定義滑桿樣式 */
+.freq-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #e9ecef; 
+  border-radius: 5px;
+  outline: none;
+  
+  background-image: linear-gradient(
+    to right, 
+    #20c997, /* 新的綠色 */
+    #20c997 var(--progress), 
+    #e9ecef var(--progress), 
+    #e9ecef 100%
+  );
+}
+
+.freq-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px; 
+  height: 22px; 
+  background: #20c997; 
+  border-radius: 50%;
+  border: 4px solid white;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.freq-slider::-moz-range-thumb {
+  width: 14px; /* Firefox 的算法不同，需要減去邊框寬度 */
+  height: 14px;
+  background: #20c997;
+  border-radius: 50%;
+  border: 4px solid white;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.slider-labels {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  margin-top: 8px;
+  margin-left: 8px;
+}
+
+.slider-label-item {
+  position: absolute;   
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #aaa;
+}

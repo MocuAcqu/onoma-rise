@@ -10,7 +10,9 @@ import AboutPage from './pages/AboutPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
 import TonnetzPage from './pages/TonnetzPage.tsx';
 import Identify from './pages/Identify.tsx';
-import Knowledge from './pages/Knowledge.tsx';
+import Knowledge from './pages/KnowledgePage.tsx';
+import TopicDetailPage from './pages/TopicDetailPage.tsx';
+import ChapterContentPage from './pages/ChapterContentPage.tsx';
 import Profile from './pages/Profile.tsx';
 import './index.css';
 
@@ -32,6 +34,8 @@ const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'identify', element: <Identify /> },
       { path: 'knowledge', element: <Knowledge /> },
+      { path: 'knowledge/:topicId', element: <TopicDetailPage /> },
+      { path: 'knowledge/:topicId/:chapterId', element: <ChapterContentPage /> },
       { path: 'tonnetz', element: <TonnetzPage /> },
       { path: 'profile', element: <Profile /> },
     ],

@@ -19,10 +19,18 @@
   --color-btn6: #B393EE;
 
   --font-main: 'Noto Serif TC', serif; 
+
+  --color-text-primary: #3f3d56;
+  --color-text-secondary: #8d8ba7;
+  --color-card-border: rgba(0, 0, 0, 0.05);
+  --color-card-bg: rgba(255, 255, 255, 0.8);
+  --color-button-secondary-bg: #e2e8f0;
+  --color-button-secondary-text: #5c5a72;
 }
 
 html, body, #root {
   margin: 0;
+  height: auto;
   padding: 0;
   width: 100%;
   box-sizing: border-box;

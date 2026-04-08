@@ -1,0 +1,73 @@
+.piano-container {
+  position: relative;
+  display: flex;
+  height: 220px; 
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  margin: 1rem auto;
+}
+
+.piano-key {
+  position: relative;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
+.white-key {
+  width: 50px;
+  height: 200px;
+  background: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.white-key:active {
+  background: #eee;
+}
+
+.black-key {
+  position: absolute;
+  width: 30px;
+  height: 60%;
+  background: #333;
+  border-radius: 5px;
+  z-index: 1;
+  top: 0;
+  color: white;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+.black-key:active {
+  background: #555;
+}
+
+.key-label {
+  font-weight: 600;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.white-label {
+  color: #555;
+}
+
+.black-label {
+  color: #eee;
+  font-size: 0.8rem;
+}
+
+.octave-number {
+  font-size: 0.7em;
+  opacity: 0.7;
+  margin-left: 2px;
+}

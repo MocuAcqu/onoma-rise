@@ -1,0 +1,109 @@
+.knowledge-page-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 1rem 5rem;
+  animation: page-fade-in 0.5s ease-out;
+}
+
+.knowledge-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.knowledge-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.1rem;
+  background: linear-gradient(180deg, #DA8F86 25%, #377589 90%); 
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.knowledge-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.topic-card-link {
+  display: block;
+  text-decoration: none;
+  border-radius: 15px;
+  padding: 2.5rem 1.5rem;
+  border-bottom: 3px solid #f2ecf5;
+  transition: background-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: card-slide-up 0.5s ease-out forwards;
+}
+
+.topic-card-link:hover {
+  background-color: rgba(221, 223, 233, 0.5);
+}
+
+.topic-card-content {
+  display: flex;
+  align-items: center;
+}
+
+.card-visual-placeholder {
+  width: 180px;
+  height: 120px;
+  border-radius: 12px;
+  margin-right: 3rem;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.topic-card-link:hover .card-visual-placeholder {
+  transform: scale(1.05); 
+}
+
+.card-info {
+  flex-grow: 1;
+}
+
+.topic-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  /*background: linear-gradient(180deg, #0031AB 35%, #000000 90%); */
+  background: linear-gradient(180deg, #727272 35%, #302f2f 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.topic-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+@keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes card-slide-up { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+  .topic-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card-visual-placeholder {
+    width: 100%;
+    height: 120px;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}

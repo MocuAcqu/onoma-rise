@@ -15,6 +15,10 @@ import SolfegePage3 from '../components/interactive/Solfege/SolfegePage3';
 import AccidentalsPage1 from '../components/interactive/Accidentals/AccidentalsPage1';
 import AccidentalsPage2 from '../components/interactive/Accidentals/AccidentalsPage2';
 import AccidentalsPage3 from '../components/interactive/Accidentals/AccidentalsPage3';
+import SoundFormationPage1 from '../components/interactive/SoundFormation/SoundFormationPage1';
+import SoundFormationPage2 from '../components/interactive/SoundFormation/SoundFormationPage2';
+import SoundFormationPage3 from '../components/interactive/SoundFormation/SoundFormationPage3';
+import SoundFormationPage4 from '../components/interactive/SoundFormation/SoundFormationPage4';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -74,6 +78,15 @@ const ChapterContentPage = () => {
           case 0: return <AccidentalsPage1 />;
           case 1: return <AccidentalsPage2 />;
           case 2: return <AccidentalsPage3 />;
+          default: return <div>頁面不存在</div>;
+        }
+
+      case 'sound-formation':
+        switch (currentPageIndex) {
+          case 0: return <SoundFormationPage1 />;
+          case 1: return <SoundFormationPage2 />; 
+          case 2: return <SoundFormationPage3 />; 
+          case 3: return <SoundFormationPage4 />;
           default: return <div>頁面不存在</div>;
         }
 

@@ -2,11 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import * as Tone from 'tone';
 import './AccidentalsStyles.css';
 
-const pianoSampler = new Tone.Sampler({
-  urls: { C4: "C4.mp3", Bb3: "Bb3.mp3" },
-  baseUrl: "https://tonejs.github.io/audio/salamander/"
-}).toDestination();
-
 const Page1 = () => {
   const [activeAcc, setActiveAcc] = useState<string | null>(null);
   const [displayNote, setDisplayNote] = useState('C');

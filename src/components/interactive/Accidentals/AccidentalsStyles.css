@@ -54,7 +54,6 @@
   box-shadow: 0 0 15px rgba(109, 195, 244, 0.4);
 }
 
-/* Page 2: 同音異名展示區 */
 .enharmonic-container {
   display: flex;
   align-items: center;
@@ -64,7 +63,6 @@
   margin-top: 1rem;
 }
 
-/* 為了讓這個頁面的鋼琴小一點，我們針對性地縮放它 */
 .enharmonic-container .piano-container {
   transform: scale(0.85);
   transform-origin: left center;
@@ -130,12 +128,12 @@
 
 .result-box {
   width: 5rem;
-  border: 2px solid #DA8F86; /* 夕陽粉 */
+  border: 2px solid #DA8F86; 
   color: #DA8F86;
 }
 
 .result-box.blue-border {
-  border-color: #DA8F86; /* 亮天藍 */
+  border-color: #DA8F86;
 }
 
 .input-box{

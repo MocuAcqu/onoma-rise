@@ -33,7 +33,7 @@ const Page2 = () => {
           endNote="B4" 
           showWhiteKeyPitchNames={true}
           showBlackKeyPitchNames={true}
-          onKeyClick={handleKeyClick} // 傳入回呼函式
+          onKeyClick={handleKeyClick} 
         />
 
         {/* 右側動態圖解 */}

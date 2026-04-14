@@ -1,0 +1,221 @@
+.formation-page {
+  padding: 1rem 0;
+}
+
+.formation-desc {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+/* Page 1 特用 */
+.formation-visual-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
+.formation-canvas {
+  background-color: #fff;
+  border: 3px solid #377489;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(55, 116, 137, 0.1);
+}
+
+.play-piano-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.play-piano-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* Page 2, 3, 4 通用佈局 */
+.formation-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+}
+
+.visual-side {
+  flex: 1;
+}
+
+.control-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.side-desc {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+/* 樂器按鈕網格 */
+.instrument-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.ins-btn {
+  padding: 1rem;
+  border: 2px solid #e0e0f0;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.ins-btn:hover {
+  border-color: #DA8F86;
+  background-color: #fffafa;
+}
+
+.ins-btn.active {
+  background-color: #377489;
+  border-color: #377489;
+  color: white;
+  box-shadow: 0 5px 15px rgba(55, 116, 137, 0.3);
+}
+
+.sub-instruction {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+/* 正在播放時的發光效果 */
+.ins-btn.playing {
+  animation: pulse-border 1s infinite;
+  background: linear-gradient(135deg, #377589, #80A2F2) !important;
+}
+
+.waveform-canvas {
+  width: 100%;
+  max-width: 500px;
+  background: #fdfdfd;
+  border: 2px solid #377589;
+  border-radius: 15px;
+}
+
+.molecule-interactive-container {
+  position: relative; /* 關鍵：讓內部的按鈕可以絕對定位 */
+  width: 600px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+}
+
+.center-piano-btn {
+  position: absolute;
+  z-index: 10; /* 確保按鈕在畫布上方 */
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #DA8F86, #CE97ED);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.center-piano-btn:hover {
+  transform: scale(1.1);
+}
+
+.center-piano-btn:active {
+  transform: scale(0.9);
+}
+
+/* 按鈕內部的裝飾用漣漪動畫 */
+.btn-ripple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.center-piano-btn:active .btn-ripple {
+  animation: css-ripple 0.5s ease-out;
+}
+
+@keyframes css-ripple {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.formation-canvas {
+  background-color: #fff;
+  border: 2px solid #e0e0f0;
+  border-radius: 20px;
+}
+
+@keyframes playing-glow {
+  from { box-shadow: 0 0 5px rgba(218, 143, 134, 0.5); }
+  to { box-shadow: 0 0 20px rgba(218, 143, 134, 0.8); }
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(128, 162, 242, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(128, 162, 242, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(128, 162, 242, 0); }
+}
+
+/* 讓樂器格網在手機上更好看 */
+@media (max-width: 500px) {
+  .instrument-grid {
+    grid-template-columns: 1fr; /* 手機版變單欄 */
+  }
+}
+
+/* 響應式調整 */
+@media (max-width: 850px) {
+  .formation-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import * as Tone from 'tone';
 import './SolfegeStyles.css';
 
-// 再次使用音源
-const pianoSampler = new Tone.Sampler({ /* ... */ }).toDestination();
-
 const scales: { [key: string]: string[] } = {
   'C': ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4'],
   'D': ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5'], 

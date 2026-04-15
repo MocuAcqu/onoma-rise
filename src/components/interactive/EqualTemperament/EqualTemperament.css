@@ -1,0 +1,189 @@
+.et-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
+  margin-top: 5%;
+}
+
+.formula-card {
+  background: white;
+  border: 2px solid #DA8F86;
+  border-radius: 15px;
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'Times New Roman', serif;
+  box-shadow: 0 4px 15px rgba(218, 143, 134, 0.1);
+  width: 35rem;
+}
+
+.formula-main {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #377589;
+}
+
+.formula-result {
+  font-size: 1.8rem;
+  color: #DA8F86;
+  font-weight: 700;
+}
+
+.linear-scale-container {
+  width: 100%;
+  height: 120px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  position: relative;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.scale-line {
+  width: 100%;
+  height: 2px;
+  background: #444;
+  position: relative;
+}
+
+.scale-label {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #888;
+  font-size: 0.7rem;
+}
+
+.chromatic-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  gap: 2rem;
+}
+
+.circle-svg {
+  width: 300px;
+  height: 300px;
+}
+
+.circle-node {
+  fill: white;
+  stroke: #ddd;
+  stroke-width: 2;
+  transition: all 0.3s;
+}
+
+.circle-node.active {
+  fill: #8BD8F0;
+  stroke: #8BD8F0;
+  filter: drop-shadow(0 0 5px #8BD8F0);
+}
+
+.circle-text {
+  font-size: 14px;
+  font-weight: 700;
+  fill: #666;
+  pointer-events: none;
+}
+
+.note-badge {
+  background: #377589;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-right: 10px;
+  width: 4rem;
+}
+
+.frequency-axis-container {
+  width: 100%;
+  max-width: 800px;
+  background: #5b5b5b;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  margin: 2rem 0;
+}
+
+.axis-header {
+  display: flex;
+  justify-content: space-between;
+  color: #a2a1b0;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.axis-title {
+  color: #DA8F86;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 2%;
+}
+
+.scale-line-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+}
+
+.main-axis-line {
+  width: 100%;
+  height: 4px;
+  background: #d0d0e0;
+  border-radius: 2px;
+}
+
+.scale-dot-wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.scale-dot {
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 3px solid #DA8F86;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scale-dot-wrapper:hover .scale-dot,
+.scale-dot-wrapper.active .scale-dot {
+  background: #DA8F86;
+  transform: scale(1.3);
+  box-shadow: 0 0 15px rgba(218, 143, 134, 0.5);
+}
+
+.note-name-label {
+  position: absolute;
+  top: -30px;
+  font-weight: 800;
+  color: #dbdbdb;
+  font-size: 0.9rem;
+}
+
+.freq-tick-label {
+  position: absolute;
+  bottom: -30px;
+  font-family: monospace;
+  color: #c3c3c3;
+  font-size: 0.75rem;
+  margin-bottom: 10%;
+}
+
+.scale-dot-wrapper.active .note-name-label {
+  color: #DA8F86;
+}

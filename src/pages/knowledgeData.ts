@@ -39,7 +39,7 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
       { id: 'sound-formation', title: '聲音的形成', route: '/knowledge/pitch-system/sound-formation', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'equal-temperament', title: '十二平均律', route: '/knowledge/pitch-system/equal-temperament', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'equalTemperament', title: '十二平均律', route: '/knowledge/pitch-system/equalTemperament', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
       { id: 'pitch-class-set', title: '音高集合', route: '/knowledge/pitch-system/pitch-class-set', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
     ]
   },

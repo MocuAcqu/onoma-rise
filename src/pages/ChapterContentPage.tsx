@@ -19,6 +19,10 @@ import SoundFormationPage1 from '../components/interactive/SoundFormation/SoundF
 import SoundFormationPage2 from '../components/interactive/SoundFormation/SoundFormationPage2';
 import SoundFormationPage3 from '../components/interactive/SoundFormation/SoundFormationPage3';
 import SoundFormationPage4 from '../components/interactive/SoundFormation/SoundFormationPage4';
+import EqualTemperamentPage1 from '../components/interactive/EqualTemperament/EqualTemperamentPage1';
+import EqualTemperamentPage2 from '../components/interactive/EqualTemperament/EqualTemperamentPage2';
+import EqualTemperamentPage3 from '../components/interactive/EqualTemperament/EqualTemperamentPage3';
+import EqualTemperamentPage4 from '../components/interactive/EqualTemperament/EqualTemperamentPage4';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -54,7 +58,6 @@ const ChapterContentPage = () => {
   const renderPageContent = () => {
     // 判斷主題
     switch (chapterId) {
-      // 案例一：什麼是音名
       case 'pitch-name':
         switch (currentPageIndex) {
           case 0: return <PitchNamePage1 />;
@@ -64,7 +67,6 @@ const ChapterContentPage = () => {
           default: return <div>頁面不存在</div>;
         }
       
-      // 2. 案例二：什麼是唱名
       case 'solfege':
         switch (currentPageIndex) {
           case 0: return <SolfegePage1 />;
@@ -89,6 +91,15 @@ const ChapterContentPage = () => {
           case 3: return <SoundFormationPage4 />;
           default: return <div>頁面不存在</div>;
         }
+      
+      case 'equalTemperament':
+        switch (currentPageIndex) {
+          case 0: return <EqualTemperamentPage1 />;
+          case 1: return <EqualTemperamentPage2 />; 
+          case 2: return <EqualTemperamentPage3 />; 
+          case 3: return <EqualTemperamentPage4 />;
+          default: return <div>頁面不存在</div>;
+      }
 
       // 預設情況
       default:

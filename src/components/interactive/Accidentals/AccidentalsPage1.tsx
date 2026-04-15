@@ -58,7 +58,7 @@ const Page1 = () => {
 
   return (
     <div className="page-content">
-      <p>升/降記號是音樂中用來「調整音高」的變音記號，分別以 #（升記號 Sharp）和 ♭（降記號 Flat）來表示，♮ 則是還原記號。</p>
+      <p>升/降記號是音樂中用來「調整音高」的變音記號，分別以 #（升記號 Sharp）和 ♭（降記號 Flat）來表示，𝄫 則是雙降記號，♮ 是還原記號。</p>
       
       <div className="accidental-showcase">
         <div className="base-note-box">

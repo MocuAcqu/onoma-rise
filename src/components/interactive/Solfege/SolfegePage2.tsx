@@ -16,7 +16,7 @@ const staffNotes = [
 const SolfegePage2 = () => {
   return (
     <div className="page-content">
-      <p>唱名對應五線譜的位置 (以C大調為例)，與其對應之唱名(C、D...)和簡譜。</p>
+      <p>唱名對應五線譜的位置 (以C大調為例)，與其對應之唱名(Do、Re、Mi...)和簡譜。</p>
       <InteractiveStaff notes={staffNotes}/>
       <p className="instruction-text">點擊音符彈奏聲音</p>
     </div>

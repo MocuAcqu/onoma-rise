@@ -20,11 +20,11 @@ const SoundFormationPage1 = () => {
   return (
     <div className="page-content formation-page">
       <p className="formation-desc">
-        當樂器發出聲音時，它會擠壓周圍的空氣，形成由內向外擴散的震動波。
+        彈奏樂器會帶動周圍空氣分子「振動」、產生「聲波」，並使得波透過介質傳遞，讓我們聽見聲音。
       </p>
 
       <div className="molecule-interactive-container">
-        {/* 背景：分子畫布 */}
+        {/* 分子畫布 */}
         <AirMoleculeCanvas triggerTime={triggerTime} />
 
         {/* 覆蓋在中央的按鈕 */}

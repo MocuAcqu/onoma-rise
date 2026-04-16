@@ -23,6 +23,10 @@ import EqualTemperamentPage1 from '../components/interactive/EqualTemperament/Eq
 import EqualTemperamentPage2 from '../components/interactive/EqualTemperament/EqualTemperamentPage2';
 import EqualTemperamentPage3 from '../components/interactive/EqualTemperament/EqualTemperamentPage3';
 import EqualTemperamentPage4 from '../components/interactive/EqualTemperament/EqualTemperamentPage4';
+import PitchClassSetPage1 from '../components/interactive/PitchClassSet/pitchClassSetPage1';
+import PitchClassSetPage2 from '../components/interactive/PitchClassSet/pitchClassSetPage2';
+import PitchClassSetPage3 from '../components/interactive/PitchClassSet/pitchClassSetPage3';
+import PitchClassSetPage4 from '../components/interactive/PitchClassSet/pitchClassSetPage4';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -98,6 +102,15 @@ const ChapterContentPage = () => {
           case 1: return <EqualTemperamentPage2 />; 
           case 2: return <EqualTemperamentPage3 />; 
           case 3: return <EqualTemperamentPage4 />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'pitch-class-set':
+        switch (currentPageIndex) {
+          case 0: return <PitchClassSetPage1 />;
+          case 1: return <PitchClassSetPage2 />; 
+          case 2: return <PitchClassSetPage3 />; 
+          case 3: return <PitchClassSetPage4 />;
           default: return <div>頁面不存在</div>;
       }
 

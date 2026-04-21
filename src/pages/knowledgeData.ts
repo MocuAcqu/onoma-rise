@@ -50,8 +50,8 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     route: '/knowledge/interval',
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
-      { id: 'interval-definition', title: '音程定義', route: '/knowledge/interval/definition', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'interval-quality', title: '音程性質', route: '/knowledge/interval/quality', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'interval-definition', title: '音程定義', route: '/knowledge/interval/interval-definition', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'interval-quality', title: '音程性質', route: '/knowledge/interval/interval-quality', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' },] },
     ]
   },
   {

@@ -16,6 +16,7 @@ type NoteData = {
 
 type InteractiveStaffProps = {
   notes: NoteData[];
+  onKeyClick?: (note: NoteData) => void; 
 };
 
 // 複用鋼琴音源
@@ -55,7 +56,7 @@ const pianoSampler = new Tone.Sampler({
   baseUrl: "https://tonejs.github.io/audio/salamander/"
 }).toDestination();
 
-const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes }) => {
+const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes, onKeyClick }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handleNoteClick = (note: NoteData, index: number) => {
@@ -63,6 +64,7 @@ const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes }) => {
     pianoSampler.triggerAttackRelease(note.pitch, '2n', Tone.now(), 0.8);
     setActiveIndex(index);
     setTimeout(() => setActiveIndex(null), 1000);
+    if (onKeyClick) { onKeyClick(note);}
   };
 
   const NOTE_SPACING = 60; // 每個音符之間的距離

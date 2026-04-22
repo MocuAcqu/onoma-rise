@@ -31,9 +31,9 @@ import IntervalPage1 from '../components/interactive/Interval/IntervalDefinition
 import IntervalPage2 from '../components/interactive/Interval/IntervalDefinitionPage2';
 import IntervalPage3 from '../components/interactive/Interval/IntervalDefinitionPage3';
 import IntervalPage4 from '../components/interactive/Interval/IntervalDefinitionPage4';
-// import IntervalPage1 from '../components/interactive/Interval/IntervalDefinitionPage1';
-// import IntervalPage2 from '../components/interactive/Interval/IntervalDefinitionPage2';
-// import IntervalPage3 from '../components/interactive/Interval/IntervalDefinitionPage3';
+import QualityPage1 from '../components/interactive/Quality/QualityPage1';
+import QualityPage2 from '../components/interactive/Quality/QualityPage2';
+import QualityPage3 from '../components/interactive/Quality/QualityPage3';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -130,15 +130,13 @@ const ChapterContentPage = () => {
           default: return <div>頁面不存在</div>;
       }
 
-      /*
       case 'interval-quality':
         switch (currentPageIndex) {
-          case 0: return <IntervalPage1 />;
-          case 1: return <IntervalPage2 />;
-          case 2: return <IntervalPage3 />;
+          case 0: return <QualityPage1 />;
+          case 1: return <QualityPage2 />;
+          case 2: return <QualityPage3 />;
           default: return <div>頁面不存在</div>;
       }
-      */
 
       // 預設情況
       default:

@@ -1,0 +1,95 @@
+.scale-degrees-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.degrees-list-card {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.degree-item {
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: #666;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.degree-item.active {
+  background-color: var(--color-violet);
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 4px 10px rgba(206, 151, 237, 0.4);
+}
+
+.chromatic-stairs-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 350px;
+  width: 100%;
+  padding-bottom: 30px;
+  margin-top: -30px;
+}
+
+.chromatic-step {
+  width: 45px;
+  height: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transition: all 0.2s;
+  bottom: calc(var(--step-index) * 20px);
+  margin-left: 0.5rem;
+}
+
+.white-step {
+  background-color: white;
+  border: 2px solid #ccc;
+}
+
+.black-step {
+  background-color: #444;
+  border: 2px solid #222;
+  color: white;
+  z-index: 2;
+}
+
+.chromatic-step.active {
+  background-color: var(--color-sky-cyan);
+  border-color: var(--color-bright-blue);
+  color: white;
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.step-label {
+  position: absolute;
+  top: -35px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: inherit;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.black-step .step-label {
+  top: -50px; 
+  color: #555; 
+}
+
+.chromatic-step.active .step-label {
+  color: var(--color-bright-blue);
+}

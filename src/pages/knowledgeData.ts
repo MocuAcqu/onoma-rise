@@ -61,8 +61,8 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     route: '/knowledge/scale',
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
-      { id: 'scale-definition', title: '音階定義', route: '/knowledge/scale/definition', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'scale-types', title: '音階類型', route: '/knowledge/scale/types', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'scale-definition', title: '音階定義', route: '/knowledge/scale/scale-definition', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }] },
+      { id: 'scale-types', title: '音階類型', route: '/knowledge/scale/scale-types', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' }, { id: 'page-5' }, { id: 'page-6' }, { id: 'page-7' },] },
     ]
   },
   {

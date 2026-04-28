@@ -34,6 +34,9 @@ import IntervalPage4 from '../components/interactive/Interval/IntervalDefinition
 import QualityPage1 from '../components/interactive/Quality/QualityPage1';
 import QualityPage2 from '../components/interactive/Quality/QualityPage2';
 import QualityPage3 from '../components/interactive/Quality/QualityPage3';
+import ScalePage1 from '../components/interactive/Scale/ScalePage1';
+import ScalePage2 from '../components/interactive/Scale/ScalePage2';
+import ScalePage3 from '../components/interactive/Scale/ScalePage3';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -135,6 +138,14 @@ const ChapterContentPage = () => {
           case 0: return <QualityPage1 />;
           case 1: return <QualityPage2 />;
           case 2: return <QualityPage3 />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'scale-definition':
+        switch (currentPageIndex) {
+          case 0: return <ScalePage1 />;
+          case 1: return <ScalePage2 />;
+          case 2: return <ScalePage3 />;
           default: return <div>頁面不存在</div>;
       }
 

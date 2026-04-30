@@ -1,5 +1,3 @@
-import * as Tone from 'tone';
-
 export const TRIAD_FORMULAS: Record<string, number[]> = {
   'Major':    [0, 4, 7],     // 大三和弦 (根音, 大三度, 純五度)
   'Minor':    [0, 3, 7],     // 小三和弦 (根音, 小三度, 純五度)

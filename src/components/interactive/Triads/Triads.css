@@ -1,0 +1,186 @@
+.chord-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.staff-chord-layout {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.chord-staff-wrapper {
+  flex-shrink: 0; 
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: background-color 0.2s;
+}
+
+.chord-staff-wrapper:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.interval-derivation {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.key-selector{
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.chord-comparison-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  margin: 0.5rem 0;
+}
+
+.staff-with-labels {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 300px;
+  height: 130px;
+}
+
+.dynamic-interval-labels {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+}
+
+.interval-tag {
+  position: absolute;
+  left: 10px;
+  padding: 1px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: white;
+  transform: translateY(50%); 
+  transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interval-tag.purple { background-color: #DA8F86; } 
+.interval-tag.blue { background-color: #80A2F2; }  
+
+.keyboard-display-area {
+  flex-shrink: 0;
+}
+
+.key-selector {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  background-color: #f8f9fa;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.key-selector:hover {
+  border-color: var(--color-violet);
+}
+
+.interval-tag.pink-tag {
+  background-color: #DA8F86;
+  box-shadow: 0 4px 10px rgba(218, 143, 134, 0.3);
+}
+
+.interval-tag.blue-tag {
+  background-color: #80A2F2;
+  box-shadow: 0 4px 10px rgba(128, 162, 242, 0.3);
+}
+
+.interval-tag::before {
+  content: '}';
+  position: absolute;
+  left: -15px;
+  top: 45%;
+  transform: translateY(-55%);
+  font-size: 1.6rem;
+  font-weight: 200;
+  color: #5c5a72; 
+}
+
+.chord-lab-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 850px;
+  margin-top: 3rem;
+  padding: 0 2rem;
+}
+
+.selectors-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 250px;
+}
+
+/* 讓下拉選單看起來更漂亮，符合附圖的灰色風格 */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-wrapper select {
+  width: 100%;
+  padding: 15px 40px 15px 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #444;
+  background-color: #eee;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  appearance: none; /* 移除預設箭頭 */
+  transition: all 0.2s;
+}
+
+.custom-select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.custom-select-wrapper select:hover {
+  background-color: #e5e5e5;
+}
+
+.custom-select-wrapper select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(128, 162, 242, 0.2);
+}
+
+@media (max-width: 768px) {
+  .chord-lab-bottom {
+    flex-direction: column;
+    gap: 4rem;
+  }
+}

@@ -22,6 +22,7 @@ type PianoKeyboardProps = {
   showBlackKeyPitchNames?: boolean;
   showOctaveNumbers?: boolean;
   onKeyClick?: (note: string, type: 'white' | 'black') => void;
+  highlightNotes?: string[];
 };
 
 const pianoSampler = new Tone.Sampler({
@@ -58,7 +59,7 @@ const pianoSampler = new Tone.Sampler({
     C8: "C8.mp3"
   },
   release: 1,
-  baseUrl: "https://tonejs.github.io/audio/salamander/" // Tone.js 官方提供的音源庫
+  baseUrl: "https://tonejs.github.io/audio/salamander/" 
 }).toDestination();
 
 const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
@@ -68,6 +69,7 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
   showBlackKeyPitchNames = false,
   showOctaveNumbers = false,
   onKeyClick,
+  highlightNotes = [],
 }) => {
 
   // 根據傳入的起點和終點音符，產生琴鍵
@@ -78,6 +80,7 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
 
     return ALL_NOTES.slice(startIndex, endIndex + 1).map(note => ({
       note,
+      midi: Tone.Frequency(note).toMidi(),
       type: note.includes('#') ? 'black' : 'white',
       pitch: note.replace(/[0-8]/, ''), 
       octave: note.slice(-1),
@@ -111,23 +114,30 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
     if (onKeyClick) { onKeyClick(note, type);}
   }, [onKeyClick]);
 
+  const highlightMidis = useMemo(() => {
+    return highlightNotes.map(n => Tone.Frequency(n).toMidi());
+  }, [highlightNotes]);
+
   return (
     <div className="piano-container">
-      {keys.map(({ note, type, pitch, octave }, index) => (
-        <button
-          key={note}
-          className={`piano-key ${type}-key`}
-          style={type === 'black' ? getBlackKeyStyle(index) : {}}
-          onMouseDown={() => playNote(note, 0.8, type as 'white' | 'black')} 
-        >
-          {type === 'white' && showWhiteKeyPitchNames && (
-            <span className="key-label white-label">{pitch.replace('#', '')}{showOctaveNumbers && <span className="octave-number">{octave}</span>}</span>
-          )}
-          {type === 'black' && showBlackKeyPitchNames && (
-            <span className="key-label black-label">{pitch}{showOctaveNumbers && <span className="octave-number">{octave}</span>}</span>
-          )}
-        </button>
-      ))}
+      {keys.map(({ note, midi, type, pitch, octave }, index) => {
+        const isHighlighted = highlightMidis.includes(midi);
+      
+        return(
+          <button
+            key={note}
+            className={`piano-key ${type}-key ${isHighlighted ? 'highlighted' : ''}`}
+            style={type === 'black' ? getBlackKeyStyle(index) : {}}
+            onMouseDown={() => playNote(note, 0.8, type as 'white' | 'black')} 
+          >
+            {type === 'white' && showWhiteKeyPitchNames && (
+              <span className="key-label white-label">{pitch.replace('#', '')}{showOctaveNumbers && <span className="octave-number">{octave}</span>}</span>
+            )}
+            {type === 'black' && showBlackKeyPitchNames && (
+              <span className="key-label black-label">{pitch}{showOctaveNumbers && <span className="octave-number">{octave}</span>}</span>
+            )}
+          </button>
+      )})}
     </div>
   );
 };

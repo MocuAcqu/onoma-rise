@@ -37,6 +37,12 @@ import QualityPage3 from '../components/interactive/Quality/QualityPage3';
 import ScalePage1 from '../components/interactive/Scale/ScalePage1';
 import ScalePage2 from '../components/interactive/Scale/ScalePage2';
 import ScalePage3 from '../components/interactive/Scale/ScalePage3';
+import { TypePage1, TypePage2, TypePage3, TypePage4, TypePage5, TypePage6, TypePage7 } from '../components/interactive/ScaleTypes/ScaleTypesPages';
+import TriadsPage1 from '../components/interactive/Triads/TriadsPage1';
+import TriadsPage2 from '../components/interactive/Triads/TriadsPage2';
+import TriadsPage3 from '../components/interactive/Triads/TriadsPage3';
+import SeventhChordsPage1 from '../components/interactive/SeventhChords/SeventhChordsPage1';
+import SeventhChordsPage2 from '../components/interactive/SeventhChords/SeventhChordsPage2';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -149,7 +155,33 @@ const ChapterContentPage = () => {
           default: return <div>頁面不存在</div>;
       }
 
-      // 預設情況
+      case 'scale-types':
+      switch (currentPageIndex) {
+        case 0: return <TypePage1 />;
+        case 1: return <TypePage2 />;
+        case 2: return <TypePage3 />;
+        case 3: return <TypePage4 />;
+        case 4: return <TypePage5 />;
+        case 5: return <TypePage6 />;
+        case 6: return <TypePage7 />; 
+        default: return <div>頁面不存在</div>;
+      }
+
+      case 'triads':
+        switch (currentPageIndex) {
+          case 0: return <TriadsPage1 />;
+          case 1: return <TriadsPage2 />;
+          case 2: return <TriadsPage3 />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'seventh-chords':
+      switch (currentPageIndex) {
+        case 0: return <SeventhChordsPage1 />;
+        case 1: return <SeventhChordsPage2 />;
+        default: return <div>頁面不存在</div>;
+      }
+
       default:
         return (
           <div>

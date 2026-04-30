@@ -72,9 +72,9 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     route: '/knowledge/chord',
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
-      { id: 'triads', title: '三和弦', route: '/knowledge/chord/triads', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'seventh-chords', title: '七和弦', route: '/knowledge/chord/seventh-chords', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'chord-symbols', title: '和弦記號', route: '/knowledge/chord/symbols', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'triads', title: '三和弦', route: '/knowledge/chord/triads', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' },] },
+      { id: 'seventh-chords', title: '七和弦', route: '/knowledge/chord/seventh-chords', pages: [ { id: 'page-1' }, { id: 'page-2' },] },
+      { id: 'chord-symbols', title: '和弦記號', route: '/knowledge/chord/chord-symbols', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, ] },
     ]
   },
   {

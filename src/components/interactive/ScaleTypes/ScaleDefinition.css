@@ -1,0 +1,167 @@
+.scale-visualizer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.row-label {
+  width: 80px;
+  font-weight: 700;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.piano-indicator-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.white-bg { background: white; }
+.black-bg { background: #555; }
+
+.root-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.root-buttons-grid {
+  display: flex;
+  flex-grow: 1;
+  gap: 2px;
+}
+
+.root-btn {
+  flex: 1;
+  padding: 10px 0;
+  background: #666;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.root-btn.active {
+  background: white;
+  color: #333;
+  border: 2px solid #555;
+}
+
+/* 音階方塊列 */
+.scale-notes-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scale-blocks-grid {
+  display: flex;
+  flex-grow: 1;
+  gap: 5px;
+}
+
+.scale-block {
+  flex: 1;
+  height: 80px;
+  background: #a0a0b8;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  flex-direction: column; 
+  gap: 5px;
+}
+
+.scale-block:hover { background: #8d8ba7; }
+.scale-block.active { background: #DA8F86; transform: scale(1.05); }
+
+.current-status-label {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 8px 20px;
+  border: 2px solid #DA8F86;
+  color: #DA8F86;
+  font-weight: 700;
+  border-radius: 20px;
+  align-self: center;
+}
+
+.piano-dots-grid {
+  display: flex;
+  flex-grow: 1;
+  border: 2px solid #555;
+  height: 40px;
+  width: 100%; 
+}
+
+.piano-dot-cell {
+  flex: 1;
+  min-width: 15px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+}
+
+.piano-dot-cell:nth-child(12) {
+  border-right: 3px solid #555;
+}
+
+.active-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #DA8F86;
+  border-radius: 50%;
+}
+
+.block-note-name {
+  font-size: 1.5rem;
+}
+
+.block-degree-num {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7); 
+}
+
+.scale-block:hover .block-degree-num,
+.scale-block.active .block-degree-num {
+  color: white;
+}
+
+.direction-controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.direction-controls label {
+  cursor: pointer;
+  color: #555;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.scale-degrees-layout5{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+}

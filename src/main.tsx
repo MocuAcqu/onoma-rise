@@ -22,7 +22,6 @@ if (!GOOGLE_CLIENT_ID) {
   console.error("缺少 Google Client ID，請檢查 .env 檔案");
 }
 
-// 建立路由設定
 const router = createBrowserRouter([
   {
     path: '/',

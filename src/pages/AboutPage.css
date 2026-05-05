@@ -78,12 +78,17 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
 }
 
-.team-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #d0b9d2 0%, #a7c8f5 100%);
+.team-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  object-fit: cover;
   margin: 0 auto 0.8rem;
+  display: block;
+}
+
+.team-photo-placeholder {
+  background: linear-gradient(135deg, #d0b9d2 0%, #a7c8f5 100%);
 }
 
 .team-name {
@@ -101,26 +106,46 @@
 
 /* 製作歷程 */
 .timeline {
-  position: relative;
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  gap: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #c9d4f5 transparent;
 }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #c9d4f5 0%, #e2d4f0 100%);
+.timeline::-webkit-scrollbar {
+  height: 4px;
+}
+
+.timeline::-webkit-scrollbar-thumb {
+  background: #c9d4f5;
+  border-radius: 999px;
 }
 
 .timeline-item {
   display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 130px;
   position: relative;
+}
+
+/* 圓點與橫線 */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #c9d4f5, #e2d4f0);
+  z-index: 0;
+}
+
+.timeline-item:last-child::before {
+  display: none;
 }
 
 .timeline-dot {
@@ -130,20 +155,56 @@
   background: #fff;
   border: 3px solid #7b8fe0;
   flex-shrink: 0;
-  margin-top: 2px;
   position: relative;
   z-index: 1;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-dot--internal  { border-color: #80A2F2; background: #eef3ff; }
+.timeline-dot--project   { border-color: #CE97ED; background: #f7effe; }
+
+
+/* 圖例 */
+.timeline-legend {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-item::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2.5px solid;
+  display: inline-block;
+}
+
+.legend-internal::before  { border-color: #80A2F2; background: #eef3ff; }
+.legend-project::before   { border-color: #CE97ED; background: #f7effe; }
+
+.timeline-content {
+  text-align: center;
+  padding: 0 0.5rem;
 }
 
 .timeline-event {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0 0 0.2rem;
 }
 
 .timeline-date {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--color-text-secondary);
   margin: 0;
 }

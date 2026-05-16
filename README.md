@@ -25,16 +25,16 @@
 ### 解決傳統音樂學習的痛點，降低認知門檻
 
 - ### 調性網路
-  - | 問題發現： 傳統鋼琴鍵盤為「線性」排列，難以直接看透調性之間的距離與和聲走向。
-  - | 我們的優勢： 結合歐拉發明的調性網路，將複雜和弦簡化為三角幾何關係，提供全新的音樂閱讀方式。
+  - 問題發現： 傳統鋼琴鍵盤為「線性」排列，難以直接看透調性之間的距離與和聲走向。
+  - 我們的優勢： 結合歐拉發明的調性網路，將複雜和弦簡化為三角幾何關係，提供全新的音樂閱讀方式。
 
 - ### 音樂辨識
-  - | 問題發現： 市面上缺乏將「聽覺聲音」與「視覺化樂理」即時整合的分析系統。
-  - | 我們的優勢： 整合 pYIN / CQT 演算法，實作聲音訊號轉化空間路徑，拆解並分析音檔結構，用多種形式解析和視覺化音訊資料。
+  - 問題發現： 市面上缺乏將「聽覺聲音」與「視覺化樂理」即時整合的分析系統。
+  - 我們的優勢： 整合 pYIN / CQT 演算法，實作聲音訊號轉化空間路徑，拆解並分析音檔結構，用多種形式解析和視覺化音訊資料。
 
 - ### 樂理知識
-  - | 問題發現： 樂理知識繁雜且抽象，非科班出身的初學者容易感到挫折或不易理解。
-  - | 我們的優勢： 將音樂概念進行統整與分類，透過網頁互動機制，讓使用者實際操作並雙通道學習，降低學習門檻。
+  - 問題發現： 樂理知識繁雜且抽象，非科班出身的初學者容易感到挫折或不易理解。
+  - 我們的優勢： 將音樂概念進行統整與分類，透過網頁互動機制，讓使用者實際操作並雙通道學習，降低學習門檻。
 
 ---
 
@@ -198,3 +198,19 @@ git push -u origin main
 </details>
 
 # | 貢獻成員
+
+<p align="center">
+  <a href="https://github.com/MocuAcqu">
+    <img src="https://github.com/MocuAcqu.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="邱鈺婷">
+  </a>
+  <a href="https://github.com/PhoebeLu1011">
+    <img src="https://github.com/PhoebeLu1011.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="盧姵帆">
+  </a>
+  <a href="https://github.com/kurakanja">
+    <img src="https://github.com/kurakanja.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="李佳璇">
+  </a>
+  <a href="https://github.com/pingxi2299">
+    <img src="https://github.com/pingxi2299.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="呂雨璇">
+  </a>
+</p>
+

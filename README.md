@@ -41,16 +41,47 @@
 # | 三大核心功能
 
 ### 1. 幾何視覺化的調性網路
-用點、線、面看見音樂的距離，將抽象的和聲移動化為直觀的幾何翻轉。
+- 用點、線、面看見音樂的距離，將抽象的和聲移動化為直觀的幾何翻轉。
+- 結合四大模式 (Basic/ Parallel/ Leittonwechsel/Relative) 視覺化調性與和聲組合。
+
 <p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
 
 ### 2. 音樂辨識的訊號轉換
-將聲音訊號化，並在調性網路上即時亮起對應軌跡，看見音樂的形狀。
+- 將聲音訊號化，並在調性網路上即時亮起對應軌跡，看見音樂的形狀。
+- 將音訊轉換並映射至調性網路，輔助使用者理解音樂結構。
 <p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
 
 ### 3. 雙通道互動的樂理學習
-六大主題、十六個知識章節，一共53種頁面可以互動，實現在網頁直覺式地做中學。
+- 六大主題、十六個知識章節，一共五十三種頁面可以互動，實現在網頁直覺式地做中學。
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E6%A8%82%E7%90%86%E7%9F%A5%E8%AD%98%E7%B5%90%E6%A7%8B%E5%9C%96.png" width="70%" style="border-radius: 10px;"></p>
 <p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+
+---
+
+# | 主視覺設計
+### 1. 文字 LOGO
+以「音符」與「音樂結構與調性關係」作為視覺核心，呼應音樂圍繞著我們的主題
+<p align="center">
+  <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/src/assets/images/main-logo.png" alt="OnomaRise" width="40%">
+</p>
+
+### 2. 圖形 LOGO
+鍵盤元素作為主體，象徵音樂創作與操作介面，六邊形環繞呼應調性網路的結構感，並融入調性網路相關的按鍵或節點意象，音符般的閃亮元素，象徵聲音被觸發與生成的瞬間
+<p align="center">
+  <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/src/assets/images/login-logo.png" alt="OnomaRise" width="20%">
+</p>
+
+### 3. 主色調
+粉到藍漸層，呈現科技感 (冷藍色) 與親和力 (暖粉色) 並存的視覺風格
+
+| #DA8F86 | #F0B2DE | #CE97ED | #D0B9D2 | #8BD8F0 | #6DC3F4 | #80A2F2 |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| <img src="https://placehold.co/60x60/DA8F86/DA8F86.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/F0B2DE/F0B2DE.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/CE97ED/CE97ED.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/D0B9D2/D0B9D2.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/8BD8F0/8BD8F0.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/6DC3F4/6DC3F4.png" style="border-radius: 8px;"> | <img src="https://placehold.co/60x60/80A2F2/80A2F2.png" style="border-radius: 8px;"> |
+
+### 4. 字體
+展現音樂典雅端莊的優美感<br>
+- [思源宋體 noto serif tc](https://fonts.google.com/share?selection.family=Noto+Serif+TC:wght@200..900)
+
 
 ---
 

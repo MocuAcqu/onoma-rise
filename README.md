@@ -1,21 +1,64 @@
-# 專案名稱
-### 音擬而起 OnomaRise
-- Onoma（來自 Onomatopoeia 擬聲詞）
-- Rise（而起）
+<p align="center">
+  <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/src/assets/images/main-logo.png" alt="OnomaRise" width="40%">
+</p>
 
-### 介面畫面
-| 起始畫面 | 登入畫面 | HomePage | About |
-|:--:|:--:|:--:|:--:|
-|<img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E8%B5%B7%E5%A7%8B%E7%95%AB%E9%9D%A2.png"> | <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/%E7%99%BB%E5%85%A5%E7%95%AB%E9%9D%A2.png"> | <img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/HomePage.png"> |  |
+<h1 align="center">
+  <strong>讓抽象的音樂理論直觀可見</strong>
+</h1>
 
-# 技術
-- 建構工具: Vite - 啟動快、反應迅速，開發體驗極佳。
-- 前端框架: React.js - 元件化開發，管理複雜的 UI 狀態。
-- 程式語言: TypeScript - 增加程式碼的穩定性，避免很多低級錯誤。
-- 核心音訊庫: Tone.js - Web Audio API 的最佳封裝，處理聲音合成、錄音、節拍都非常方便。
-- 樣式方案: Styled-components 或 Tailwind CSS - 依團隊喜好選擇，前者適合元件化的精細樣式，後者適合快速排版。
+<p align="center">
+  <strong>以調性網路為核心，結合音訊辨識與雙通道的樂理知識學習，帶你用全新的幾何視角看見音樂、感受和聲。</strong>
+</p>
 
-# 預計資料夾結構
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
+</p>
+<br>
+
+---
+
+# | 為什麼需要 OnomaRise？
+### 解決傳統音樂學習的痛點，降低認知門檻
+
+- ### 調性網路
+  - | 問題發現： 傳統鋼琴鍵盤為「線性」排列，難以直接看透調性之間的距離與和聲走向。
+  - | 我們的優勢： 結合歐拉發明的調性網路，將複雜和弦簡化為三角幾何關係，提供全新的音樂閱讀方式。
+
+- ### 音樂辨識
+  - | 問題發現： 市面上缺乏將「聽覺聲音」與「視覺化樂理」即時整合的分析系統。
+  - | 我們的優勢： 整合 pYIN / CQT 演算法，實作聲音訊號轉化空間路徑，拆解並分析音檔結構，用多種形式解析和視覺化音訊資料。
+
+- ### 樂理知識
+  - | 問題發現： 樂理知識繁雜且抽象，非科班出身的初學者容易感到挫折或不易理解。
+  - | 我們的優勢： 將音樂概念進行統整與分類，透過網頁互動機制，讓使用者實際操作並雙通道學習，降低學習門檻。
+
+---
+
+# | 三大核心功能
+
+### 1. 幾何視覺化的調性網路
+用點、線、面看見音樂的距離，將抽象的和聲移動化為直觀的幾何翻轉。
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+
+### 2. 音樂辨識的訊號轉換
+將聲音訊號化，並在調性網路上即時亮起對應軌跡，看見音樂的形狀。
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+
+### 3. 雙通道互動的樂理學習
+六大主題、十六個知識章節，一共53種頁面可以互動，實現在網頁直覺式地做中學。
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+
+---
+
+# | 專案資訊
+
+<details>
+<summary>目前資料夾結構</summary>
+  
 ```
 音擬而起/
 ├── public/                  # 靜態資源
@@ -104,8 +147,11 @@
 └── vite.config.ts           # Vite 建構工具配置
 
 ```
+</details>
 
-# 啟動方式
+<details>
+<summary>專案啟動方式</summary>
+
 移動到資料夾的位置:
 ```
 cd onoma-rise
@@ -121,9 +167,11 @@ npm run dev
 cd server
 node server.js
 ```
+</details>
 
-
-# 初步建立步驟 (供參考)
+<details>
+<summary>建立專案參考步驟</summary>
+  
 ```
 npm create vite@latest onoma-rise --template react-ts
 ```
@@ -147,4 +195,6 @@ git remote add origin https://github.com/MocuAcqu/onoma-rise.git
 git branch -M main
 git push -u origin main
 ```
+</details>
 
+# | 貢獻成員

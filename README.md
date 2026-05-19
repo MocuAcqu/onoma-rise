@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  <strong>以調性網路為核心，結合音訊辨識與雙通道的樂理知識學習，帶你用全新的幾何視角看見音樂、感受和聲。</strong>
+  <strong>以調性網路為核心，結合音訊辨識與採用雙通道學習原則的樂理知識學習，帶你用全新的幾何視角看見音樂、感受和聲。</strong>
 </p>
 
 <p align="center">
@@ -236,6 +236,9 @@ git push -u origin main
   </a>
   <a href="https://github.com/PhoebeLu1011">
     <img src="https://github.com/PhoebeLu1011.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="盧姵帆">
+  </a>
+  <a href="https://github.com/Mariannalee">
+    <img src="https://github.com/Mariannalee.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="李孟潔">
   </a>
   <a href="https://github.com/kurakanja">
     <img src="https://github.com/kurakanja.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="李佳璇">

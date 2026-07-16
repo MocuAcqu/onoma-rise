@@ -44,12 +44,12 @@
 - 用點、線、面看見音樂的距離，將抽象的和聲移動化為直觀的幾何翻轉。
 - 結合四大模式 (Basic/ Parallel/ Leittonwechsel/Relative) 視覺化調性與和聲組合。
 
-<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MT.gif" width="70%" style="border-radius: 10px;"></p>
 
 ### 2. 音樂辨識的訊號轉換
 - 將聲音訊號化，並在調性網路上即時亮起對應軌跡，看見音樂的形狀。
 - 將音訊轉換並映射至調性網路，輔助使用者理解音樂結構。
-<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MK.gif" width="70%" style="border-radius: 10px;"></p>
+<p align="center"><img src="https://github.com/MocuAcqu/onoma-rise/blob/main/readme_img/MD.gif" width="70%" style="border-radius: 10px;"></p>
 
 ### 3. 雙通道互動的樂理學習
 - 六大主題、十六個知識章節，一共五十三種頁面可以互動，實現在網頁直覺式地做中學。

@@ -43,6 +43,9 @@ import TriadsPage2 from '../components/interactive/Triads/TriadsPage2';
 import TriadsPage3 from '../components/interactive/Triads/TriadsPage3';
 import SeventhChordsPage1 from '../components/interactive/SeventhChords/SeventhChordsPage1';
 import SeventhChordsPage2 from '../components/interactive/SeventhChords/SeventhChordsPage2';
+import ChordSymbolsPage1 from '../components/interactive/ChordSymbols/ChordSymbolsPage1';
+import ChordSymbolsPage2 from '../components/interactive/ChordSymbols/ChordSymbolsPage2';
+import ChordSymbolsPage3 from '../components/interactive/ChordSymbols/ChordSymbolsPage3';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -182,6 +185,14 @@ const ChapterContentPage = () => {
         default: return <div>頁面不存在</div>;
       }
 
+      case 'chord-symbols':
+        switch (currentPageIndex) {
+          case 0: return <ChordSymbolsPage1 />;
+          case 1: return <ChordSymbolsPage2 />;
+          case 2: return <ChordSymbolsPage3 />;
+          default: return <div>頁面不存在</div>;
+      }
+
       default:
         return (
           <div>
@@ -210,19 +221,17 @@ const ChapterContentPage = () => {
       </div>
 
       <div className="content-area">
-        {/* 將所有內容都放進卡片裡 */}
         <div className="content-card">
           
           <div className="progress-indicator">
           {chapter.pages.map((_, index) => (
-            // React.Fragment (<></>) 讓我們可以回傳多個元素
             <React.Fragment key={index}>
-              {/* 渲染進度點 */}
               <div 
                 className={`progress-dot ${index === currentPageIndex ? 'active' : ''}`}
+                onClick={() => setCurrentPageIndex(index)} 
+                style={{ cursor: 'pointer' }}
               ></div>
               
-              {/* 關鍵：只要不是最後一個點，就在它後面加一條線 */}
               {index < totalPages - 1 && <div className="progress-line"></div>}
             </React.Fragment>
           ))}

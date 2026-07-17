@@ -78,10 +78,10 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     ]
   },
   {
-    id: 'visualization-tools',
+    id: 'tools',
     title: '視覺化工具',
     description: '透過半音圈、五度圈、調性網路，理解不同樂理概念。',
-    route: '/knowledge/visualization-tools',
+    route: '/knowledge/tools',
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
       { id: 'tonnetz', title: '調性網路', route: '/knowledge/tools/tonnetz', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },

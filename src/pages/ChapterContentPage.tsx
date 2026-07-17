@@ -46,6 +46,10 @@ import SeventhChordsPage2 from '../components/interactive/SeventhChords/SeventhC
 import ChordSymbolsPage1 from '../components/interactive/ChordSymbols/ChordSymbolsPage1';
 import ChordSymbolsPage2 from '../components/interactive/ChordSymbols/ChordSymbolsPage2';
 import ChordSymbolsPage3 from '../components/interactive/ChordSymbols/ChordSymbolsPage3';
+import TonnetzPage1 from '../components/interactive/Tonnetz/TonnetzPage1';
+import TonnetzPage2 from '../components/interactive/Tonnetz/TonnetzPage2';
+import TonnetzPage3 from '../components/interactive/Tonnetz/TonnetzPage3';
+import TonnetzPage4 from '../components/interactive/Tonnetz/TonnetzPage4';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -190,6 +194,15 @@ const ChapterContentPage = () => {
           case 0: return <ChordSymbolsPage1 />;
           case 1: return <ChordSymbolsPage2 />;
           case 2: return <ChordSymbolsPage3 />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'tonnetz':
+        switch (currentPageIndex) {
+          case 0: return <TonnetzPage1 />;
+          case 1: return <TonnetzPage2 />;
+          case 2: return <TonnetzPage3 />;
+          case 3: return <TonnetzPage4 />;
           default: return <div>頁面不存在</div>;
       }
 

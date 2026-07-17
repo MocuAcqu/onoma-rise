@@ -145,6 +145,20 @@
   align-self: center; /* 只讓這個元素自己水平置中 */
 }
 
+.page-content2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  text-align: left;
+  gap: 1rem;
+}
+
+.page-content2 > .piano-container,
+.page-content2 > img {
+  align-self: center; /* 只讓這個元素自己水平置中 */
+}
+
 .instruction-text {
   width: 100%; 
   text-align: center; 

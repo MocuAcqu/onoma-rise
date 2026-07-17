@@ -1,0 +1,266 @@
+.tonnetz-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tonnetz-interactive-area {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grid-window {
+  border: 2px solid #42687e;
+  border-radius: 8px;
+  background-color: #fafbfc;
+  overflow: hidden;
+}
+
+.tonnetz-wrapper {
+  cursor: grab;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  overflow: hidden;
+  user-select: none;
+}
+.tonnetz-wrapper.dragging { cursor: grabbing; }
+
+/* ----------------- 點 (Nodes) ----------------- */
+.t-node-circle {
+  fill: #e2e8f0;
+  stroke: #cbd5e1;
+  stroke-width: 2;
+  transition: all 0.2s;
+}
+.t-node-text {
+  text-anchor: middle;
+  font-weight: 700;
+  font-size: 15px;
+  fill: #64748b;
+  pointer-events: none;
+  transition: fill 0.2s;
+}
+
+.t-node-group { cursor: pointer; }
+.t-node-group:hover .t-node-circle {
+  fill: #fcd34d;
+  stroke: #f59e0b;
+  transform: scale(1.1);
+}
+.t-node-group:hover .t-node-text { fill: #78350f; }
+
+.mode-point .t-node-circle { fill: #fde68a; stroke: #fbbf24; stroke-width: 3; }
+.mode-point .t-node-text { fill: #92400e; }
+
+/* ----------------- 線 (Lines) ----------------- */
+.t-line {
+  stroke: #e2e8f0;
+  stroke-width: 4;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  pointer-events: visibleStroke; 
+}
+
+.t-line:hover {
+  stroke-width: 8;
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+
+.t-line:active {
+  stroke-width: 12;
+}
+
+.mode-line .t-line.p5:active { stroke: #1d4ed8; }
+.mode-line .t-line.m3-major:active { stroke: #b91c1c; }
+.mode-line .t-line.m3-minor:active { stroke: #047857; }
+
+.t-node-group.line-highlight .t-node-circle {
+  fill: #fcd34d !important;
+  stroke: #f59e0b !important;
+  stroke-width: 4 !important;
+  transform: scale(1.15);
+  opacity: 1 !important; 
+}
+
+.t-node-group.line-highlight .t-node-text {
+  fill: #78350f !important;
+  opacity: 1 !important;
+}
+
+.mode-line .t-line.p5:hover { stroke: #2563eb; }
+.mode-line .t-line.m3-major:hover { stroke: #dc2626; }
+.mode-line .t-line.m3-minor:hover { stroke: #059669; }
+
+.tonnetz-wrapper {
+  background: radial-gradient(circle, #ffffff 0%, #f1f5f9 100%);
+  transition: background 0.5s;
+}
+
+.mode-line .t-line.p5 { stroke: #b7d1fa; stroke-width: 4; } /* 水平: 完全五度 (藍) */
+.mode-line .t-line.m3-major { stroke: #f3b8b8; stroke-width: 4; } /* 右下: 大三度 (紅) */
+.mode-line .t-line.m3-minor { stroke: #b1e8d5; stroke-width: 4; } /* 右上: 小三度 (綠) */
+
+/* ----------------- 面 (Faces) ----------------- */
+.t-face {
+  fill: transparent;
+  stroke: #f1f5f9;
+  stroke-width: 1;
+  transition: all 0.3s;
+  cursor: pointer;
+  pointer-events: auto; 
+}
+
+.t-face:hover {
+  stroke: var(--color-violet);
+  stroke-width: 2;
+  filter: brightness(1.2);
+}
+
+.mode-face .t-face.major {
+  fill: rgba(239, 68, 68, 0.2); 
+}
+.t-face.major:hover {
+  fill: rgba(227, 35, 35, 0.686); 
+}
+
+.mode-face .t-face.minor {
+  fill: rgba(59, 130, 246, 0.2); 
+}
+.t-face.minor:hover {
+  fill: rgba(37, 104, 211, 0.671); 
+}
+
+.t-node-group {
+  cursor: pointer;
+}
+
+.mode-line .t-node-circle { opacity: 0.5; }
+.mode-face .t-line { opacity: 0.2; }
+.mode-face .t-node-circle { opacity: 0.8; }
+
+.t-line.transform-highlight {
+  stroke-width: 8px !important;
+  opacity: 1 !important;
+  stroke-dasharray: 10, 5; 
+  animation: dash-move 2s linear infinite;
+}
+
+@keyframes dash-move {
+  from { stroke-dashoffset: 50; }
+  to { stroke-dashoffset: 0; }
+}
+
+.mode-face .t-line.p5.transform-highlight { stroke: #f97316; } /* P: 橘色 (五度) */
+.mode-face .t-line.m3-minor.transform-highlight { stroke: #10b981; } /* L: 綠色 (小三度) */
+.mode-face .t-line.m3-major.transform-highlight { stroke: #ef4444; } /* R: 紅色 (大三度) */
+
+.example-badge {
+  display: inline-block;
+  background: var(--color-blue3);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.transform-detail-display {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.transform-info-text {
+  flex: 1;
+}
+
+.transform-info-text h3 {
+  color: var(--color-blue3);
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.transform-diagram-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fdfdfd;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.transform-diagram-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+  .transform-detail-display {
+    flex-direction: column;
+  }
+  .transform-diagram-box {
+    width: 100%;
+  }
+}
+
+.tonnetz-faces.highlight-chord-major .t-face.minor {
+  opacity: 0.05;
+}
+.tonnetz-faces.highlight-chord-major .t-face.major {
+  opacity: 0.7;
+  stroke: #dc2626; 
+  stroke-width: 2px;
+}
+
+.tonnetz-faces.highlight-chord-minor .t-face.major {
+  opacity: 0.05;
+}
+.tonnetz-faces.highlight-chord-minor .t-face.minor {
+  opacity: 0.7;
+  stroke: #2563eb; 
+  stroke-width: 2px;
+}
+
+.tonnetz-lines.highlight-chord-augmented .t-line {
+  opacity: 0.1; 
+}
+.tonnetz-lines.highlight-chord-augmented .t-line.m3-major {
+  opacity: 1;
+  stroke: #f5360b; 
+  stroke-width: 6px;
+}
+
+.tonnetz-faces.highlight-chord-augmented {
+  opacity: 0.1;
+}
+
+.tonnetz-lines.highlight-chord-diminished .t-line {
+  opacity: 0.1; 
+}
+.tonnetz-lines.highlight-chord-diminished .t-line.m3-minor {
+  opacity: 1;
+  stroke: #10b981; 
+  stroke-width: 6px;
+}
+.tonnetz-faces.highlight-chord-diminished {
+  opacity: 0.1;
+}

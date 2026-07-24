@@ -25,6 +25,13 @@ const KnowledgePage = () => {
                   {topic.title}
                 </h2>
                 <p className="topic-description">{topic.description}</p>
+                <div className="card-meta">
+                  {topic.id === 'tools' && (
+                    <>
+
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </Link>

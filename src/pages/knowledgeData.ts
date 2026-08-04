@@ -85,8 +85,8 @@ export const knowledgeTopics: KnowledgeTopic[] = [
     gradient: 'linear-gradient(130deg, #DA8F86, #377589)',
     chapters: [
       { id: 'tonnetz', title: '調性網路', route: '/knowledge/tools/tonnetz', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'circle-of-fifths', title: '五度圈', route: '/knowledge/tools/circle-of-fifths', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
-      { id: 'chromatic-circle', title: '半音圈', route: '/knowledge/tools/chromatic-circle', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }, { id: 'page-4' },] },
+      { id: 'chromatic-circle', title: '半音圈', route: '/knowledge/tools/chromatic-circle', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }] },
+      { id: 'circle-of-fifths', title: '五度圈', route: '/knowledge/tools/circle-of-fifths', pages: [ { id: 'page-1' }, { id: 'page-2' }, { id: 'page-3' }] },
     ]
   },
 ]

@@ -90,6 +90,24 @@
   font-size: 1rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.card-pill {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(55, 117, 137, 0.1);
+  color: var(--color-violet);
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 @keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }

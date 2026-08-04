@@ -50,6 +50,11 @@ import TonnetzPage1 from '../components/interactive/Tonnetz/TonnetzPage1';
 import TonnetzPage2 from '../components/interactive/Tonnetz/TonnetzPage2';
 import TonnetzPage3 from '../components/interactive/Tonnetz/TonnetzPage3';
 import TonnetzPage4 from '../components/interactive/Tonnetz/TonnetzPage4';
+import CircleOfFifthsPage1 from '../components/interactive/Tools/CircleOfFifthsPage1';
+import ChromaticCirclePage1 from '../components/interactive/Tools/ChromaticCirclePage1';
+import CircleOfFifthsInteractive from '../components/interactive/Tools/CircleOfFifthsInteractive';
+import ChromaticCircleInteractive from '../components/interactive/Tools/ChromaticCircleInteractive';
+import CircleComparisonPage from '../components/interactive/Tools/CircleComparisonPage';
 
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
@@ -203,6 +208,22 @@ const ChapterContentPage = () => {
           case 1: return <TonnetzPage2 />;
           case 2: return <TonnetzPage3 />;
           case 3: return <TonnetzPage4 />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'circle-of-fifths':
+        switch (currentPageIndex) {
+          case 0: return <CircleOfFifthsPage1 />;
+          case 1: return <CircleComparisonPage focus="fifths" />;
+          case 2: return <CircleOfFifthsInteractive />;
+          default: return <div>頁面不存在</div>;
+      }
+
+      case 'chromatic-circle':
+        switch (currentPageIndex) {
+          case 0: return <ChromaticCirclePage1 />;
+          case 1: return <CircleComparisonPage focus="chromatic" />;
+          case 2: return <ChromaticCircleInteractive />;
           default: return <div>頁面不存在</div>;
       }
 

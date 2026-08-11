@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { FiEye, FiHeart } from 'react-icons/fi';
+import { FiClipboard, FiEye, FiHeart } from 'react-icons/fi';
 import { knowledgeTopics } from './knowledgeData';
 import './TopicDetailPage.css';
 
@@ -51,6 +51,10 @@ const TopicDetailPage = () => {
           </Link>
         ))}
       </div>
+
+      <Link to={`/knowledge/${currentTopic.id}/quiz`} className="topic-quiz-button">
+        <FiClipboard /> 測驗題目
+      </Link>
     </div>
   );
 };

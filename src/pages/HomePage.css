@@ -6,6 +6,39 @@
   width: 100%;
 }
 
+.main-logo-container {
+  margin-bottom: 0.5rem; 
+}
+
+.main-logo-img {
+  max-width: 400px; 
+  width: 95%; 
+  height: auto; 
+  margin-left: 5%;
+}
+
+.home-slogan-container {
+  text-align: center; 
+  margin-bottom: 3rem; 
+  padding: 0 1rem;
+}
+
+.home-slogan-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: -1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+}
+
+.home-slogan-desc {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary); 
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+}
+
 .home-menu-grid {
   display: flex;
   flex-direction: column; 
@@ -21,27 +54,29 @@
   display: flex;      
   justify-content: center;
   gap: 1.5rem;
-  width: 100%;
+  width: 120%;
 }
 
 .menu-row-bottom {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 120%;
 }
 
 .menu-button-new {
   flex: 1; 
-  padding: 1.5rem 1rem;
+  padding: 1.6rem 1rem; 
   border-radius: 20px;
   text-decoration: none;
   color: white;
-  font-size: 1.6rem;
-  font-weight: 700;
-  text-align: center;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   background-size: 200% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem; 
 }
 
 .menu-button-new:hover {
@@ -50,9 +85,16 @@
   background-position: right center;
 }
 
-/* 按鈕顏色 */
-.btn-identify {
-  background-image: linear-gradient(to right, var(--color-blue1) 0%, var(--color-blue2) 35%, var(--color-blue3) 60%);
+.btn-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.btn-desc {
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .btn-knowledge {
@@ -65,13 +107,9 @@
   background-image: linear-gradient(to right, var(--color-blue3) 0%, var(--color-btn6) 30%, var(--color-btn5) 50%);
 }
 
-.main-logo-container {
-  margin-bottom: 1rem;
-}
-
-.main-logo-img {
-  max-width: 400px; 
-  width: 95%; 
-  height: auto; 
-  margin-left: 5%;
+@media (max-width: 768px) {
+  .home-slogan-title { font-size: 1.6rem; }
+  .home-slogan-desc { font-size: 0.95rem; }
+  .btn-title { font-size: 1.5rem; }
+  .btn-desc { font-size: 0.9rem; }
 }

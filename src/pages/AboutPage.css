@@ -104,7 +104,6 @@
   margin: 0;
 }
 
-/* 製作歷程 */
 .timeline {
   display: flex;
   overflow-x: auto;
@@ -128,7 +127,7 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  width: 130px;
+  width: 140px;
   position: relative;
 }
 
@@ -209,7 +208,6 @@
   margin: 0;
 }
 
-/* 未來展望 */
 .future-layout {
   display: flex;
   gap: 2rem;
@@ -234,7 +232,6 @@
   flex-shrink: 0;
 }
 
-/* 技術與工具 */
 .tools-grid {
   display: flex;
   flex-wrap: wrap;

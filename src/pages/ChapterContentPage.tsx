@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { IoCaretBack, IoCaretForward } from 'react-icons/io5'; 
+import { IoCaretBack, IoCaretForward, IoHeartOutline, IoHeart, IoEyeOutline } from 'react-icons/io5'; 
 import { knowledgeTopics } from './knowledgeData';
+import axios from 'axios';
 import './ChapterContentPage.css';
 
 import PitchNamePage1 from '../components/interactive/PitchName/PitchNamePage1';
@@ -59,10 +60,14 @@ import CircleComparisonPage from '../components/interactive/Tools/CircleComparis
 const ChapterContentPage = () => {
   const { topicId, chapterId } = useParams();
   
-  // 記錄目前在哪一頁 (從 0 開始)
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
-  // 使用 useMemo 來避免重複計算，找到對應的資料
+  const [views, setViews] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
+
+  const currentUsername = localStorage.getItem('user'); 
+
   const { topic, chapter } = useMemo(() => {
     const t = knowledgeTopics.find(t => t.id === topicId);
     const c = t?.chapters.find(c => c.id === chapterId);
@@ -74,6 +79,49 @@ const ChapterContentPage = () => {
   }
 
   const totalPages = chapter.pages.length;
+
+  useEffect(() => {
+    if (!chapterId) return;
+
+    const fetchAndAddView = async () => {
+      try {
+        const res = await axios.post(`http://localhost:5000/api/chapters/${chapterId}/view`, {
+          username: currentUsername
+        });
+        
+        setViews(res.data.views);
+        setLikes(res.data.likes);
+        
+        if (currentUsername) {
+          setHasLiked(res.data.likedBy.includes(currentUsername));
+        }
+      } catch (err) {
+        console.error("無法更新章節資料", err);
+      }
+    };
+
+    fetchAndAddView();
+  }, [chapterId, currentUsername]);
+
+  const handleLike = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!currentUsername) {
+      alert("請先登入才能按讚喔！");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`http://localhost:5000/api/chapters/${chapterId}/like`, {
+        username: currentUsername 
+      });
+      setLikes(res.data.likes);
+      setHasLiked(res.data.hasLiked);
+    } catch (err) {
+      console.error("按讚失敗", err);
+    }
+  };
 
   const goToNextPage = () => {
     if (currentPageIndex < totalPages - 1) {
@@ -246,7 +294,25 @@ const ChapterContentPage = () => {
 
       <div className="chapter-header">
         <h1 className="chapter-main-title">{chapter.title}</h1>
+
+        <div className="chapter-stats" style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1rem', color: '#666' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <IoEyeOutline size={20} /> {views} 觀看
+          </span>
+          <button 
+            onClick={handleLike} 
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: '0.5rem', 
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: hasLiked ? '#ef4444' : '#666', fontSize: '1rem',
+              zIndex: 10 
+            }}
+          >
+            {hasLiked ? <IoHeart size={20} /> : <IoHeartOutline size={20} />} {likes} 個讚
+          </button>
+        </div>
       </div>
+
       <div className="breadcrumbs-container">
         <p className="breadcrumbs-content">
           <Link to="/knowledge">樂理知識</Link> &gt; 

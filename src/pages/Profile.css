@@ -38,3 +38,195 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.profile-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 2rem 5rem;
+  color: var(--color-text-primary);
+  animation: fade-in 0.5s ease-out;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-sunset-pink), var(--color-sky-cyan));
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 25px rgba(218, 143, 134, 0.4);
+}
+
+.profile-header h1 {
+  font-size: 2.2rem;
+  color: var(--color-blue3);
+  margin: 0;
+}
+
+/* --- 儀表板網格 --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 15px 35px rgba(128, 162, 242, 0.1);
+  border-top: 6px solid var(--color-sky-cyan);
+  display: flex;
+  flex-direction: column;
+}
+
+.completion-card { border-top-color: var(--color-sunset-pink); }
+.quiz-records-card { border-top-color: var(--color-violet); }
+.liked-card { border-top-color: var(--color-bright-blue); }
+
+.dashboard-card h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--color-blue3);
+}
+
+/* --- 圓形進度條 --- */
+.progress-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 2.5rem;
+  position: relative;
+  /* 背景顏色將由 React 的 inline style 動態控制 */
+}
+
+.progress-circle::before {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.progress-circle .percentage {
+  position: relative;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+}
+
+.progress-details, .quiz-list, .liked-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.liked-list::-webkit-scrollbar,
+.quiz-list::-webkit-scrollbar {
+  width: 6px; 
+}
+
+.liked-list::-webkit-scrollbar-track,
+.quiz-list::-webkit-scrollbar-track {
+  background: #f1f5f9; 
+  border-radius: 10px;
+}
+
+.liked-list::-webkit-scrollbar-thumb,
+.quiz-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 10px;
+}
+
+.liked-list::-webkit-scrollbar-thumb:hover,
+.quiz-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}
+
+.liked-list, .quiz-list {
+  max-height: 280px; 
+  overflow-y: auto;  
+  padding-right: 8px; 
+}
+
+.progress-details li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.progress-details li.completed { color: #10b981; font-weight: bold; }
+.progress-details li.uncompleted { color: #94a3b8; }
+
+/* 測驗紀錄 */
+.quiz-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  border-radius: 16px;
+  background: #f8fafc;
+  border-left: 4px solid #cbd5e1;
+}
+.quiz-item.passed { border-left-color: #10b981; background: #f0fdf4; }
+.quiz-item.failed { border-left-color: var(--color-sunset-pink); background: #fef2f2; }
+
+.quiz-info h4 { margin: 0 0 0.4rem 0; font-size: 1.1rem; color: var(--color-text-primary); }
+.quiz-info p { margin: 0; font-size: 0.95rem; color: #64748b; }
+.quiz-status { font-weight: bold; font-size: 1.1rem; }
+.quiz-item.passed .quiz-status { color: #10b981; }
+.quiz-item.failed .quiz-status { color: var(--color-sunset-pink); }
+
+/* 喜歡的章節 */
+.liked-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+.liked-link:hover { background: #f1f5f9; border-color: var(--color-sky-cyan); transform: translateX(5px); }
+.topic-tag { font-size: 0.85rem; color: var(--color-violet); font-weight: bold; margin-bottom: 0.3rem; }
+.chap-title { font-size: 1.2rem; font-weight: 600; }
+
+.empty-msg { color: #94a3b8; text-align: center; font-style: italic; margin: auto 0; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .logout-btn { position: relative; margin-top: 1rem; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+}

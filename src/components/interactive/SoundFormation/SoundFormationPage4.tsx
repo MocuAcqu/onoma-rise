@@ -106,7 +106,7 @@ const SoundFormationPage4 = () => {
         ? (value.note.startsWith("G") ? "D1" : "C1") 
         : value.note;
       
-      instrument.triggerAttackRelease(noteToPlay, "8n", time);
+      instrument.triggerAttackRelease(noteToPlay, "4n", time);
     }, MELODY).start(0);
 
     Tone.Transport.start();

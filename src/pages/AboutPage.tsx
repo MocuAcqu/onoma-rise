@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import axios from 'axios';
 import './AboutPage.css';
 import member1 from '../assets/images/about/member1.jpg';
 import member2 from '../assets/images/about/member2.jpg';
@@ -58,6 +60,12 @@ const timeline = [
   { date: '2026.4.10', event: '第六次組內會議',   type: 'internal'   },
   { date: '2026.4.24', event: '第七次組內會議',   type: 'internal'   },
   { date: '2026.5.1',  event: '第八次組內會議',   type: 'internal'   },
+  { date: '2026.5.15', event: '第四次專題會議',   type: 'project'   },
+  { date: '2026.5.29', event: '第九次組內會議',   type: 'internal'   },
+  { date: '2026.7.10', event: '第十次組內會議',   type: 'internal'   },
+  { date: '2026.7.17', event: '新指導教授進度會議',   type: 'project'   },
+  { date: '2026.8.11',  event: '第十一次組內會議',   type: 'internal'   },
+  { date: '2026.9.2',  event: '第十二次組內會議',   type: 'internal'   },
 ]; 
   
 const tools = [
@@ -65,6 +73,14 @@ const tools = [
 ];
 
 const AboutPage = () => {
+  useEffect(() => {
+    const currentUsername = localStorage.getItem('user');
+    if (currentUsername) {
+      axios.post('http://localhost:5000/api/user/progress/about', { username: currentUsername })
+        .catch(err => console.error(err));
+    }
+  }, []);
+  
   return (
     <div className="about-page">
 

@@ -3,6 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import SphereTransition from './components/SphereTransition';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FloatingBGM from './components/FloatingBGM'; 
 
 type SpherePosition = {
   top: number;
@@ -20,6 +21,10 @@ function App() {
 
   const handleNavigate = (path: string, element: HTMLElement | null) => {
     if (!element || isTransitioning) return; 
+
+    if (location.pathname === '/') {
+      window.dispatchEvent(new Event('start-bgm'));
+    }
 
     const rect = element.getBoundingClientRect();
     setSpherePosition({
@@ -47,6 +52,7 @@ function App() {
   return (
     <>
       {shouldShowNavbar && <Navbar />}
+      <FloatingBGM />
       <SphereTransition
         isActive={isTransitioning}
         initialPosition={spherePosition}

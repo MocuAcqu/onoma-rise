@@ -76,7 +76,6 @@
   margin: 0;
 }
 
-/* --- 儀表板網格 --- */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -107,7 +106,6 @@
   color: var(--color-blue3);
 }
 
-/* --- 圓形進度條 --- */
 .progress-circle {
   width: 140px;
   height: 140px;
@@ -117,7 +115,6 @@
   align-items: center;
   margin: 0 auto 2.5rem;
   position: relative;
-  /* 背景顏色將由 React 的 inline style 動態控制 */
 }
 
 .progress-circle::before {
@@ -204,7 +201,6 @@
 .quiz-item.passed .quiz-status { color: #10b981; }
 .quiz-item.failed .quiz-status { color: var(--color-sunset-pink); }
 
-/* 喜歡的章節 */
 .liked-link {
   display: flex;
   flex-direction: column;

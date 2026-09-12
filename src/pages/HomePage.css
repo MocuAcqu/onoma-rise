@@ -19,20 +19,20 @@
 
 .home-slogan-container {
   text-align: center; 
-  margin-bottom: 3rem; 
+  margin-bottom: 2rem; 
   padding: 0 1rem;
 }
 
 .home-slogan-title {
   font-size: 2.2rem;
   font-weight: 800;
-  margin-top: -1.5rem;
+  margin-top: -3.2rem;
   margin-bottom: 0.5rem;
   letter-spacing: 2px;
 }
 
 .home-slogan-desc {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--color-text-secondary); 
   font-weight: 500;
   line-height: 1.6;
@@ -43,29 +43,29 @@
   display: flex;
   flex-direction: column; 
   align-items: center;   
-  gap: 1.5rem;     
+  gap: 1.2rem;     
   width: 90%;
   max-width: 700px; 
   padding: 0 1rem;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .menu-row-top {
   display: flex;      
   justify-content: center;
   gap: 1.5rem;
-  width: 120%;
+  width: 110%;
 }
 
 .menu-row-bottom {
   display: flex;
   justify-content: center;
-  width: 120%;
+  width: 110%;
 }
 
 .menu-button-new {
   flex: 1; 
-  padding: 1.6rem 1rem; 
+  padding: 1.2rem 1rem; 
   border-radius: 20px;
   text-decoration: none;
   color: white;
@@ -86,7 +86,7 @@
 }
 
 .btn-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   letter-spacing: 2px;
 }

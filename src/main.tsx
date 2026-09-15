@@ -12,7 +12,6 @@ const HomePage = lazy(() => import('./pages/HomePage.tsx'));
 const AboutPage = lazy(() => import('./pages/AboutPage.tsx'));
 const LoginPage = lazy(() => import('./pages/LoginPage.tsx'));
 const TonnetzPage = lazy(() => import('./pages/TonnetzPage.tsx'));
-const Identify = lazy(() => import('./pages/Identify.tsx'));
 const Knowledge = lazy(() => import('./pages/KnowledgePage.tsx'));
 const TopicDetailPage = lazy(() => import('./pages/TopicDetailPage.tsx'));
 const ChapterContentPage = lazy(() => import('./pages/ChapterContentPage.tsx'));
@@ -34,7 +33,6 @@ const router = createBrowserRouter([
       { path: 'home', element: <Suspense fallback={null}><HomePage /></Suspense> },
       { path: 'about', element: <Suspense fallback={null}><AboutPage /></Suspense> },
       { path: 'login', element: <Suspense fallback={null}><LoginPage /></Suspense> },
-      { path: 'identify', element: <Suspense fallback={null}><Identify /></Suspense> },
       { path: 'knowledge', element: <Suspense fallback={null}><Knowledge /></Suspense> },
       { path: 'knowledge/:topicId', element: <Suspense fallback={null}><TopicDetailPage /></Suspense> },
       { path: 'knowledge/:topicId/quiz', element: <Suspense fallback={null}><QuizPage /></Suspense> },

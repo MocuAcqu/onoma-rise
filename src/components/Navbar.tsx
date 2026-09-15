@@ -54,8 +54,7 @@ const Navbar = () => {
           <img src={logoImage} alt="OnomaRise Logo" className="navbar-logo-img" />
         </Link>
 
-        <nav className="nav-links">
-          <Link to="/identify">音樂辨識</Link>
+        <nav className="nav-links" style={{ marginRight: '52px' }}>
           <Link to="/knowledge">樂理知識</Link>
           <Link to="/tonnetz">調性網路</Link>
           <Link to="/about">關於我們</Link>

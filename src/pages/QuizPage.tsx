@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -17,10 +18,26 @@ export default function QuizPage() {
 
   if (!quiz) return <div className="quiz-not-found">找不到這個測驗。</div>;
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (answers.some(answer => answer < 0)) return;
     setSubmitted(true);
+
+    const finalScore = quiz.questions.reduce((total, question, index) => total + Number(answers[index] === question.correctIndex), 0);
+    const isPerfect = finalScore === quiz.questions.length;
+
+    const currentUsername = localStorage.getItem('user');
+    if (currentUsername) {
+      try {
+        await axios.post('http://localhost:5000/api/user/progress/quiz', {
+          username: currentUsername,
+          topicId: topicId,
+          passed: isPerfect // 告訴後端這次有沒有全對
+        });
+      } catch (err) {
+        console.error('紀錄測驗進度失敗', err);
+      }
+    }
   };
 
   const restartQuiz = () => {

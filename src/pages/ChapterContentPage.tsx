@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { IoCaretBack, IoCaretForward } from 'react-icons/io5'; 
 import { knowledgeTopics } from './knowledgeData';
 import './ChapterContentPage.css';
+import GuideAssistant from '../components/GuideAssistant/GuideAssistant';
 
 import PitchNamePage1 from '../components/interactive/PitchName/PitchNamePage1';
 import PitchNamePage2 from '../components/interactive/PitchName/PitchNamePage2';
@@ -295,6 +296,7 @@ const ChapterContentPage = () => {
           </div>
         </div>
       </div>
+      <GuideAssistant key={`${chapterId}-${currentPageIndex}`} chapterId={chapterId} pageIndex={currentPageIndex} totalPages={totalPages} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import * as Tone from 'tone';
 import './PianoKeyboard.css';
 
@@ -117,11 +117,25 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
   const highlightMidis = useMemo(() => {
     return highlightNotes.map(n => Tone.Frequency(n).toMidi());
   }, [highlightNotes]);
+  const [demoNote, setDemoNote] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence: string[] }>).detail;
+      if (demo.target !== 'piano') return;
+      demo.sequence.forEach((note, index) => {
+        window.setTimeout(() => { setDemoNote(note); playNote(note, 0.9, note.includes('#') ? 'black' : 'white'); }, index * 620);
+      });
+      window.setTimeout(() => setDemoNote(null), demo.sequence.length * 620);
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, [playNote]);
 
   return (
     <div className="piano-container">
       {keys.map(({ note, midi, type, pitch, octave }, index) => {
-        const isHighlighted = highlightMidis.includes(midi);
+        const isHighlighted = highlightMidis.includes(midi) || demoNote === note;
       
         return(
           <button

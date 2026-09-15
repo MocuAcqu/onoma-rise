@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Tone from 'tone';
 import './InteractiveStaff.css';
 
@@ -66,6 +66,19 @@ const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes, onKeyClick }
     setTimeout(() => setActiveIndex(null), 1000);
     if (onKeyClick) { onKeyClick(note);}
   };
+
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence: string[] }>).detail;
+      if (demo.target !== 'staff') return;
+      demo.sequence.forEach((pitch, index) => {
+        const noteIndex = notes.findIndex(note => note.pitch === pitch);
+        if (noteIndex >= 0) window.setTimeout(() => handleNoteClick(notes[noteIndex], noteIndex), index * 620);
+      });
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, [notes, handleNoteClick]);
 
   const NOTE_SPACING = 60; // 每個音符之間的距離
   const INITIAL_OFFSET = 30; // 第一個音符距離左邊的初始偏移量

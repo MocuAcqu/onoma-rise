@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import * as Tone from 'tone';
 import './ChordStaff.css';
 import { getNoteY, getAccidental } from './Triads/ChordUtils';
@@ -15,13 +15,13 @@ const pianoSampler = new Tone.Sampler({
 const ChordStaff: React.FC<ChordStaffProps> = ({ notes }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const playChord = async () => {
+  const playChord = useCallback(async () => {
     if (isPlaying) return;
     await Tone.start();
     setIsPlaying(true);
     pianoSampler.triggerAttackRelease(notes, "1n", Tone.now(), 0.8);
     setTimeout(() => setIsPlaying(false), 1000);
-  };
+  }, [isPlaying, notes]);
 
   return (
     <div className={`chord-staff-container ${isPlaying ? 'playing' : ''}`} onClick={playChord}>

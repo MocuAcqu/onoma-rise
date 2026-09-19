@@ -63,10 +63,10 @@ export default function PlacementQuizOverlay({ onSkip, onComplete }: Props) {
             <h2 className="placement-question__text">{placementQuestions[step].question}</h2>
 
             <div className="placement-options">
-              {placementQuestions[step].options.map((option) => (
+              {placementQuestions[step].options.map((option, optionIndex) => (
                 <button
                   key={option.id}
-                  className="placement-btn placement-btn--option"
+                  className={`placement-btn placement-btn--option placement-btn--option-${optionIndex}`}
                   onClick={() => handleAnswer(option.id)}
                 >
                   {option.label}

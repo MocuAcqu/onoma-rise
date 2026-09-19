@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import type { PlacementResult } from '../data/placementQuiz';
+import '../pages/KnowledgePage.css';
 import './PlacementResultPage.css';
 
 const STORAGE_KEY = 'onomarise_placement_result';
@@ -33,13 +34,20 @@ export default function PlacementResultPage() {
       <h1 className="placement-result__title">為你推薦的起點</h1>
       <p className="placement-result__message">{result.message}</p>
 
-      <div className="placement-result__list">
-        {result.recommendedUnits.map((unit) => (
-          <Link key={unit.topicId} to={`/knowledge/${unit.topicId}`} className="placement-result__item">
-            <div className="placement-result__item-thumb" />
-            <div className="placement-result__item-body">
-              <h2>{unit.title}</h2>
-              <p>{unit.description}</p>
+      <div className="topics-list placement-result__list">
+        {result.recommendedUnits.map((unit, index) => (
+          <Link
+            key={unit.topicId}
+            to={unit.route}
+            className="topic-card-link"
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <div className="topic-card-content">
+              <div className="card-visual-placeholder" style={{ background: unit.gradient }} />
+              <div className="card-info">
+                <h2 className="topic-title">{unit.title}</h2>
+                <p className="topic-description">{unit.description}</p>
+              </div>
             </div>
           </Link>
         ))}

@@ -29,53 +29,11 @@
   margin: 0 0 2.5rem;
 }
 
+/* 推薦單元卡片直接複用 KnowledgePage.css 的 .topics-list / .topic-card-link 等樣式與動畫，
+   這裡只需要在這個頁面的窄版容器裡調整外距。 */
 .placement-result__list {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2.5rem;
-}
-
-.placement-result__item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  text-align: left;
-  text-decoration: none;
-  padding: 1.5rem 0.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
-}
-
-.placement-result__list a:first-child {
-  padding-top: 0.5rem;
-}
-
-.placement-result__item:hover {
-  transform: translateX(4px);
-}
-
-.placement-result__item-thumb {
-  flex-shrink: 0;
-  width: 90px;
-  height: 70px;
-  border-radius: 16px;
-  background-image: linear-gradient(135deg, var(--color-btn2), var(--color-lavender-pink));
-  opacity: 0.6;
-}
-
-.placement-result__item-body h2 {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--color-text-primary);
-  margin: 0 0 0.4rem;
-}
-
-.placement-result__item-body p {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin: 0;
+  margin-bottom: 1.5rem;
 }
 
 .placement-result__actions {
@@ -116,5 +74,4 @@
 
 @media (max-width: 640px) {
   .placement-result__title { font-size: 1.7rem; }
-  .placement-result__item-thumb { width: 64px; height: 50px; border-radius: 12px; }
 }

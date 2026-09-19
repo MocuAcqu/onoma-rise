@@ -29,8 +29,8 @@
 
 .placement-intro__logo,
 .placement-question__logo {
-  width: 220px;
-  max-width: 70%;
+  width: 320px;
+  max-width: 85%;
   height: auto;
   margin-bottom: 1rem;
 }
@@ -58,19 +58,21 @@
   margin: 0;
 }
 
-.placement-question__category {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-violet);
-  margin: 0.2rem 0 0.6rem;
-}
-
+/* 「音樂中」跟後面的問題句是同一句題目，字體大小和顏色要一致 */
+.placement-question__category,
 .placement-question__text {
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--color-text-primary);
-  margin: 0 0 2rem;
   line-height: 1.5;
+}
+
+.placement-question__category {
+  margin: 0.2rem 0 0;
+}
+
+.placement-question__text {
+  margin: 0 0 2rem;
 }
 
 .placement-options {
@@ -109,7 +111,7 @@
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
-  background-image: linear-gradient(to right, var(--color-blue3), var(--color-btn6));
+  background-image: linear-gradient(to right, #2A4791, #EBA8E1);
   box-shadow: 0 8px 18px -6px rgba(39, 70, 143, 0.4);
 }
 
@@ -117,6 +119,13 @@
   transform: translateY(-3px);
   box-shadow: 0 12px 22px -6px rgba(39, 70, 143, 0.45);
 }
+
+/* 四個選項按鈕合起來是一條從 #2A4791（深藍）到 #EBA8E1（粉色）的連續漸層，
+   每顆按鈕各自呈現其中一段：深藍→身紫、身紫→淺紫、淺紫→紫粉、紫粉→粉色。 */
+.placement-btn--option-0 { background-image: linear-gradient(to right, #2A4791, #5A5FA5); }
+.placement-btn--option-1 { background-image: linear-gradient(to right, #5A5FA5, #8B78B9); }
+.placement-btn--option-2 { background-image: linear-gradient(to right, #8B78B9, #BB90CD); }
+.placement-btn--option-3 { background-image: linear-gradient(to right, #BB90CD, #EBA8E1); }
 
 .placement-skip {
   border: none;

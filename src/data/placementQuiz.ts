@@ -110,6 +110,8 @@ export type PlacementRecommendedUnit = {
   topicId: string;
   title: string;
   description: string;
+  route: string;
+  gradient: string;
 };
 
 export type PlacementResult = {
@@ -141,6 +143,8 @@ export function buildPlacementResult(answers: PlacementAnswer[]): PlacementResul
       topicId,
       title: topic?.title ?? topicId,
       description: topic?.description ?? '',
+      route: topic?.route ?? `/knowledge/${topicId}`,
+      gradient: topic?.gradient ?? 'linear-gradient(130deg, #DA8F86, #377589)',
     };
   });
 

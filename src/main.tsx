@@ -17,6 +17,7 @@ const TopicDetailPage = lazy(() => import('./pages/TopicDetailPage.tsx'));
 const ChapterContentPage = lazy(() => import('./pages/ChapterContentPage.tsx'));
 const Profile = lazy(() => import('./pages/Profile.tsx'));
 const QuizPage = lazy(() => import('./pages/QuizPage.tsx'));
+const PlacementResultPage = lazy(() => import('./pages/PlacementResultPage.tsx'));
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: 'knowledge/:topicId/quiz', element: <Suspense fallback={null}><QuizPage /></Suspense> },
       { path: 'knowledge/:topicId/:chapterId', element: <Suspense fallback={null}><ChapterContentPage /></Suspense> },
       { path: 'tonnetz', element: <Suspense fallback={null}><TonnetzPage /></Suspense> },
+      { path: 'placement-result', element: <Suspense fallback={null}><PlacementResultPage /></Suspense> },
       { path: 'profile', element: <Suspense fallback={null}><Profile /></Suspense> },
     ],
   },

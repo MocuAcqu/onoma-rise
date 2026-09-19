@@ -20,7 +20,8 @@ const HomePage = () => {
 
   const handleComplete = (result: PlacementResult) => {
     localStorage.setItem(PLACEMENT_STATUS_KEY, 'completed');
-    setShowPlacementQuiz(false);
+    // 不要在這裡把 overlay 關掉：navigate 換頁時 HomePage 整棵樹（含 overlay）
+    // 會一起卸載，先手動 setShowPlacementQuiz(false) 只會讓首頁內容在換頁前先閃一下。
     navigate('/placement-result', { state: result });
   };
 

@@ -58,25 +58,28 @@ export default function PlacementQuizOverlay({ onSkip, onComplete }: Props) {
         ) : (
           <div className="placement-question">
             <img src={mainLogoImage} alt="OnomaRise" className="placement-question__logo" />
-            <p className="placement-question__progress">{step + 1}/{totalQuestions}</p>
-            <p className="placement-question__category">{placementQuestions[step].category}</p>
-            <h2 className="placement-question__text">{placementQuestions[step].question}</h2>
 
-            <div className="placement-options">
-              {placementQuestions[step].options.map((option, optionIndex) => (
-                <button
-                  key={option.id}
-                  className={`placement-btn placement-btn--option placement-btn--option-${optionIndex}`}
-                  onClick={() => handleAnswer(option.id)}
-                >
-                  {option.label}
-                </button>
-              ))}
+            <div className="placement-question__body">
+              <p className="placement-question__progress">{step + 1}/{totalQuestions}</p>
+              <p className="placement-question__category">{placementQuestions[step].category}</p>
+              <h2 className="placement-question__text">{placementQuestions[step].question}</h2>
+
+              <div className="placement-options">
+                {placementQuestions[step].options.map((option, optionIndex) => (
+                  <button
+                    key={option.id}
+                    className={`placement-btn placement-btn--option placement-btn--option-${optionIndex}`}
+                    onClick={() => handleAnswer(option.id)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+
+              <button className="placement-skip" onClick={() => handleAnswer(DONT_KNOW_OPTION_ID)}>
+                不知道
+              </button>
             </div>
-
-            <button className="placement-skip" onClick={() => handleAnswer(DONT_KNOW_OPTION_ID)}>
-              不知道
-            </button>
           </div>
         )}
       </div>

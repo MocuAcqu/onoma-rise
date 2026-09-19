@@ -35,10 +35,6 @@
   margin-bottom: 1rem;
 }
 
-.placement-question__logo {
-  width: 160px;
-}
-
 .placement-intro__title {
   font-size: 1.7rem;
   font-weight: 800;
@@ -62,8 +58,8 @@
 .placement-question__category,
 .placement-question__text {
   font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--color-text-primary);
+  font-weight: 700;
+  color: #7A72A0;
   line-height: 1.5;
 }
 

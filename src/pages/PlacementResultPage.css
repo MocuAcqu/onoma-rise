@@ -30,10 +30,12 @@
 }
 
 /* 推薦單元卡片直接複用 KnowledgePage.css 的 .topics-list / .topic-card-link 等樣式與動畫，
-   這裡只需要在這個頁面的窄版容器裡調整外距。 */
+   這裡只需要在這個頁面的窄版容器裡調整外距。外層 .placement-result 是置中對齊，
+   但卡片裡的文字要跟樂理知識頁面一樣靠左，所以這裡把 text-align 重設回來。 */
 .placement-result__list {
   width: 100%;
   margin-bottom: 1.5rem;
+  text-align: left;
 }
 
 .placement-result__actions {

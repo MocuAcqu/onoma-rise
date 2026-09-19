@@ -17,40 +17,38 @@
   justify-content: center;
 }
 
+/* intro 畫面跟題目畫面共用同一套排版：logo 用 absolute 定位、不佔 flex 排版空間，
+   內容區塊（.xxx__body）用整個畫面高度置中，logo 的 top 則由 JS 動態算出，
+   讓 logo 落在「畫面最上緣」跟「內容區塊上緣」之間的正中央。 */
 .placement-intro,
 .placement-question {
+  position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.6rem;
-}
-
-/* 題目畫面要撐滿整個 overlay 的高度：logo 固定在上方，
-   問題本體（進度／分類／題目／選項／不知道）在剩餘空間裡垂直置中，
-   這樣看起來題目才會落在整個畫面的正中間，而不是被 logo 往下擠。 */
-.placement-question {
   min-height: calc(100vh - 4rem);
-  justify-content: flex-start;
-}
-
-.placement-question__body {
-  flex: 1;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+.placement-intro__body,
+.placement-question__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.6rem;
 }
 
 .placement-intro__logo,
 .placement-question__logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 320px;
   max-width: 85%;
   height: auto;
-  margin-bottom: 1rem;
 }
 
 .placement-intro__title {
@@ -72,11 +70,12 @@
   margin: 0;
 }
 
-/* 「音樂中」跟後面的問題句是同一句題目，字體大小和顏色要一致 */
+/* 「音樂中」跟後面的問題句是同一句題目，字體大小和顏色要一致。
+   Noto Serif TC 只載入了 400/500/700/800 這幾個字重，700 還是太粗，改用 500。 */
 .placement-question__category,
 .placement-question__text {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 500;
   color: #7A72A0;
   line-height: 1.5;
 }
@@ -160,4 +159,13 @@
   .placement-intro__title { font-size: 1.35rem; }
   .placement-question__text { font-size: 1.15rem; }
   .placement-btn--option { padding: 0.75rem 1.2rem; font-size: 0.9rem; }
+}
+
+/* 螢幕高度不夠時（例如很矮的視窗），置中的內容區塊會頂到 logo，
+   這裡縮小 logo 讓兩者留出空間，避免疊在一起。 */
+@media (max-height: 650px) {
+  .placement-intro__logo,
+  .placement-question__logo {
+    width: 160px;
+  }
 }

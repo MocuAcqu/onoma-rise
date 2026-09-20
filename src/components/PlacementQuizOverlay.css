@@ -1,0 +1,169 @@
+.placement-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(160deg, #ffffff 0%, #f3e9ff 55%, #eef2ff 100%);
+  overflow-y: auto;
+}
+
+.placement-overlay__panel {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+}
+
+/* intro 畫面跟題目畫面共用同一套排版：logo 用 absolute 定位、不佔 flex 排版空間，
+   內容區塊（.xxx__body）用整個畫面高度置中，logo 的 top 則由 JS 動態算出，
+   讓 logo 落在「畫面最上緣」跟「內容區塊上緣」之間的正中央。 */
+.placement-intro,
+.placement-question {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.placement-intro__body,
+.placement-question__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.placement-intro__logo,
+.placement-question__logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  max-width: 85%;
+  height: auto;
+}
+
+.placement-intro__title {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin: 0 0 0.4rem;
+}
+
+.placement-intro__desc {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.8rem;
+}
+
+.placement-question__progress {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Noto Serif TC 只載入了 400/500/700/800 這幾個字重，700 還是太粗，改用 500。 */
+.placement-question__text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #7A72A0;
+  line-height: 1.5;
+  margin: 0.4rem 0 2rem;
+}
+
+/* 四個選項固定排在同一行（不換行），每顆等寬，按鈕裡的文字太長就在按鈕內換行。 */
+.placement-options {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.placement-btn {
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  border-radius: 999px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.placement-btn--primary {
+  padding: 1.1rem 2.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-image: linear-gradient(to right, var(--color-blue3) 0%, var(--color-btn6) 55%, var(--color-btn5) 100%);
+  box-shadow: 0 12px 24px -8px rgba(39, 70, 143, 0.45);
+}
+
+.placement-btn--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 28px -8px rgba(39, 70, 143, 0.5);
+}
+
+.placement-btn--option {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.85rem 1.2rem;
+  line-height: 1.4;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-image: linear-gradient(to right, #2A4791, #EBA8E1);
+  box-shadow: 0 8px 18px -6px rgba(39, 70, 143, 0.4);
+}
+
+.placement-btn--option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px -6px rgba(39, 70, 143, 0.45);
+}
+
+/* 四個選項按鈕合起來是一條從 #2A4791（深藍）到 #EBA8E1（粉色）的連續漸層，
+   每顆按鈕各自呈現其中一段：深藍→身紫、身紫→淺紫、淺紫→紫粉、紫粉→粉色。 */
+.placement-btn--option-0 { background-image: linear-gradient(to right, #2A4791, #5A5FA5); }
+.placement-btn--option-1 { background-image: linear-gradient(to right, #5A5FA5, #8B78B9); }
+.placement-btn--option-2 { background-image: linear-gradient(to right, #8B78B9, #BB90CD); }
+.placement-btn--option-3 { background-image: linear-gradient(to right, #BB90CD, #EBA8E1); }
+
+.placement-skip {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.placement-skip:hover {
+  color: var(--color-violet);
+}
+
+@media (max-width: 640px) {
+  .placement-intro__title { font-size: 1.35rem; }
+  .placement-question__text { font-size: 1.15rem; }
+  .placement-btn--option { padding: 0.75rem 1.2rem; font-size: 0.9rem; }
+  /* 手機寬度放不下四顆並排，改成單欄直排，每顆撐滿寬度。 */
+  .placement-options { flex-direction: column; align-items: stretch; }
+  .placement-btn--option { flex: none; width: 100%; }
+}
+
+/* 螢幕高度不夠時（例如很矮的視窗），置中的內容區塊會頂到 logo，
+   這裡縮小 logo 讓兩者留出空間，避免疊在一起。 */
+@media (max-height: 650px) {
+  .placement-intro__logo,
+  .placement-question__logo {
+    width: 160px;
+  }
+}

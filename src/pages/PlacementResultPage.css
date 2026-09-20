@@ -1,0 +1,80 @@
+.placement-result {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(80px + 3rem) 1.5rem 4rem;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.placement-result__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background-image: linear-gradient(to right, var(--color-blue3), var(--color-btn6), var(--color-btn5));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0 0 1rem;
+}
+
+.placement-result__message {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  white-space: pre-line;
+  max-width: 560px;
+  margin: 0 0 2.5rem;
+}
+
+/* 推薦單元卡片直接複用 KnowledgePage.css 的 .topics-list / .topic-card-link 等樣式與動畫，
+   這裡只需要在這個頁面的窄版容器裡調整外距。外層 .placement-result 是置中對齊，
+   但卡片裡的文字要跟樂理知識頁面一樣靠左，所以這裡把 text-align 重設回來。 */
+.placement-result__list {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.placement-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.placement-result .placement-btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  border-radius: 999px;
+  padding: 0.9rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.placement-result .placement-btn--primary {
+  color: #ffffff;
+  background-image: linear-gradient(to right, var(--color-blue3) 0%, var(--color-btn6) 55%, var(--color-btn5) 100%);
+  box-shadow: 0 12px 24px -8px rgba(39, 70, 143, 0.45);
+}
+
+.placement-result .placement-btn--secondary {
+  color: var(--color-text-primary);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.placement-result .placement-btn:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .placement-result__title { font-size: 1.7rem; }
+}

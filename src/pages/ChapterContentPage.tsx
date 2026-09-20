@@ -5,6 +5,7 @@ import { IoCaretBack, IoCaretForward, IoHeartOutline, IoHeart, IoEyeOutline } fr
 import { knowledgeTopics } from './knowledgeData';
 import axios from 'axios';
 import './ChapterContentPage.css';
+import GuideAssistant from '../components/GuideAssistant/GuideAssistant';
 
 import PitchNamePage1 from '../components/interactive/PitchName/PitchNamePage1';
 import PitchNamePage2 from '../components/interactive/PitchName/PitchNamePage2';
@@ -361,6 +362,7 @@ const ChapterContentPage = () => {
           </div>
         </div>
       </div>
+      <GuideAssistant key={`${chapterId}-${currentPageIndex}`} chapterId={chapterId} pageIndex={currentPageIndex} totalPages={totalPages} />
     </div>
   );
 };

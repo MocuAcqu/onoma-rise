@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, type CSSProperties } from 'react';
 import * as Tone from 'tone';
 import './PitchClassSet.css';
 
@@ -18,6 +18,15 @@ const PitchClassSetPage1 = () => {
     sampler.current.triggerAttackRelease(note, "4n");
     setTimeout(() => setJumpingNote(null), 400);
   };
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence: string[] }>).detail;
+      if (demo.target !== 'pitch-class') return;
+      demo.sequence.forEach((note, index) => window.setTimeout(() => handleNoteClick(note), index * 620));
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, []);
 
   return (
     <div className="pitch-set-container">
@@ -26,7 +35,7 @@ const PitchClassSetPage1 = () => {
       </p>
       <div className="stairs-wrapper">
         {NOTES.map((note, index) => (
-          <div key={note} className="stair-step" style={{ '--step-index': index } as any} onClick={() => handleNoteClick(note)}>
+          <div key={note} className="stair-step" style={{ '--step-index': index } as CSSProperties & Record<'--step-index', number>} onClick={() => handleNoteClick(note)}>
             <span 
               className={`pitch-letter ${jumpingNote === note ? 'jumping' : ''}`}
               onClick={() => handleNoteClick(note)}

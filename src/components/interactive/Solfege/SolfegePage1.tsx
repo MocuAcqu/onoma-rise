@@ -51,6 +51,16 @@ const SolfegePage1 = () => {
     }
   };
 
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence: string[] }>).detail;
+      if (demo.target !== 'solfege-voice') return;
+      demo.sequence.forEach((note, index) => window.setTimeout(() => playVoice(note), index * 620));
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, [isLoaded, playVoice]);
+
   return (
     <div className="page-content">
       <p>唱名是用於演唱時方便唱譜使用，有助於演唱者區分音程。以 Do、Re、Mi、Fa、Sol、La、Si 七個字做為樂音。</p>

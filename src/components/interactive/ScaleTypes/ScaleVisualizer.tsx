@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import * as Tone from 'tone';
 import { generateScale, generatePianoKeys} from './ScaleUtils';
 import './ScaleDefinition.css';
@@ -75,7 +75,7 @@ const ScaleVisualizer: React.FC<Props> = ({ formula, scaleName, isMinor = false,
     return generatePianoKeys(startingCMidi, keysNeeded);
   }, [currentScale]);
 
-  const playNote = async (fullPitch: string, index: number) => {
+  const playNote = useCallback(async (fullPitch: string, index: number) => {
     await Tone.start();
     if (!isLoaded || !sampler.current) return;
 
@@ -83,9 +83,23 @@ const ScaleVisualizer: React.FC<Props> = ({ formula, scaleName, isMinor = false,
     
     setActiveIndex(index);
     setTimeout(() => setActiveIndex(null), 300);
-  };
+  }, [isLoaded]);
 
   const actualRootName = isMinor && MINOR_OPTIMAL_ROOTS[selectedRoot] ? MINOR_OPTIMAL_ROOTS[selectedRoot] : selectedRoot;
+
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence?: string[] }>).detail;
+      if (demo.target !== 'scale') return;
+      const sequence = demo.sequence?.length ? demo.sequence : currentScale.map(note => note.fullPitch);
+      sequence.forEach((pitch, index) => window.setTimeout(() => {
+        const scaleIndex = currentScale.findIndex(note => Tone.Frequency(note.fullPitch).toMidi() === Tone.Frequency(pitch).toMidi());
+        playNote(pitch, scaleIndex >= 0 ? scaleIndex : 0);
+      }, index * 620));
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, [currentScale, playNote]);
 
   return (
     <div className="scale-visualizer-container">

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import * as Tone from 'tone';
 import { calculateInterval } from './IntervalUtils';
 import './IntervalDefinition.css';
@@ -23,6 +23,16 @@ const IntervalPage1 = () => {
   };
 
   const { lowNote, highNote, semitones } = calculateInterval(selection[0], selection[1]);
+
+  useEffect(() => {
+    const handleDemo = (event: Event) => {
+      const demo = (event as CustomEvent<{ target: string; sequence: string[] }>).detail;
+      if (demo.target !== 'interval') return;
+      demo.sequence.forEach((note, index) => window.setTimeout(() => handleKeyClick(note), index * 620));
+    };
+    window.addEventListener('onoma-play-tool-demo', handleDemo);
+    return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
+  }, []);
 
   return (
     <div className="interval-container">
@@ -53,4 +63,3 @@ const IntervalPage1 = () => {
   );
 };
 export default IntervalPage1;
-

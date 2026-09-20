@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
-  placementQuestions,
+  pickPlacementQuestions,
   DONT_KNOW_OPTION_ID,
   buildPlacementResult,
   type PlacementAnswer,
@@ -86,14 +86,16 @@ function CenteredStep({ className, children, deps }: CenteredStepProps) {
 }
 
 export default function PlacementQuizOverlay({ onSkip, onComplete }: Props) {
+  // 題目在 overlay 掛載時抽一次並固定下來，答題過程中不會因為重新渲染而換題。
+  const [questions] = useState(() => pickPlacementQuestions());
   const [step, setStep] = useState<'intro' | number>('intro');
   const [answers, setAnswers] = useState<PlacementAnswer[]>([]);
 
-  const totalQuestions = placementQuestions.length;
+  const totalQuestions = questions.length;
 
   const handleAnswer = (optionId: string) => {
     const questionIndex = step as number;
-    const question = placementQuestions[questionIndex];
+    const question = questions[questionIndex];
 
     const nextAnswers = [
       ...answers,
@@ -128,11 +130,10 @@ export default function PlacementQuizOverlay({ onSkip, onComplete }: Props) {
         ) : (
           <CenteredStep key="question" className="placement-question" deps={[step]}>
             <p className="placement-question__progress">{step + 1}/{totalQuestions}</p>
-            <p className="placement-question__category">{placementQuestions[step].category}</p>
-            <h2 className="placement-question__text">{placementQuestions[step].question}</h2>
+            <h2 className="placement-question__text">{questions[step].question}</h2>
 
             <div className="placement-options">
-              {placementQuestions[step].options.map((option, optionIndex) => (
+              {questions[step].options.map((option, optionIndex) => (
                 <button
                   key={option.id}
                   className={`placement-btn placement-btn--option placement-btn--option-${optionIndex}`}

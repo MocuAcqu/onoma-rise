@@ -12,7 +12,7 @@
 
 .placement-overlay__panel {
   width: 100%;
-  max-width: 640px;
+  max-width: 1000px;
   display: flex;
   justify-content: center;
 }
@@ -70,27 +70,19 @@
   margin: 0;
 }
 
-/* 「音樂中」跟後面的問題句是同一句題目，字體大小和顏色要一致。
-   Noto Serif TC 只載入了 400/500/700/800 這幾個字重，700 還是太粗，改用 500。 */
-.placement-question__category,
+/* Noto Serif TC 只載入了 400/500/700/800 這幾個字重，700 還是太粗，改用 500。 */
 .placement-question__text {
   font-size: 1.4rem;
   font-weight: 500;
   color: #7A72A0;
   line-height: 1.5;
+  margin: 0.4rem 0 2rem;
 }
 
-.placement-question__category {
-  margin: 0.2rem 0 0;
-}
-
-.placement-question__text {
-  margin: 0 0 2rem;
-}
-
+/* 四個選項固定排在同一行（不換行），每顆等寬，按鈕裡的文字太長就在按鈕內換行。 */
 .placement-options {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 1rem;
   width: 100%;
@@ -120,7 +112,10 @@
 }
 
 .placement-btn--option {
-  padding: 0.85rem 1.6rem;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.85rem 1.2rem;
+  line-height: 1.4;
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
@@ -159,6 +154,9 @@
   .placement-intro__title { font-size: 1.35rem; }
   .placement-question__text { font-size: 1.15rem; }
   .placement-btn--option { padding: 0.75rem 1.2rem; font-size: 0.9rem; }
+  /* 手機寬度放不下四顆並排，改成單欄直排，每顆撐滿寬度。 */
+  .placement-options { flex-direction: column; align-items: stretch; }
+  .placement-btn--option { flex: none; width: 100%; }
 }
 
 /* 螢幕高度不夠時（例如很矮的視窗），置中的內容區塊會頂到 logo，

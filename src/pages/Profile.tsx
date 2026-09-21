@@ -36,8 +36,20 @@ const Profile = () => {
   const viewedCount = dashboardData.viewedChapters.length;
   const passedQuizzesCount = dashboardData.quizRecords.filter((q: any) => q.passed).length;
   
-  // 計算總體完成度百分比
-  const completionRate = Math.round(((viewedCount / totalChapters) * 0.5 + (passedQuizzesCount / totalQuizzes) * 0.5) * 100);
+  const chapterProgress = Math.min(viewedCount / totalChapters, 1);
+  const quizProgress = Math.min(passedQuizzesCount / totalQuizzes, 1);
+
+  const bonusItems = [
+    dashboardData.visitedAbout,
+    dashboardData.usedAudioIdentify, 
+    dashboardData.usedScoreIdentify
+  ];
+  const bonusCount = bonusItems.filter(Boolean).length;
+  const bonusProgress = bonusCount / 3; // (0 ~ 1)
+
+  const completionRate = Math.round(
+    (chapterProgress * 0.4 + quizProgress * 0.4 + bonusProgress * 0.2) * 100
+  );
 
   // 整理喜歡的章節名稱
   const likedChapterTitles = dashboardData.likedChapters.map((chapId: string) => {
@@ -70,6 +82,12 @@ const Profile = () => {
             <li><FiCheckCircle /> 完成測驗: {passedQuizzesCount} / {totalQuizzes}</li>
             <li className={dashboardData.visitedAbout ? 'completed' : 'uncompleted'}>
               關於我們: {dashboardData.visitedAbout ? '已解鎖' : '未探索'}
+            </li>
+            <li className={dashboardData.usedAudioIdentify ? 'completed' : 'uncompleted'}>
+              <FiCheckCircle /> 音訊辨識體驗: {dashboardData.usedAudioIdentify ? '已解鎖' : '未體驗'}
+            </li>
+            <li className={dashboardData.usedScoreIdentify ? 'completed' : 'uncompleted'}>
+              <FiCheckCircle /> 樂譜辨識體驗: {dashboardData.usedScoreIdentify ? '已解鎖' : '未體驗'}
             </li>
           </ul>
         </div>

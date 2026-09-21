@@ -5,7 +5,7 @@ import './FloatingBGM.css';
 const FloatingBGM = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const targetVolume = useRef(0.2); 
-  const fadeInterval = useRef<number | null>(null);
+  const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.15); 
   const [isHovered, setIsHovered] = useState(false);

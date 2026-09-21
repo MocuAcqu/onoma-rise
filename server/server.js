@@ -198,6 +198,28 @@ app.post('/api/user/progress/about', async (req, res) => {
   }
 });
 
+app.post('/api/user/progress/audio-identify', async (req, res) => {
+  const { username } = req.body;
+  if (!username) return res.status(400).send('未登入');
+  try {
+    await User.findOneAndUpdate({ username }, { usedAudioIdentify: true });
+    res.send('Success');
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+app.post('/api/user/progress/score-identify', async (req, res) => {
+  const { username } = req.body;
+  if (!username) return res.status(400).send('未登入');
+  try {
+    await User.findOneAndUpdate({ username }, { usedScoreIdentify: true });
+    res.send('Success');
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 app.get('/api/user/dashboard/:username', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
@@ -208,6 +230,8 @@ app.get('/api/user/dashboard/:username', async (req, res) => {
       likedChapters: user.likedChapters,
       visitedAbout: user.visitedAbout,
       usedTonnetz: user.usedTonnetz,
+      usedAudioIdentify: user.usedAudioIdentify || false,
+      usedScoreIdentify: user.usedScoreIdentify || false,
       quizRecords: user.quizRecords
     });
   } catch (err) {

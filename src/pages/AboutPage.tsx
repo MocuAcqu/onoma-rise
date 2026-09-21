@@ -66,10 +66,12 @@ const timeline = [
   { date: '2026.7.17', event: '新指導教授進度會議',   type: 'project'   },
   { date: '2026.8.11',  event: '第十一次組內會議',   type: 'internal'   },
   { date: '2026.9.2',  event: '第十二次組內會議',   type: 'internal'   },
+  { date: '2026.9.10',  event: '第五次組內會議',   type: 'project'   },
+  { date: '2026.9.26',  event: '第十三次組內會議',   type: 'internal'   },
 ]; 
   
 const tools = [
-  'React', 'TypeScript', 'Vite', 'Tone.js', 'VexFlow', 'MongoDB', 'Express',
+  'React', 'TypeScript', 'Vite', 'Tone.js', 'MongoDB', 'Node.js', 'Python', 
 ];
 
 const AboutPage = () => {
@@ -93,7 +95,7 @@ const AboutPage = () => {
         <h2 className="about-section-title">專題理念</h2>
         <div className="about-text-block">
           <p>
-            待補充
+            我們最初想以「調性網路」為核心，用幾何圖形呈現和弦之間的關係。但要看懂這張圖需要基礎樂理，於是我們加入互動式的樂理知識單元，讓兩者搭配使用。這個專題一開始的樣貌很模糊，過程中不斷收到各方建議、也不斷質疑自己，卻在一路做下去的過程中，對它越來越有想像。我們希望，讓對樂理完全陌生的人，也能用視覺的方式看見和弦的關係。
           </p>
         </div>
       </section>
@@ -141,7 +143,7 @@ const AboutPage = () => {
         <div className="future-layout">
           <div className="future-text">
             <p>
-              待補充
+              未來，我們希望音樂辨識能處理更精準、更複雜的音訊，讓調性網路上呈現的軌跡更貼近真實的音樂。在樂理內容上，我們也計畫持續擴充，例如和弦進行與轉調等與調性網路直接相關的主題，讓使用者從看懂和弦，走到看懂音樂如何流動。
             </p>
           </div>
           <div className="future-card" />

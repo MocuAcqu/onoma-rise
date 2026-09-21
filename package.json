@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "server": "node server/server.js",
+    "python-api": "cd python-backend/backend && ..\\venv\\Scripts\\python -m uvicorn tonnze.main:app --reload --port 8000",
+    "python-worker": "cd python-backend/backend && ..\\venv\\Scripts\\python -m tonnze.worker",
+    "dev:all": "concurrently \"npm run server\" \"npm run python-api\" \"npm run python-worker\" \"npm run dev\""
   },
   "dependencies": {
     "@react-oauth/google": "^0.13.4",
+    "@tonejs/midi": "^2.0.28",
     "axios": "^1.19.0",
     "jwt-decode": "^4.0.0",
     "lottie-web": "^5.13.0",
+    "opensheetmusicdisplay": "^2.1.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
@@ -28,6 +32,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^10.0.5",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",

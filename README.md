@@ -183,20 +183,77 @@
 <details>
 <summary>專案啟動方式</summary>
 
+我們需要安裝 Python 的 AI 辨識依賴（請確保電腦已安裝 Python 3.11 或 3.12）。
+- Windows 使用者：
+```
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r python-backend\backend\requirements.txt
+```
+
+- Mac / Linux 使用者：
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r python-backend/backend/requirements.txt
+```
+
+因為 Python 套件 musicxml 在 Windows 讀檔時會有編碼衝突，如果是 Windows 使用者，請找到這個檔案：
+venv/Lib/site-packages/musicxml/generate_classes/utils.py
+將 utils.py 內容修改為：
+
+```
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+ns = '{http://www.w3.org/2001/XMLSchema}'
+xml_xsd_path = Path(__file__).parent / 'xml.xsd'
+musicxml_xsd_path = Path(__file__).parent / 'musicxml_4_0.xsd'
+
+with open(xml_xsd_path, "r", encoding="utf-8") as file:
+    xml_et_tree = ET.parse(file)
+
+with open(musicxml_xsd_path, "r", encoding="utf-8") as file:
+    musicxml_et_tree = ET.parse(file)
+
+xml_xsd_et_root = xml_et_tree.getroot()
+musicxml_xsd_et_root = musicxml_et_tree.getroot()
+
+
+def get_all_et_elements(source_path, tag):
+    with open(source_path, "r", encoding="utf-8") as file:
+        xsd_tree = ET.parse(file)
+    root = xsd_tree.getroot()
+    return root.findall(f"{{*}}{tag}")
+
+
+def get_simple_type_all_base_classes(xml_element_tree_element):
+    base_class_names = xml_element_tree_element.xsd_tree_base_class_names
+    if [name for name in base_class_names if name.startswith('XSDSimpleType')]:
+        pass
+    else:
+        base_class_names.insert(0, 'XSDSimpleType')
+    return base_class_names
+
+
+def get_complex_type_all_base_classes(xsd_element_tree_element):
+    base_class_names = xsd_element_tree_element.xsd_tree_base_class_names
+    if [name for name in base_class_names if name.startswith('XSDComplexType')]:
+        pass
+    else:
+        base_class_names.insert(0, 'XSDComplexType')
+    return base_class_names
+
+```
+
 移動到資料夾的位置:
 ```
 cd onoma-rise
 ```
 
-啟動本地前端:
+啟動本地前端+後端:
 ```
-npm run dev
-```
-
-啟動本地後端:
-```
-cd server
-node server.js
+npm run dev:all
 ```
 </details>
 

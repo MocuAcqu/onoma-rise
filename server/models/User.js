@@ -10,6 +10,8 @@ const UserSchema = new mongoose.Schema({
   likedChapters: [{ type: String }],  
   visitedAbout: { type: Boolean, default: false }, 
   usedTonnetz: { type: Boolean, default: false },  
+  usedAudioIdentify: { type: Boolean, default: false }, 
+  usedScoreIdentify: { type: Boolean, default: false },
   quizRecords: [{
     topicId: String,      
     attempts: { type: Number, default: 0 }, 

@@ -6,14 +6,7 @@ from pathlib import Path
 
 from PIL import Image
 
-
-_MUSIC_TEXT = re.compile(
-    r"\b(?:grave|largo|lento|adagio|andante|moderato|allegretto|allegro|"
-    r"vivace|presto|prestissimo|brightly|tempo|rit|rall|accel|cresc|dim|"
-    r"decresc|dolce|legato|cantabile|espressivo|marcato|trio|coda|"
-    r"ppp|pp|mp|mf|fff|ff|p|f)\b",
-    re.IGNORECASE,
-)
+from tonnze.rules.registry import contains_music_text
 
 
 def _box(value) -> list[list[float]]:
@@ -104,7 +97,7 @@ def _needs_detail_pass(rows: list[dict]) -> bool:
     # Sparse classical pages are exactly where a full-page detector tends to
     # miss tiny one- or two-letter dynamics. Only pay for tiled OCR when the
     # first pass is sparse or contains no performance direction at all.
-    return len(rows) < 16 or not any(_MUSIC_TEXT.search(row["text"]) for row in rows)
+    return len(rows) < 16 or not any(contains_music_text(row["text"]) for row in rows)
 
 
 def recognize(image: Path) -> list[dict]:

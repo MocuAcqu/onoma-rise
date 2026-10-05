@@ -8,6 +8,7 @@ type MeasureSpan = {
   forward: boolean;
   backwardTimes: number | null;
   endings: Set<number>;
+  navigation: Set<string>;
 };
 
 // Product rule: every backward repeat returns once, so the section is heard
@@ -38,6 +39,20 @@ function endingNumbers(value = "") {
   const numbers = new Set<number>();
   for (const match of value.matchAll(/\d+/g)) numbers.add(Number(match[0]));
   return numbers;
+}
+
+function navigationMarks(body: string) {
+  const marks = new Set<string>();
+  const text = [...body.matchAll(/<(?:words|rehearsal)\b[^>]*>([^<]+)<\/(?:words|rehearsal)>/gi)]
+    .map((match) => match[1].toLowerCase().replace(/\s+/g, " "))
+    .join(" ");
+  if (/\b(?:d\.?\s*c\.?|da capo)\b/i.test(text)) marks.add("da-capo");
+  if (/\b(?:d\.?\s*s\.?|dal segno)\b/i.test(text)) marks.add("dal-segno");
+  if (/\b(?:to|al) coda\b/i.test(text)) marks.add("to-coda");
+  if ((/\bsegno\b/i.test(text) || /<segno\b/i.test(body)) && !marks.has("dal-segno")) marks.add("segno");
+  if ((/\bcoda\b/i.test(text) || /<coda\b/i.test(body)) && !marks.has("to-coda")) marks.add("coda");
+  if (/\bfine\b/i.test(text) && !/\bal fine\b/i.test(text)) marks.add("fine");
+  return marks;
 }
 
 function measureDuration(body: string, divisions: number, fallback: number) {
@@ -98,6 +113,7 @@ function measureSpans(xml: string): MeasureSpan[] {
       forward,
       backwardTimes,
       endings: new Set(activeEndings),
+      navigation: navigationMarks(body),
     };
     startBeat += duration;
 
@@ -117,14 +133,34 @@ function playbackOrder(measures: MeasureSpan[]) {
   let repeatPass = 1;
   let index = 0;
   let guard = 0;
+  let navigationTaken = false;
+  let codaArmed = false;
+  let jumpedToCoda = false;
+  const segno = measures.findIndex((measure) => measure.navigation.has("segno"));
+  const coda = measures.findIndex((measure) => measure.navigation.has("coda"));
+  const hasNavigationCommand = measures.some((measure) =>
+    measure.navigation.has("da-capo") || measure.navigation.has("dal-segno"),
+  );
   while (index < measures.length && guard++ < Math.max(32, measures.length * 12)) {
     const measure = measures[index];
+    if (
+      codaArmed && !jumpedToCoda && measure.navigation.has("to-coda")
+      && coda >= 0 && coda !== index
+    ) {
+      jumpedToCoda = true;
+      index = coda;
+      continue;
+    }
     if (measure.forward && index !== repeatStart) {
       repeatStart = index;
       repeatPass = 1;
     }
     const allowed = !measure.endings.size || measure.endings.has(repeatPass);
     if (allowed) order.push({ index, pass: repeatPass });
+    if (
+      allowed && measure.navigation.has("fine")
+      && (navigationTaken || !hasNavigationCommand)
+    ) break;
     if (allowed && measure.backwardTimes) {
       const played = completed.get(index) ?? 1;
       const totalPasses = Math.min(MAX_REPEAT_PASSES, measure.backwardTimes);
@@ -135,6 +171,22 @@ function playbackOrder(measures: MeasureSpan[]) {
         continue;
       }
       repeatStart = index + 1;
+    }
+    if (!navigationTaken && measure.navigation.has("da-capo")) {
+      navigationTaken = true;
+      codaArmed = true;
+      repeatStart = 0;
+      repeatPass = 1;
+      index = 0;
+      continue;
+    }
+    if (!navigationTaken && measure.navigation.has("dal-segno") && segno >= 0) {
+      navigationTaken = true;
+      codaArmed = true;
+      repeatStart = segno;
+      repeatPass = 1;
+      index = segno;
+      continue;
     }
     index++;
   }

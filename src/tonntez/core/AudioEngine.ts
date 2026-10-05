@@ -1,15 +1,15 @@
 import type * as Tone from "tone";
 import PitchUtils from "./PitchUtils";
 import type { PitchClass } from "../type";
-import { createPianoInstrument, type PianoInstrument } from "./PianoInstrument";
 
 export class AudioEngine {
-  private _synth: PianoInstrument | null = null;
+  private _synth: Tone.PolySynth<Tone.Synth> | null = null;
   private _active : Set<string>;
   private _activePCs: Set<PitchClass>;
   private _Tone: typeof Tone | null = null;
   private _initPromise: Promise<void> | null = null;
   private _generation = 0;
+  private _transportEvents = new Set<number>();
 
   constructor() {
     this._synth = null;
@@ -22,20 +22,27 @@ export class AudioEngine {
     if (this._initPromise) return this._initPromise;
 
     const generation = this._generation;
-    this._initPromise = import("tone").then(async (tone) => {
+    this._initPromise = import("tone").then((tone) => {
       if (generation !== this._generation) return;
       this._Tone = tone;
-      const instrument = await createPianoInstrument(tone);
-      if (generation !== this._generation) {
-        instrument.dispose();
-        return;
-      }
-      this._synth = instrument;
+      this._synth = new tone.PolySynth(tone.Synth, {
+        envelope: {
+          attack: 0.001,
+          decay: 0.04,
+          sustain: 0.55,
+          release: 0.12,
+        },
+      }).toDestination();
+      // Dense piano passages can keep many voices in their release tail at
+      // once. Tone drops new notes when this limit is reached.
+      this._synth.maxPolyphony = 64;
+      this._synth.volume.value = -10;
     });
     return this._initPromise;
   }
 
   dispose(): void {
+    this.cancelScheduledPlayback();
     this._generation += 1;
     this._synth?.dispose();
     this._synth = null;
@@ -78,6 +85,58 @@ export class AudioEngine {
     startTime: number = this.now(),
   ): void {
     this._synth?.triggerAttackRelease(notes, durationSec, startTime, velocity);
+  }
+
+  prepareScheduledPlayback(): void {
+    const transport = this._Tone?.getTransport();
+    if (!transport) return;
+    transport.stop();
+    transport.cancel(0);
+    transport.loop = false;
+    transport.seconds = 0;
+    this._transportEvents.clear();
+    this._synth?.releaseAll(this.now());
+  }
+
+  scheduleAttackRelease(
+    note: string,
+    offsetSec: number,
+    durationSec: number,
+    velocity: number,
+  ): void {
+    const transport = this._Tone?.getTransport();
+    if (!transport || !this._synth) return;
+    let eventId = 0;
+    eventId = transport.scheduleOnce((time) => {
+      this._transportEvents.delete(eventId);
+      this._synth?.triggerAttackRelease(
+        note,
+        Math.max(0.025, durationSec),
+        time,
+        velocity,
+      );
+    }, Math.max(0, offsetSec));
+    this._transportEvents.add(eventId);
+  }
+
+  startScheduledPlayback(delaySec = 0.03): void {
+    const transport = this._Tone?.getTransport();
+    if (!transport) return;
+    transport.loop = false;
+    transport.start(`+${delaySec}`, 0);
+  }
+
+  cancelScheduledPlayback(): void {
+    const transport = this._Tone?.getTransport();
+    if (transport) {
+      for (const eventId of this._transportEvents) transport.clear(eventId);
+      transport.stop();
+      transport.cancel(0);
+      transport.loop = false;
+      transport.seconds = 0;
+    }
+    this._transportEvents.clear();
+    this._synth?.releaseAll(this.now());
   }
 
   releaseAll(): void {

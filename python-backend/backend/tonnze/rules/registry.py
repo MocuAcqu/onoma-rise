@@ -10,6 +10,11 @@ from tonnze.rules.tempo import TEMPO_RULES
 TEXT_RULES = (*TEMPO_RULES, *DYNAMIC_RULES, *EXPRESSION_RULES)
 
 
+def contains_music_text(text: str) -> bool:
+    """Return whether OCR text contains any term understood by the rules engine."""
+    return bool(recognize_terms(text) or DYNAMIC_PATTERN.search(text))
+
+
 def recognize_terms(text: str) -> list[TextRule]:
     cleaned = " ".join(text.replace("|", " ").split())
     found: list[TextRule] = []

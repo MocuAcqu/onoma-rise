@@ -5,13 +5,14 @@ import json
 import shutil
 import sys
 import xml.etree.ElementTree as ET
+from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import closing
 from pathlib import Path
 
 import pypdfium2 as pdfium
 from PIL import Image
-from music21 import converter
+from music21 import bar, converter, repeat
 
 from tonnze.recognition import homr, ocr, yolo
 from tonnze.rules.articulations import articulation_events
@@ -105,6 +106,22 @@ def _optional_engines(image: Path) -> dict:
     return {"engines": engines, "ocr": ocr_rows, "yolo": yolo_result}
 
 
+def _write_linear_midi(score, target: Path) -> None:
+    """Write source-order MIDI; repeat playback is expanded by the frontend."""
+    linear_score = deepcopy(score)
+    for measure in linear_score.recurse().getElementsByClass("Measure"):
+        if isinstance(measure.leftBarline, bar.Repeat):
+            measure.leftBarline = bar.Barline("regular")
+        if isinstance(measure.rightBarline, bar.Repeat):
+            measure.rightBarline = bar.Barline("regular")
+    for expression in list(
+        linear_score.recurse().getElementsByClass(repeat.RepeatExpression)
+    ):
+        if expression.activeSite is not None:
+            expression.activeSite.remove(expression)
+    linear_score.write("midi", fp=target)
+
+
 def _write_outputs(work: Path, homr_output: Path, auxiliary: dict, image_info: dict) -> dict:
     event(percent=82, stage="合併 MusicXML 與音樂術語")
     base = work / "base.musicxml"
@@ -127,7 +144,7 @@ def _write_outputs(work: Path, homr_output: Path, auxiliary: dict, image_info: d
     if not count:
         raise ValueError("沒有辨識到音符，請使用清晰的印刷五線譜。")
     event(percent=92, stage="產生 MIDI")
-    score.write("midi", fp=work / "result.mid")
+    _write_linear_midi(score, work / "result.mid")
     tempos = score.metronomeMarkBoundaries()
     bpm = float(tempos[0][2].getQuarterBPM()) if tempos else 120.0
     warnings = []

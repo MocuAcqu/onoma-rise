@@ -6,6 +6,19 @@ from music21 import stream
 from tonnze.rules.dynamics import DEFAULT_DYNAMIC_RAMP, DYNAMIC_VELOCITY
 
 
+EXPRESSION_PLAYBACK = {
+    "dolce": {"gate": 0.98, "velocityDelta": -0.08},
+    "legato": {"gate": 1.00, "velocityDelta": 0.0},
+    "cantabile": {"gate": 1.00, "velocityDelta": 0.04},
+    "espressivo": {"gate": 1.00, "velocityDelta": 0.08},
+    "marcato": {"gate": 0.90, "velocityDelta": 0.12},
+    "risoluto": {"gate": 0.88, "velocityDelta": 0.15},
+    "sostenuto": {"gate": 1.00, "velocityDelta": 0.0},
+    "con brio": {"gate": 0.92, "velocityDelta": 0.10},
+    "rubato": {"gate": 1.00, "velocityDelta": 0.03},
+}
+
+
 def _measure_beats(score) -> tuple[dict[int, float], float]:
     part = score.parts[0]
     starts: dict[int, float] = {}
@@ -124,4 +137,15 @@ def performance_events(score, terms: list[dict]) -> list[dict]:
                 "endValue": round(target, 3), "label": term["text"],
             })
             current_dynamic = target
+        elif kind == "expression" and term["text"] in EXPRESSION_PLAYBACK:
+            next_expression = next(
+                (item for item in ordered[index + 1:] if item.get("kind") == "expression"),
+                None,
+            )
+            end = beat(next_expression) if next_expression else score_end
+            events.append({
+                "kind": "expression", "curve": "step", "startBeat": start,
+                "endBeat": max(start, end), "label": term["text"],
+                **EXPRESSION_PLAYBACK[term["text"]],
+            })
     return events

@@ -90,6 +90,9 @@ export function withOrnamentPlayback(score: Score | null): Score | null {
       "inverted-mordent": [event.principalMidi, event.auxiliaryMidi ?? event.principalMidi + 2, event.principalMidi],
       turn: [event.auxiliaryMidi ?? event.principalMidi + 2, event.principalMidi, event.lowerAuxiliaryMidi ?? event.principalMidi - 2, event.principalMidi],
       "inverted-turn": [event.lowerAuxiliaryMidi ?? event.principalMidi - 2, event.principalMidi, event.auxiliaryMidi ?? event.principalMidi + 2, event.principalMidi],
+      "delayed-turn": [event.auxiliaryMidi ?? event.principalMidi + 2, event.principalMidi, event.lowerAuxiliaryMidi ?? event.principalMidi - 2, event.principalMidi],
+      shake: [event.principalMidi, event.auxiliaryMidi ?? event.principalMidi + 2],
+      schleifer: [event.lowerAuxiliaryMidi ?? event.principalMidi - 2, event.principalMidi, event.auxiliaryMidi ?? event.principalMidi + 2, event.principalMidi],
       tremolo: event.secondaryMidi
         ? [event.principalMidi, event.secondaryMidi]
         : [event.principalMidi],
@@ -97,16 +100,20 @@ export function withOrnamentPlayback(score: Score | null): Score | null {
     const pattern = patterns[event.ornament];
     if (!pattern) continue;
     const end = Math.max(event.startBeat + 0.03, event.endBeat);
-    const step = event.ornament === "trill" || event.ornament === "tremolo" ? 0.25 : (end - event.startBeat) / pattern.length;
+    const patternStart = event.ornament === "delayed-turn"
+      ? event.startBeat + (end - event.startBeat) * 0.5
+      : event.startBeat;
+    const repeating = ["trill", "tremolo", "shake"].includes(event.ornament);
+    const step = repeating ? 0.25 : (end - patternStart) / pattern.length;
     notes = notes.filter((note) => !(
       note.part === event.part &&
       note.midi === event.principalMidi &&
-      note.startBeat >= event.startBeat - 0.03 &&
+      note.startBeat >= patternStart - 0.03 &&
       note.startBeat < end - 0.01
     ));
-    for (let beat = event.startBeat, index = 0; beat < end - 0.001; beat += step, index++) {
+    for (let beat = patternStart, index = 0; beat < end - 0.001; beat += step, index++) {
       notes.push(beatNote(anchor, pattern[index % pattern.length], beat, Math.min(step * 0.92, end - beat), score.bpm));
-      if (event.ornament !== "trill" && event.ornament !== "tremolo" && index + 1 >= pattern.length) break;
+      if (!repeating && index + 1 >= pattern.length) break;
     }
   }
   notes.sort((a, b) => a.startBeat - b.startBeat || a.midi - b.midi);

@@ -1,13 +1,15 @@
 import type { Score } from "./music";
 
 export type PerformanceEvent = {
-  kind: "tempo" | "dynamic";
+  kind: "tempo" | "dynamic" | "expression";
   curve: "step" | "linear";
   startBeat: number;
   endBeat: number;
-  startValue: number;
-  endValue: number;
+  startValue?: number;
+  endValue?: number;
   label: string;
+  gate?: number;
+  velocityDelta?: number;
 };
 
 function integrateTempo(
@@ -36,20 +38,20 @@ export function secondsAtBeat(score: Score, targetBeat: number) {
       beat = event.startBeat;
     }
     if (event.curve === "step" || event.endBeat <= event.startBeat) {
-      bpm = event.endValue;
+      bpm = event.endValue ?? bpm;
       continue;
     }
     const span = event.endBeat - event.startBeat;
     const used = Math.min(target, event.endBeat) - event.startBeat;
     if (used > 0) {
       const usedEnd =
-        event.startValue +
-        (event.endValue - event.startValue) * (used / span);
-      seconds += integrateTempo(used, event.startValue, usedEnd);
+        (event.startValue ?? bpm) +
+        ((event.endValue ?? bpm) - (event.startValue ?? bpm)) * (used / span);
+      seconds += integrateTempo(used, event.startValue ?? bpm, usedEnd);
       beat = event.startBeat + used;
     }
     if (target <= event.endBeat) return seconds;
-    bpm = event.endValue;
+    bpm = event.endValue ?? bpm;
   }
   return seconds + ((target - beat) * 60) / bpm;
 }
@@ -64,9 +66,9 @@ function dynamicAtBeat(score: Score, beat: number, fallback: number) {
     if (beat < event.startBeat) break;
     if (event.curve === "linear" && beat < event.endBeat) {
       const ratio = (beat - event.startBeat) / (event.endBeat - event.startBeat);
-      return event.startValue + (event.endValue - event.startValue) * ratio;
+      return (event.startValue ?? value) + ((event.endValue ?? value) - (event.startValue ?? value)) * ratio;
     }
-    value = event.endValue;
+    value = event.endValue ?? value;
   }
   return Math.min(1, Math.max(0.05, value));
 }
@@ -74,19 +76,37 @@ function dynamicAtBeat(score: Score, beat: number, fallback: number) {
 export function withPerformancePlayback(score: Score | null): Score | null {
   if (!score) return null;
   const notes = score.notes.map((note) => {
+    const expressions = score.performance.filter((event) =>
+      event.kind === "expression" &&
+      note.startBeat >= event.startBeat && note.startBeat < event.endBeat,
+    );
+    const gate = expressions.reduce((value, event) => value * (event.gate ?? 1), 1);
+    // startBeat/durationBeats are notation-domain coordinates shared by the
+    // OSMD cursor, ornaments and repeat mapping. Expression playback may
+    // shorten the audible envelope, but must never extend or rewrite them.
+    const playbackDurationBeats = Math.max(
+      0.03,
+      Math.min(note.durationBeats, note.durationBeats * gate),
+    );
+    const velocityDelta = expressions.reduce((value, event) => value + (event.velocityDelta ?? 0), 0);
     const time = secondsAtBeat(score, note.startBeat);
-    const end = secondsAtBeat(score, note.startBeat + note.durationBeats);
+    const end = secondsAtBeat(score, note.startBeat + playbackDurationBeats);
     return {
       ...note,
       time,
       duration: Math.max(0.01, end - time),
-      velocity: dynamicAtBeat(score, note.startBeat, note.velocity),
+      velocity: Math.min(1, Math.max(0.05,
+        dynamicAtBeat(score, note.startBeat, note.velocity) + velocityDelta,
+      )),
     };
   });
   return {
     ...score,
     notes,
-    duration: secondsAtBeat(score, score.durationBeats),
+    duration: Math.max(
+      secondsAtBeat(score, score.durationBeats),
+      ...notes.map((note) => note.time + note.duration),
+    ),
   };
 }
 

@@ -10,6 +10,7 @@ Pillow==12.1.1
 homr==0.7.0
 rapidocr==3.9.2
 onnxruntime>=1.24.1,<2
+pyfluidsynth==1.3.4
 
 # Audio transcription and harmonic analysis. basic-pitch is installed with
 # --no-deps by setup-local.sh so TensorFlow/CoreML are not pulled in.

@@ -22,7 +22,7 @@ export function useScorePlayback(
   const silence = useCallback(() => {
     generation.current++;
     cancelAnimationFrame(frame.current);
-    if (playing.current) audioEngineRef.current.releaseAll();
+    audioEngineRef.current.cancelScheduledPlayback();
     playing.current = false;
   }, [audioEngineRef]);
 
@@ -56,25 +56,25 @@ export function useScorePlayback(
       await engine.ensureStarted();
       if (request !== generation.current) return;
       if (offset.current >= score.duration) offset.current = 0;
-      engine.releaseAll();
+      engine.prepareScheduledPlayback();
       const start = engine.now() + 0.03;
       anchor.current = start;
       playing.current = true;
       setIsPlaying(true);
       score.notes.forEach((note) => {
         if (note.time + note.duration <= offset.current) return;
-        const at =
-          start + Math.max(0, note.time - offset.current) / speedRef.current;
-        const end =
-          start +
-          (note.time + note.duration - offset.current) / speedRef.current;
-        engine.attackRelease(
+        const delay = Math.max(0, note.time - offset.current) / speedRef.current;
+        const remaining = note.time < offset.current
+          ? note.time + note.duration - offset.current
+          : note.duration;
+        engine.scheduleAttackRelease(
           note.name,
-          Math.max(0.025, end - at),
+          delay,
+          remaining / speedRef.current,
           note.velocity,
-          at,
         );
       });
+      engine.startScheduledPlayback(0.03);
       const tick = () => {
         const current = Math.min(
           score.duration,

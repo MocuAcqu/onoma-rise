@@ -37,4 +37,31 @@ describe("performance rules", () => {
     expect(result.notes[0].velocity).toBeCloseTo(0.4);
     expect(result.notes[1].velocity).toBeCloseTo(0.6);
   });
+
+  it("applies expression gate and velocity for its beat range", () => {
+    const score = fixture([{
+      kind: "expression", curve: "step", startBeat: 0, endBeat: 1,
+      gate: 0.88, velocityDelta: 0.15, label: "risoluto",
+    }]);
+    const result = withPerformancePlayback(score)!;
+
+    expect(result.notes[0].durationBeats).toBeCloseTo(1);
+    expect(result.notes[0].duration).toBeCloseTo(0.88);
+    expect(result.notes[0].velocity).toBeCloseTo(0.65);
+    expect(result.notes[1].durationBeats).toBeCloseTo(1);
+    expect(result.notes[1].velocity).toBeCloseTo(0.5);
+  });
+
+  it("keeps notation beats stable when an expression requests a longer gate", () => {
+    const score = fixture([{
+      kind: "expression", curve: "step", startBeat: 0, endBeat: 2,
+      gate: 1.1, velocityDelta: 0, label: "legato",
+    }]);
+    const result = withPerformancePlayback(score)!;
+
+    expect(result.notes[0].startBeat).toBe(0);
+    expect(result.notes[0].durationBeats).toBe(1);
+    expect(result.notes[0].duration).toBeCloseTo(1);
+    expect(result.notes[1].startBeat).toBe(1);
+  });
 });

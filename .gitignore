@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Large local SoundFont assets used by score-only audio rendering
+python-backend/models/*.sf2
+python-backend/models/*.sf3
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -28,3 +32,7 @@ venv/
 __pycache__/
 *.pyc
 .env
+.venv-score/
+*:memory:.ses
+*.sqlite3-shm
+*.sqlite3-wal

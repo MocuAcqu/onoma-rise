@@ -66,4 +66,26 @@ describe("repeat playback", () => {
     expect(repeated.notes.map((item) => item.midi)).toEqual([60, 62, 60, 62, 64, 65]);
     expect(repeated.duration).toBe(6);
   });
+
+  it("plays D.C. and stops at Fine only on the return", () => {
+    const xml = `${header}
+      <measure number="1"><attributes><divisions>1</divisions></attributes>${note("C")}</measure>
+      <measure number="2"><direction><direction-type><rehearsal>Fine</rehearsal></direction-type></direction>${note("D")}</measure>
+      <measure number="3"><direction><direction-type><words>D.C. al Fine</words></direction-type></direction>${note("E")}</measure>
+      <measure number="4">${note("F")}</measure>${footer}`;
+    const repeated = withRepeatPlayback(scoreWith(xml))!;
+
+    expect(repeated.notes.map((item) => item.midi)).toEqual([60, 62, 64, 60, 62]);
+  });
+
+  it("plays D.S. al Coda through Segno and To Coda", () => {
+    const xml = `${header}
+      <measure number="1"><attributes><divisions>1</divisions></attributes><direction><direction-type><segno/></direction-type></direction>${note("C")}</measure>
+      <measure number="2"><direction><direction-type><words>To Coda</words></direction-type></direction>${note("D")}</measure>
+      <measure number="3"><direction><direction-type><words>D.S. al Coda</words></direction-type></direction>${note("E")}</measure>
+      <measure number="4"><direction><direction-type><coda/></direction-type></direction>${note("F")}</measure>${footer}`;
+    const repeated = withRepeatPlayback(scoreWith(xml))!;
+
+    expect(repeated.notes.map((item) => item.midi)).toEqual([60, 62, 64, 60, 65]);
+  });
 });

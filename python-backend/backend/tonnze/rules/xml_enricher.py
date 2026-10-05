@@ -46,7 +46,10 @@ def _measure_for_position(
     horizontal = min(0.999, max(0.0, (x / max(width, 1) - 0.04) / 0.92))
     slot = min(len(group) - 1, int(horizontal * len(group)))
     fraction = horizontal * len(group) - slot
-    placement = "above" if kind in {"tempo", "restore_tempo", "section"} else "below"
+    placement = "above" if kind in {
+        "tempo", "restore_tempo", "section", "da_capo", "dal_segno",
+        "to_coda", "segno",
+    } else "below"
     index, measure = group[slot]
     return index, measure, fraction, placement, 1, system_index
 

@@ -34,4 +34,18 @@ describe("ornament playback", () => {
     expect(played.notes[0].durationBeats).toBeCloseTo(0.23);
     expect(played.notes[1].startBeat).toBe(0.25);
   });
+
+  it.each([
+    ["delayed-turn", [76, 78, 76, 74, 76]],
+    ["shake", [76, 78, 76, 78]],
+    ["schleifer", [74, 76, 78, 76]],
+  ])("plays the %s ornament", (ornament, expected) => {
+    const played = withOrnamentPlayback(scoreWith({
+      id: ornament, kind: "ornament", ornament, part: 1, measure: 1,
+      startBeat: 0, endBeat: 1, principalMidi: 76,
+      auxiliaryMidi: 78, lowerAuxiliaryMidi: 74,
+    }))!;
+
+    expect(played.notes.map((item) => item.midi)).toEqual(expected);
+  });
 });

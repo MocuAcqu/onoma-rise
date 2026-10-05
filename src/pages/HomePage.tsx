@@ -5,21 +5,28 @@ import type { PlacementResult } from '../data/placementQuiz';
 import './HomePage.css';
 import mainLogoImage from '../assets/images/main-logo.png';
 
-const PLACEMENT_STATUS_KEY = 'onomarise_placement_status';
+const PLACEMENT_STATUS_KEY_PREFIX = 'onomarise_placement_status';
+
+// 旗標要依登入帳號區分，不然同一瀏覽器只要被任何一個帳號（或訪客）問過一次，
+// 之後不管換哪個帳號登入（包含全新註冊的帳號）都不會再跳出前測。
+function getPlacementStatusKey(): string {
+  const username = localStorage.getItem('user');
+  return `${PLACEMENT_STATUS_KEY_PREFIX}:${username ?? 'guest'}`;
+}
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [showPlacementQuiz, setShowPlacementQuiz] = useState(
-    () => localStorage.getItem(PLACEMENT_STATUS_KEY) === null,
+    () => localStorage.getItem(getPlacementStatusKey()) === null,
   );
 
   const handleSkip = () => {
-    localStorage.setItem(PLACEMENT_STATUS_KEY, 'skipped');
+    localStorage.setItem(getPlacementStatusKey(), 'skipped');
     setShowPlacementQuiz(false);
   };
 
   const handleComplete = (result: PlacementResult) => {
-    localStorage.setItem(PLACEMENT_STATUS_KEY, 'completed');
+    localStorage.setItem(getPlacementStatusKey(), 'completed');
     // 不要在這裡把 overlay 關掉：navigate 換頁時 HomePage 整棵樹（含 overlay）
     // 會一起卸載，先手動 setShowPlacementQuiz(false) 只會讓首頁內容在換頁前先閃一下。
     navigate('/placement-result', { state: result });

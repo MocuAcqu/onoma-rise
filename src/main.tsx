@@ -4,20 +4,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import App from './App.tsx';
-import LandingPage from './components/LandingPage.tsx';
+import LandingPage from './features/home/LandingPage.tsx';
 import './index.css';
 
 // 懶加載各頁面，進入該頁時才載入（避免一開始就下載所有音源）
-const HomePage = lazy(() => import('./pages/HomePage.tsx'));
-const AboutPage = lazy(() => import('./pages/AboutPage.tsx'));
-const LoginPage = lazy(() => import('./pages/LoginPage.tsx'));
-const TonnetzPage = lazy(() => import('./pages/TonnetzPage.tsx'));
-const Knowledge = lazy(() => import('./pages/KnowledgePage.tsx'));
-const TopicDetailPage = lazy(() => import('./pages/TopicDetailPage.tsx'));
-const ChapterContentPage = lazy(() => import('./pages/ChapterContentPage.tsx'));
-const Profile = lazy(() => import('./pages/Profile.tsx'));
-const QuizPage = lazy(() => import('./pages/QuizPage.tsx'));
-const PlacementResultPage = lazy(() => import('./pages/PlacementResultPage.tsx'));
+const HomePage = lazy(() => import('./features/home/HomePage.tsx'));
+const AboutPage = lazy(() => import('./features/about/AboutPage.tsx'));
+const LoginPage = lazy(() => import('./features/auth/LoginPage.tsx'));
+const TonnetzPage = lazy(() => import('./features/tonnetz/TonnetzPage.tsx'));
+const Knowledge = lazy(() => import('./features/learning/pages/KnowledgePage.tsx'));
+const TopicDetailPage = lazy(() => import('./features/learning/pages/TopicDetailPage.tsx'));
+const ChapterContentPage = lazy(() => import('./features/learning/pages/ChapterContentPage.tsx'));
+const Profile = lazy(() => import('./features/profile/Profile.tsx'));
+const QuizPage = lazy(() => import('./features/learning/pages/QuizPage.tsx'));
+const PlacementResultPage = lazy(() => import('./features/assessment/PlacementResultPage.tsx'));
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 

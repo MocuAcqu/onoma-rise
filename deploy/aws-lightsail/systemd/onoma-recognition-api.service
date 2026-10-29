@@ -1,0 +1,19 @@
+[Unit]
+Description=Onoma Rise Recognition API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=onoma
+Group=onoma
+WorkingDirectory=/opt/onoma-rise/python-backend
+EnvironmentFile=/etc/onoma-rise/recognition.env
+ExecStart=/opt/onoma-rise/.venv/bin/uvicorn tonnze.main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import SphereTransition from './components/SphereTransition';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import FloatingBGM from './components/FloatingBGM'; 
+import SphereTransition from './shared/components/SphereTransition';
+import Navbar from './shared/components/Navbar';
+import Footer from './shared/components/Footer';
+import FloatingBGM from './shared/components/FloatingBGM';
 
 type SpherePosition = {
   top: number;
@@ -11,6 +11,9 @@ type SpherePosition = {
   width: number;
   height: number;
 };
+
+const hasBackgroundMusic = (pathname: string) =>
+  !pathname.startsWith('/knowledge') && !pathname.startsWith('/tonnetz');
 
 function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -22,7 +25,7 @@ function App() {
   const handleNavigate = (path: string, element: HTMLElement | null) => {
     if (!element || isTransitioning) return; 
 
-    if (location.pathname === '/') {
+    if (location.pathname === '/' && hasBackgroundMusic(path)) {
       window.dispatchEvent(new Event('start-bgm'));
     }
 
@@ -48,11 +51,12 @@ function App() {
 
   const shouldShowNavbar = location.pathname !== '/' && location.pathname !== '/login';
   const shouldShowLayout = location.pathname !== '/' && location.pathname !== '/login';
+  const shouldShowBackgroundMusic = hasBackgroundMusic(location.pathname);
 
   return (
     <>
       {shouldShowNavbar && <Navbar />}
-      <FloatingBGM />
+      {shouldShowBackgroundMusic && <FloatingBGM />}
       <SphereTransition
         isActive={isTransitioning}
         initialPosition={spherePosition}

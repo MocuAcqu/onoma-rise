@@ -1,0 +1,53 @@
+import type { CSSProperties } from "react";
+import { BRAND } from "../../config/theme";
+
+export const styles = {
+  timelinePanel: {
+    width: "100%",
+    boxSizing: "border-box",
+    background: "rgba(255,255,255,0.86)",
+    border: `1px solid ${BRAND.cardBorder}`,
+    borderRadius: 20,
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+    alignSelf: "flex-start",
+    boxShadow: BRAND.cardShadow,
+    maxHeight: 560,
+  },
+  compactTimelinePanel: {
+    maxHeight: 320,
+    padding: 14,
+    borderRadius: 16,
+    background: "rgba(255,255,255,0.94)",
+  },
+  timelineList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+    minHeight: 0,
+    overflowY: "auto",
+    overflowX: "hidden",
+    overscrollBehavior: "contain",
+    paddingRight: 4,
+    scrollBehavior: "smooth",
+  },
+  centerSpacer: { minHeight: 88, flexShrink: 0 },
+  timelineItem: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    padding: "10px 14px",
+    borderRadius: 14,
+    border: "1px solid",
+    background: "#ffffff",
+    cursor: "pointer",
+    textAlign: "left",
+    transition: "all 160ms ease",
+    fontFamily: "inherit",
+  },
+  timelineTop: { display: "flex", justifyContent: "space-between", alignItems: "center" },
+  timelineSegment: { fontSize: 10, letterSpacing: 1, color: BRAND.inkSoft, fontWeight: 700 },
+  timelinePitch: { fontSize: 18, fontWeight: 800, letterSpacing: 0.4 },
+} satisfies Record<string, CSSProperties>;

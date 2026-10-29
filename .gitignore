@@ -32,7 +32,16 @@ venv/
 __pycache__/
 *.pyc
 .env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db
 .venv-score/
 *:memory:.ses
 *.sqlite3-shm
 *.sqlite3-wal
+
+# Recognition jobs are runtime data and must live outside Git.
+python-backend/runtime/recognition/*
+!python-backend/runtime/recognition/.gitkeep

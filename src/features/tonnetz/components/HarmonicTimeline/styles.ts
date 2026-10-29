@@ -1,0 +1,45 @@
+import type { CSSProperties } from "react";
+import { BRAND } from "../../config/theme";
+
+export const styles = {
+  timelinePanel: {
+    width: "100%",
+    boxSizing: "border-box",
+    maxHeight: 320,
+    padding: 14,
+    borderRadius: 16,
+    border: `1px solid ${BRAND.cardBorder}`,
+    background: "rgba(255,255,255,0.94)",
+    boxShadow: BRAND.cardShadow,
+    display: "flex",
+    flexDirection: "column",
+    gap: 9,
+  },
+  timelineList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 7,
+    minHeight: 0,
+    overflowY: "auto",
+    overscrollBehavior: "contain",
+    paddingRight: 4,
+  },
+  centerSpacer: { minHeight: 88, flexShrink: 0 },
+  timelineItem: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 5,
+    padding: "10px 12px",
+    borderRadius: 13,
+    border: "1px solid",
+    cursor: "pointer",
+    textAlign: "left",
+    fontFamily: "inherit",
+  },
+  timelineTop: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 },
+  roman: { color: "#6d28d9", fontSize: 15, fontWeight: 900 },
+  chordRow: { display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10 },
+  chordName: { color: "#db2777", fontSize: 19 },
+  notes: { color: BRAND.inkSoft, fontSize: 11, textAlign: "right" },
+  emptyText: { color: BRAND.inkSoft, fontSize: 12, lineHeight: 1.6 },
+} satisfies Record<string, CSSProperties>;

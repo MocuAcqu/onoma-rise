@@ -1,0 +1,67 @@
+# Trial-only Render Blueprint for the Python recognition service.
+#
+# The existing Node API and static frontend are intentionally not listed here.
+# Render does not provide a free Background Worker, so this web service starts
+# one FastAPI process and one local queue worker in the same 512 MB instance.
+services:
+  - type: web
+    runtime: python
+    name: onoma-rise-recognition-free
+    rootDir: python-backend
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt && pip install --no-deps basic-pitch==0.4.0
+    startCommand: bash render-start-free.sh
+    healthCheckPath: /api/health/recognition
+    autoDeployTrigger: "off"
+    maxShutdownDelaySeconds: 300
+    envVars:
+      # Render currently defaults new services to Python 3.14. Pin the version
+      # already used by this project and its native HOMR/ONNX dependencies.
+      - key: PYTHON_VERSION
+        value: 3.12.11
+
+      # Free instances have ephemeral filesystems. MongoDB/GridFS keeps the API
+      # and worker queue/results consistent across restarts and spin-downs.
+      - key: SCORE_STORAGE_BACKEND
+        value: mongodb
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DATABASE
+        sync: false
+      - key: SCORE_MONGO_JOBS_COLLECTION
+        value: recognition_jobs
+      - key: SCORE_MONGO_RUNTIME_COLLECTION
+        value: recognition_runtime
+      - key: SCORE_MONGO_GRIDFS_BUCKET
+        value: recognition_files
+
+      # Use the same random value in the existing Node API service.
+      - key: RECOGNITION_PROXY_TOKEN
+        sync: false
+      - key: RECOGNITION_REQUIRE_PROXY_TOKEN
+        value: "1"
+
+      # Conservative trial settings for Render Free's 512 MB / 0.1 CPU.
+      - key: SCORE_ENABLE_OCR
+        value: "0"
+      - key: SCORE_ENABLE_YOLO
+        value: "0"
+      - key: SCORE_HOMR_IMAGE_WIDTH
+        value: "1600"
+      - key: SCORE_AUX_IMAGE_MAX_EDGE
+        value: "1600"
+      - key: SCORE_HOMR_BATCH_SIZE
+        value: "1"
+      - key: SCORE_HOMR_ONNX_THREADS
+        value: "1"
+      - key: SCORE_HOMR_TITLE_OCR
+        value: "0"
+      - key: SCORE_HOMR_MEMORY_PATCH
+        value: "1"
+      - key: SCORE_MAX_QUEUE
+        value: "3"
+      - key: JOB_TIMEOUT_SECONDS
+        value: "600"
+      - key: RETENTION_SECONDS
+        value: "3600"

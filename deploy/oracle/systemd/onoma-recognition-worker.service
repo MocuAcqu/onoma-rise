@@ -1,0 +1,19 @@
+[Unit]
+Description=Onoma Rise Recognition Worker
+After=network-online.target onoma-recognition-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=onoma
+Group=onoma
+WorkingDirectory=/opt/onoma-rise/python-backend
+EnvironmentFile=/etc/onoma-rise/recognition.env
+ExecStart=/opt/onoma-rise/.venv/bin/python -m tonnze.worker
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

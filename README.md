@@ -188,14 +188,14 @@
 ```
 python -m venv venv
 .\venv\Scripts\activate
-pip install -r python-backend\backend\requirements.txt
+pip install -r python-backend\requirements.txt
 ```
 
 - Mac / Linux 使用者：
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install -r python-backend/backend/requirements.txt
+pip install -r python-backend/requirements.txt
 ```
 
 因為 Python 套件 musicxml 在 Windows 讀檔時會有編碼衝突，如果是 Windows 使用者，請找到這個檔案：
@@ -304,4 +304,3 @@ git push -u origin main
     <img src="https://github.com/pingxi2299.png" width="80" style="border-radius: 50%; margin: 0 10px;" alt="呂雨璇">
   </a>
 </p>
-

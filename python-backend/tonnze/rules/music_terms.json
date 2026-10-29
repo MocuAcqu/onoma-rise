@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "references": {
+    "musicxml-4.0-directions": {
+      "title": "MusicXML 4.0 direction-type",
+      "kind": "notation-standard",
+      "url": "https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/direction-type/"
+    },
+    "musicxml-4.0-dynamics": {
+      "title": "MusicXML 4.0 dynamics",
+      "kind": "notation-standard",
+      "url": "https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/dynamics/"
+    },
+    "smufl-1.4-dynamics": {
+      "title": "SMuFL 1.4 dynamics glyphs",
+      "kind": "notation-standard",
+      "url": "https://www.w3.org/2021/03/smufl14/tables/dynamics.html"
+    },
+    "onoma-playback-policy-v1": {
+      "title": "Onoma Rise playback policy v1",
+      "kind": "product-policy",
+      "note": "BPM, velocity, gate and velocityDelta are product interpretations, not universal musical constants."
+    }
+  },
+  "settings": {
+    "defaultDynamicRamp": 0.28
+  },
+  "terms": [
+    {"id":"tempo.larghissimo","family":"tempo","canonical":"Larghissimo","aliases":["larghissimo"],"kind":"tempo","meaningZh":"極緩板","playback":{"bpm":24},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.grave","family":"tempo","canonical":"Grave","aliases":["grave"],"kind":"tempo","meaningZh":"莊板","playback":{"bpm":40},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.largo","family":"tempo","canonical":"Largo","aliases":["largo"],"kind":"tempo","meaningZh":"廣板","playback":{"bpm":50},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.lento","family":"tempo","canonical":"Lento","aliases":["lento"],"kind":"tempo","meaningZh":"慢板","playback":{"bpm":52},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.larghetto","family":"tempo","canonical":"Larghetto","aliases":["larghetto"],"kind":"tempo","meaningZh":"小廣板","playback":{"bpm":60},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.adagio","family":"tempo","canonical":"Adagio","aliases":["adagio"],"kind":"tempo","meaningZh":"柔板","playback":{"bpm":66},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.adagietto","family":"tempo","canonical":"Adagietto","aliases":["adagietto"],"kind":"tempo","meaningZh":"小柔板","playback":{"bpm":72},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.andante","family":"tempo","canonical":"Andante","aliases":["andante"],"kind":"tempo","meaningZh":"行板","playback":{"bpm":80},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.andantino","family":"tempo","canonical":"Andantino","aliases":["andantino"],"kind":"tempo","meaningZh":"小行板","playback":{"bpm":84},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.maestoso","family":"tempo","canonical":"Maestoso","aliases":["maestoso"],"kind":"tempo","meaningZh":"莊嚴地","playback":{"bpm":88},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.moderato","family":"tempo","canonical":"Moderato","aliases":["moderato"],"kind":"tempo","meaningZh":"中板","playback":{"bpm":100},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.allegretto","family":"tempo","canonical":"Allegretto","aliases":["allegretto"],"kind":"tempo","meaningZh":"小快板","playback":{"bpm":108},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.brightly","family":"tempo","canonical":"Brightly","aliases":["brightly","bright"],"kind":"tempo","meaningZh":"明快地","playback":{"bpm":116},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.allegro","family":"tempo","canonical":"Allegro","aliases":["allegro"],"kind":"tempo","meaningZh":"快板","playback":{"bpm":120},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.vivace","family":"tempo","canonical":"Vivace","aliases":["vivace"],"kind":"tempo","meaningZh":"活潑的快板","playback":{"bpm":144},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.presto","family":"tempo","canonical":"Presto","aliases":["presto"],"kind":"tempo","meaningZh":"急板","playback":{"bpm":168},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.prestissimo","family":"tempo","canonical":"Prestissimo","aliases":["prestissimo"],"kind":"tempo","meaningZh":"最急板","playback":{"bpm":192},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.a-tempo","family":"tempo","canonical":"a tempo","aliases":["a tempo"],"kind":"restore_tempo","meaningZh":"恢復原速","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.tempo-primo","family":"tempo","canonical":"Tempo primo","aliases":["tempo primo"],"kind":"restore_tempo","meaningZh":"恢復最初速度","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.ritardando","family":"tempo","canonical":"rit.","aliases":["rit.","rit","ritardando","rall.","rall","rallentando"],"kind":"gradual_slow","meaningZh":"漸慢","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.accelerando","family":"tempo","canonical":"accel.","aliases":["accelerando","accel.","accel"],"kind":"gradual_fast","meaningZh":"漸快","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.piu-mosso","family":"tempo","canonical":"più mosso","aliases":["più mosso","piu mosso"],"kind":"relative_fast","meaningZh":"更快地","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.meno-mosso","family":"tempo","canonical":"meno mosso","aliases":["meno mosso"],"kind":"relative_slow","meaningZh":"較慢地","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.stringendo","family":"tempo","canonical":"stringendo","aliases":["stringendo"],"kind":"gradual_fast","meaningZh":"逐漸加快並加強","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.allargando","family":"tempo","canonical":"allargando","aliases":["allargando"],"kind":"broaden","meaningZh":"逐漸放寬","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"tempo.calando","family":"tempo","canonical":"calando","aliases":["calando","morendo","smorzando"],"kind":"fade","meaningZh":"漸慢並漸弱","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+
+    {"id":"dynamic.crescendo","family":"dynamic_direction","canonical":"cresc.","aliases":["crescendo","cresc.","cresc"],"kind":"gradual_louder","meaningZh":"漸強","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"dynamic.diminuendo","family":"dynamic_direction","canonical":"dim.","aliases":["diminuendo","dim.","dim","decrescendo","decresc.","decresc"],"kind":"gradual_softer","meaningZh":"漸弱","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"dynamic.pppp","family":"dynamic_mark","canonical":"pppp","aliases":["pppp"],"kind":"dynamic","meaningZh":"極極弱","playback":{"velocity":0.16},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.ppp","family":"dynamic_mark","canonical":"ppp","aliases":["ppp"],"kind":"dynamic","meaningZh":"極弱","playback":{"velocity":0.22},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.pp","family":"dynamic_mark","canonical":"pp","aliases":["pp"],"kind":"dynamic","meaningZh":"很弱","playback":{"velocity":0.30},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.p","family":"dynamic_mark","canonical":"p","aliases":["p"],"kind":"dynamic","meaningZh":"弱","playback":{"velocity":0.40},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.mp","family":"dynamic_mark","canonical":"mp","aliases":["mp"],"kind":"dynamic","meaningZh":"中弱","playback":{"velocity":0.52},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.mf","family":"dynamic_mark","canonical":"mf","aliases":["mf"],"kind":"dynamic","meaningZh":"中強","playback":{"velocity":0.64},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.f","family":"dynamic_mark","canonical":"f","aliases":["f"],"kind":"dynamic","meaningZh":"強","playback":{"velocity":0.76},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.ff","family":"dynamic_mark","canonical":"ff","aliases":["ff"],"kind":"dynamic","meaningZh":"很強","playback":{"velocity":0.88},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.fff","family":"dynamic_mark","canonical":"fff","aliases":["fff"],"kind":"dynamic","meaningZh":"極強","playback":{"velocity":0.96},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.ffff","family":"dynamic_mark","canonical":"ffff","aliases":["ffff"],"kind":"dynamic","meaningZh":"極極強","playback":{"velocity":1.0},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.fp","family":"dynamic_mark","canonical":"fp","aliases":["fp"],"kind":"dynamic","meaningZh":"強後立即轉弱","playback":{"velocity":0.68},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.sf","family":"dynamic_mark","canonical":"sf","aliases":["sf"],"kind":"dynamic","meaningZh":"突強","playback":{"velocity":0.90},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.sfz","family":"dynamic_mark","canonical":"sfz","aliases":["sfz"],"kind":"dynamic","meaningZh":"突強音","playback":{"velocity":0.94},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.sfp","family":"dynamic_mark","canonical":"sfp","aliases":["sfp"],"kind":"dynamic","meaningZh":"突強後轉弱","playback":{"velocity":0.86},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.rf","family":"dynamic_mark","canonical":"rf","aliases":["rf"],"kind":"dynamic","meaningZh":"加強","playback":{"velocity":0.90},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+    {"id":"dynamic.rfz","family":"dynamic_mark","canonical":"rfz","aliases":["rfz"],"kind":"dynamic","meaningZh":"突然加強","playback":{"velocity":0.94},"referenceIds":["musicxml-4.0-dynamics","smufl-1.4-dynamics","onoma-playback-policy-v1"]},
+
+    {"id":"navigation.da-capo","family":"expression","canonical":"D.C.","aliases":["D.C.","D. C.","D C","DC","da capo"],"kind":"da_capo","meaningZh":"回到開頭","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"navigation.dal-segno","family":"expression","canonical":"D.S.","aliases":["D.S.","D. S.","D S","DS","dal segno"],"kind":"dal_segno","meaningZh":"回到反覆記號","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"navigation.to-coda","family":"expression","canonical":"To Coda","aliases":["to coda","al coda"],"kind":"to_coda","meaningZh":"跳至尾聲","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.dolce","family":"expression","canonical":"dolce","aliases":["dolce"],"kind":"expression","meaningZh":"柔和地","playback":{"gate":0.98,"velocityDelta":-0.08},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.legato","family":"expression","canonical":"legato","aliases":["legato"],"kind":"expression","meaningZh":"圓滑地","playback":{"gate":1.0,"velocityDelta":0.0},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.cantabile","family":"expression","canonical":"cantabile","aliases":["cantabile"],"kind":"expression","meaningZh":"如歌地","playback":{"gate":1.0,"velocityDelta":0.04},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.espressivo","family":"expression","canonical":"espressivo","aliases":["espressivo","espr.","espr"],"kind":"expression","meaningZh":"富有表情地","playback":{"gate":1.0,"velocityDelta":0.08},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.marcato","family":"expression","canonical":"marcato","aliases":["marcato"],"kind":"expression","meaningZh":"強調地","playback":{"gate":0.90,"velocityDelta":0.12},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.risoluto","family":"expression","canonical":"risoluto","aliases":["risoluto"],"kind":"expression","meaningZh":"果斷地","playback":{"gate":0.88,"velocityDelta":0.15},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.sostenuto","family":"expression","canonical":"sostenuto","aliases":["sostenuto"],"kind":"expression","meaningZh":"持續地","playback":{"gate":1.0,"velocityDelta":0.0},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.con-brio","family":"expression","canonical":"con brio","aliases":["con brio"],"kind":"expression","meaningZh":"有活力地","playback":{"gate":0.92,"velocityDelta":0.10},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"expression.rubato","family":"expression","canonical":"rubato","aliases":["rubato"],"kind":"expression","meaningZh":"自由速度地","playback":{"gate":1.0,"velocityDelta":0.03},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"section.trio","family":"expression","canonical":"Trio","aliases":["trio"],"kind":"section","meaningZh":"中段","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"navigation.segno","family":"expression","canonical":"Segno","aliases":["segno"],"kind":"segno","meaningZh":"反覆記號","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"section.coda","family":"expression","canonical":"Coda","aliases":["coda"],"pattern":"(?<!to )(?<!al )\\bcoda\\b","kind":"section","meaningZh":"尾聲","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]},
+    {"id":"section.fine","family":"expression","canonical":"Fine","aliases":["fine"],"pattern":"(?<!al )\\bfine\\b","kind":"section","meaningZh":"結束","playback":{},"referenceIds":["musicxml-4.0-directions","onoma-playback-policy-v1"]}
+  ]
+}

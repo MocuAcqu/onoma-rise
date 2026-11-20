@@ -1,4 +1,3 @@
-import InfoModal from '../../../shared/components/InfoModal';
 import { progressApi } from '../../progress';
 import { useReducer, useEffect, useRef, useCallback, useMemo, useState } from "react";
 
@@ -13,6 +12,7 @@ import PlaybackSettings from "../components/PlaybackSettings";
 import MelodyWindow from "../components/MelodyWindow";
 import MelodyTimeline from "../components/MelodyTimeline";
 import ScoreTimelineDock from "../components/ScoreTimelineDock";
+import UsageGuide from "../components/UsageGuide/UsageGuide";
 import { DEMO_MELODY } from "../config";
 import { useTransformTransition } from "../graph/useTransformTransition";
 import { useAudioTranscription } from "../audio/useAudioTranscription";
@@ -26,7 +26,9 @@ import { spellPitchClass } from "../score/pitchSpelling";
 import PitchUtils from "../graph/PitchUtils";
 import type { PitchClass } from "../types";
 import { RecognitionToolbar } from "./RecognitionToolbar";
+import { MobilePanelTabs, type MobilePanel } from "./MobilePanelTabs";
 import { styles as S } from "./styles";
+import { PHONE_QUERY, TABLET_QUERY, useMediaQuery } from "../../../shared/hooks/useMediaQuery";
 
 
 const INITIAL_VIEW_BOUNDS = { qMin: -6, qMax: 22, rMin: -4, rMax: 16 };
@@ -40,7 +42,9 @@ const EMPTY_PITCH_SET = new Set<PitchClass>();
    Root Component
 ───────────────────────────────────────────── */
 export default function Tonnetz() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isPhone = useMediaQuery(PHONE_QUERY);
+  const isTablet = useMediaQuery(TABLET_QUERY);
+  const [mobilePanel, setMobilePanel] = useState<MobilePanel>("tonnetz");
   const [state, dispatch] = useReducer(playbackReducer, INITIAL_STATE);
   const [viewBounds, setViewBounds] = useState(INITIAL_VIEW_BOUNDS);
   const graph = useMemo(
@@ -48,8 +52,6 @@ export default function Tonnetz() {
     [viewBounds],
   );
   useEffect(() => {
-    setIsModalOpen(true);
-
     const currentUsername = localStorage.getItem('user');
     if (currentUsername) {
       progressApi.recordAudioIdentify(currentUsername)
@@ -232,18 +234,195 @@ export default function Tonnetz() {
   /* ══════════════════════════════════════════════════════════════════════
      Render
   ══════════════════════════════════════════════════════════════════════ */
+  const tonnetzSvg = (
+    <TonnetzSvg
+      nodes={graph.nodes}
+      triangles={graph.triangles}
+      onViewportChange={handleViewportChange}
+      radius={RADIUS}
+      playedPitchClasses={tonnetzPlayedPitchClasses}
+      focusedPitchClasses={isScoreMode ? state.focusedPitchClasses : displayedFocus}
+      focusedNodeIndex={state.focusedNodeIndex}
+      showStrongFocus={isScoreMode
+        ? scorePlayer.isPlaying
+        : state.isPlayingMelody || state.playbackMelodyEventId !== null}
+      activeChordKey={isScoreMode && scoreImport.score
+        ? scoreHarmony?.tonnetzChord
+          ? PitchUtils.getChordKey(scoreHarmony.tonnetzChord)
+          : null
+        : state.activeChordKey}
+      harmonyTransition={isScoreMode && scoreImport.score
+        ? scoreHarmonyTransition
+        : null}
+      activeEdgeKey={state.activeEdgeKey}
+      activeEdgePitchPair={state.activeEdgePitchPair}
+      edgeFrames={edgeFrames}
+      recentMelodyPitches={isScoreMode ? EMPTY_PITCH_SET : recentMelodyPitches}
+      nodeFrames={nodeFrames}
+      onClickNode={handleNodeClick}
+      onClickTriangle={handleTriangleClick}
+      onClickEdge={handleEdgeClick}
+      currentOctave={state.currentOctave}
+      accentActivePitch={state.accentActivePitch}
+      accentMode={state.accentMode}
+      weakVelocity={WEAK_VELOCITY}
+      strongVelocity={STRONG_VELOCITY}
+      transformMode={displayMode}
+      transitionFrame={transitionFrame}
+      isTransitioning={isTransitioning}
+      selectedDiamondPitchSet={state.selectedDiamondPitchSet}
+    />
+  );
+
+  const audioPlaybackPanel = (
+    <>
+      <MelodyDemoPanel
+        melodyEvents={melodyEvents}
+        isPlayingMelody={state.isPlayingMelody}
+        isPaused={state.isPaused}
+        playbackMode={state.playbackMode}
+        audioObjectUrl={audioObjectUrl}
+        activeEventId={state.playbackMelodyEventId ?? state.activeMelodyEventId}
+        onPlay={handlePlay}
+        onPause={handlePause}
+        onResume={handleResume}
+        onStop={handleStop}
+        onModeChange={handleModeChange}
+        onAudioElementReady={handleAudioElementReady}
+        onAudioPlay={handleAudioElementPlay}
+        onAudioPause={handleAudioElementPause}
+        onAudioSeeked={handleAudioElementSeeked}
+        onAudioEnded={handleAudioElementEnded}
+      />
+
+      <div style={S.settingsRow}>
+        {(estimatedKey || currentChord) && (
+          <div style={S.chordKeyCard}>
+            <span><strong>目前和弦：</strong>{currentChord?.name ?? "N.C."}</span>
+            <span><strong>推測調性：</strong>{estimatedKey?.key ?? "—"}</span>
+            {currentChord && <span><strong>可信度：</strong>{Math.round(currentChord.confidence * 100)}%</span>}
+          </div>
+        )}
+
+        <PlaybackSettings
+          octave={state.currentOctave}
+          isSustain={state.isSustain}
+          onOctaveChange={(value) => dispatch({ type: "SET_OCTAVE", value })}
+        />
+      </div>
+    </>
+  );
+
+  const scoreMelodyWindow = (
+    <MelodyWindow
+      currentMelodyEvent={scoreMelodyDisplay.currentMelodyEvent}
+      prevMelodyEvent={scoreMelodyDisplay.prevMelodyEvent}
+      nextMelodyEvent={scoreMelodyDisplay.nextMelodyEvent}
+      displayMelodyIndex={scoreMelodyDisplay.displayMelodyIndex}
+      melodyEventsLength={scoreMelodyEvents.length}
+      // Before a score is recognized, reuse the Tonnetz's live
+      // note/chord selection just like the audio workspace.
+      // Recognized scores instead reserve this card for playback.
+      selectionInfo={scoreImport.score ? null : state.selectionInfo}
+      emptyText={scoreImport.score
+        ? "等待播放音符…"
+        : "點擊 Tonnetz 的音符或和弦以查看資訊。"}
+      statusLabel="Tonnetz"
+      statusValue={scoreImport.score
+        ? scorePitches
+          .map((pitch) => spellPitchClass(pitch, scoreKey?.preferFlats ?? false))
+          .join(" · ") || "休止"
+        : "等待匯入"}
+      showTonnetzFocus={Boolean(scoreImport.score)}
+      scoreHarmony={scoreImport.score ? scoreHarmony : null}
+      scoreTransition={scoreImport.score ? scoreHarmonyTransition : null}
+      scoreKey={scoreImport.score ? scoreKey : null}
+    />
+  );
+
+  const scoreTimelineDock = scoreImport.score ? (
+    <ScoreTimelineDock
+      inline={isPhone}
+      melodyEvents={scoreMelodyEvents}
+      playbackMelodyEventId={scoreMelodyEventId}
+      recentMelodyEventIds={scoreMelodyDisplay.recentEventIds}
+      harmonicEvents={scoreHarmonicEvents}
+      activeHarmonicEventId={scoreHarmonicEventId}
+      // Timeline navigation shares the notation, Tonnetz and
+      // harmony playhead without starting playback.
+      onSeek={scorePlayer.seek}
+    />
+  ) : null;
+
+  const audioMelodyWindow = (
+    <MelodyWindow
+      currentMelodyEvent={currentMelodyEvent}
+      prevMelodyEvent={prevMelodyEvent}
+      nextMelodyEvent={nextMelodyEvent}
+      displayMelodyIndex={displayMelodyIndex}
+      melodyEventsLength={melodyEvents.length}
+      selectionInfo={state.selectionInfo}
+    />
+  );
+
+  const audioTimeline = (
+    <MelodyTimeline
+      melodyEvents={melodyEvents}
+      activeMelodyEventId={state.activeMelodyEventId}
+      playbackMelodyEventId={state.playbackMelodyEventId}
+      recentEventIds={recentEventIds}
+      onClickEvent={handleTimelineClick}
+    />
+  );
+
+  /* ── Tonnetz 下方：前往樂理知識認識調性網路（另開分頁，保留目前的辨識結果） ── */
+  const learnTonnetzRow = (
+    <div style={isPhone ? { ...S.learnRow, ...S.learnRowPhone } : S.learnRow}>
+      <span>不熟悉調性網路嗎？</span>
+      <a
+        href="/knowledge/tools/tonnetz"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={isPhone ? { ...S.learnButton, ...S.learnButtonPhone } : S.learnButton}
+        aria-label="認識什麼是調性網路（另開分頁）"
+      >
+        認識什麼是調性網路 ↗
+      </a>
+    </div>
+  );
+
+  /* ── 手機版：播放區塊下方以分頁切換 Tonnetz／旋律資訊／時間軸 ── */
+  const renderPhonePanel = () => {
+    if (mobilePanel === "melody") {
+      return isScoreMode ? scoreMelodyWindow : audioMelodyWindow;
+    }
+    if (mobilePanel === "timeline") {
+      if (!isScoreMode) return audioTimeline;
+      return scoreTimelineDock ?? (
+        <div style={S.mobileEmpty}>匯入樂譜並完成辨識後，即可在這裡查看旋律與和聲時間軸。</div>
+      );
+    }
+    return (
+      <>
+        <div style={{ ...S.graphPanel, ...S.graphPanelPhone }}>{tonnetzSvg}</div>
+        {learnTonnetzRow}
+      </>
+    );
+  };
+
   return (
-    <div style={S.page}>
-      <div style={S.hero}>
-        <h1 style={S.heroTitle}>調性網路</h1>
-        <p>探索與拆解音樂中的調性關係</p>
+    <div style={isPhone ? { ...S.page, ...S.pagePhone } : isTablet ? { ...S.page, ...S.pageTablet } : S.page}>
+      <div style={isPhone ? { ...S.hero, ...S.heroPhone } : S.hero}>
+        <h1 style={isPhone ? { ...S.heroTitle, ...S.heroTitlePhone } : S.heroTitle}>調性網路</h1>
+        <p style={isPhone ? S.heroDescPhone : undefined}>探索與拆解音樂中的調性關係</p>
       </div>
 
-      <div style={S.content}>
+      <div style={isPhone ? { ...S.content, ...S.contentPhone } : S.content}>
         <RecognitionToolbar
           isScoreMode={isScoreMode}
           displayMode={displayMode}
           isTranscribing={isTranscribing}
+          isCompact={isPhone}
           onActivateAudioMode={handleActivateAudioMode}
           onActivateScoreMode={activateScoreMode}
           onTransformModeChange={triggerTransformTransition}
@@ -266,160 +445,50 @@ export default function Tonnetz() {
           />
         )}
 
-        <div
-          style={isScoreMode
-            ? { ...S.grid, gridTemplateColumns: "minmax(0, 1fr)" }
-            : S.grid}
-        >
-          <div style={S.leftColumn}>
+        {isPhone ? (
+          <>
+            {!isScoreMode && audioPlaybackPanel}
+            <MobilePanelTabs active={mobilePanel} onChange={setMobilePanel} />
+            <div
+              id="tonnetz-mobile-panel"
+              role="tabpanel"
+              aria-labelledby={`tonnetz-tab-${mobilePanel}`}
+              style={S.mobilePanel}
+            >
+              {renderPhonePanel()}
+            </div>
+          </>
+        ) : (
+          <div
+            style={isScoreMode || isTablet
+              ? { ...S.grid, gridTemplateColumns: "minmax(0, 1fr)" }
+              : S.grid}
+          >
+            <div style={S.leftColumn}>
+              {!isScoreMode && audioPlaybackPanel}
+
+              <div style={isTablet ? { ...S.graphPanel, ...S.graphPanelTablet } : S.graphPanel}>
+                {isScoreMode && (
+                  <div style={S.scoreMelodyWindow}>
+                    {scoreMelodyWindow}
+                  </div>
+                )}
+                {isScoreMode && scoreTimelineDock}
+                {tonnetzSvg}
+              </div>
+              {learnTonnetzRow}
+            </div>
+
             {!isScoreMode && (
-              <>
-                <MelodyDemoPanel
-                  melodyEvents={melodyEvents}
-                  isPlayingMelody={state.isPlayingMelody}
-                  isPaused={state.isPaused}
-                  playbackMode={state.playbackMode}
-                  audioObjectUrl={audioObjectUrl}
-                  activeEventId={state.playbackMelodyEventId ?? state.activeMelodyEventId}
-                  onPlay={handlePlay}
-                  onPause={handlePause}
-                  onResume={handleResume}
-                  onStop={handleStop}
-                  onModeChange={handleModeChange}
-                  onAudioElementReady={handleAudioElementReady}
-                  onAudioPlay={handleAudioElementPlay}
-                  onAudioPause={handleAudioElementPause}
-                  onAudioSeeked={handleAudioElementSeeked}
-                  onAudioEnded={handleAudioElementEnded}
-                />
-
-                <div style={S.settingsRow}>
-                  {(estimatedKey || currentChord) && (
-                    <div style={S.chordKeyCard}>
-                      <span><strong>目前和弦：</strong>{currentChord?.name ?? "N.C."}</span>
-                      <span><strong>推測調性：</strong>{estimatedKey?.key ?? "—"}</span>
-                      {currentChord && <span><strong>可信度：</strong>{Math.round(currentChord.confidence * 100)}%</span>}
-                    </div>
-                  )}
-
-                  <PlaybackSettings
-                    octave={state.currentOctave}
-                    isSustain={state.isSustain}
-                    onOctaveChange={(value) => dispatch({ type: "SET_OCTAVE", value })}
-                  />
-                </div>
-              </>
+              <div style={isTablet ? { ...S.rightColumn, ...S.rightColumnTablet } : S.rightColumn}>
+                {audioMelodyWindow}
+                {audioTimeline}
+              </div>
             )}
-
-            <div style={S.graphPanel}>
-              {isScoreMode && (
-                <div style={S.scoreMelodyWindow}>
-                  <MelodyWindow
-                    currentMelodyEvent={scoreMelodyDisplay.currentMelodyEvent}
-                    prevMelodyEvent={scoreMelodyDisplay.prevMelodyEvent}
-                    nextMelodyEvent={scoreMelodyDisplay.nextMelodyEvent}
-                    displayMelodyIndex={scoreMelodyDisplay.displayMelodyIndex}
-                    melodyEventsLength={scoreMelodyEvents.length}
-                    // Before a score is recognized, reuse the Tonnetz's live
-                    // note/chord selection just like the audio workspace.
-                    // Recognized scores instead reserve this card for playback.
-                    selectionInfo={scoreImport.score ? null : state.selectionInfo}
-                    emptyText={scoreImport.score
-                      ? "等待播放音符…"
-                      : "點擊 Tonnetz 的音符或和弦以查看資訊。"}
-                    statusLabel="Tonnetz"
-                    statusValue={scoreImport.score
-                      ? scorePitches
-                        .map((pitch) => spellPitchClass(pitch, scoreKey?.preferFlats ?? false))
-                        .join(" · ") || "休止"
-                      : "等待匯入"}
-                    showTonnetzFocus={Boolean(scoreImport.score)}
-                    scoreHarmony={scoreImport.score ? scoreHarmony : null}
-                    scoreTransition={scoreImport.score ? scoreHarmonyTransition : null}
-                    scoreKey={scoreImport.score ? scoreKey : null}
-                  />
-                </div>
-              )}
-              {isScoreMode && scoreImport.score && (
-                <ScoreTimelineDock
-                  melodyEvents={scoreMelodyEvents}
-                  playbackMelodyEventId={scoreMelodyEventId}
-                  recentMelodyEventIds={scoreMelodyDisplay.recentEventIds}
-                  harmonicEvents={scoreHarmonicEvents}
-                  activeHarmonicEventId={scoreHarmonicEventId}
-                  // Timeline navigation shares the notation, Tonnetz and
-                  // harmony playhead without starting playback.
-                  onSeek={scorePlayer.seek}
-                />
-              )}
-              <TonnetzSvg
-                nodes={graph.nodes}
-                triangles={graph.triangles}
-                onViewportChange={handleViewportChange}
-                radius={RADIUS}
-                playedPitchClasses={tonnetzPlayedPitchClasses}
-                focusedPitchClasses={isScoreMode ? state.focusedPitchClasses : displayedFocus}
-                focusedNodeIndex={state.focusedNodeIndex}
-                showStrongFocus={isScoreMode
-                  ? scorePlayer.isPlaying
-                  : state.isPlayingMelody || state.playbackMelodyEventId !== null}
-                activeChordKey={isScoreMode && scoreImport.score
-                  ? scoreHarmony?.tonnetzChord
-                    ? PitchUtils.getChordKey(scoreHarmony.tonnetzChord)
-                    : null
-                  : state.activeChordKey}
-                harmonyTransition={isScoreMode && scoreImport.score
-                  ? scoreHarmonyTransition
-                  : null}
-                activeEdgeKey={state.activeEdgeKey}
-                activeEdgePitchPair={state.activeEdgePitchPair}
-                edgeFrames={edgeFrames}
-                recentMelodyPitches={isScoreMode ? EMPTY_PITCH_SET : recentMelodyPitches}
-                nodeFrames={nodeFrames}
-                onClickNode={handleNodeClick}
-                onClickTriangle={handleTriangleClick}
-                onClickEdge={handleEdgeClick}
-                currentOctave={state.currentOctave}
-                accentActivePitch={state.accentActivePitch}
-                accentMode={state.accentMode}
-                weakVelocity={WEAK_VELOCITY}
-                strongVelocity={STRONG_VELOCITY}
-                transformMode={displayMode}
-                transitionFrame={transitionFrame}
-                isTransitioning={isTransitioning}
-                selectedDiamondPitchSet={state.selectedDiamondPitchSet}
-              />
-            </div>
           </div>
-
-          {!isScoreMode && (
-            <div style={S.rightColumn}>
-              <MelodyWindow
-                currentMelodyEvent={currentMelodyEvent}
-                prevMelodyEvent={prevMelodyEvent}
-                nextMelodyEvent={nextMelodyEvent}
-                displayMelodyIndex={displayMelodyIndex}
-                melodyEventsLength={melodyEvents.length}
-                selectionInfo={state.selectionInfo}
-              />
-              <MelodyTimeline
-                melodyEvents={melodyEvents}
-                activeMelodyEventId={state.activeMelodyEventId}
-                playbackMelodyEventId={state.playbackMelodyEventId}
-                recentEventIds={recentEventIds}
-                onClickEvent={handleTimelineClick}
-              />
-            </div>
-          )}
-        </div>
+        )}
       </div>
-      <InfoModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}
-        title="💡 貼心提醒"
-      >
-        <p>音樂辨識與 AI 樂譜轉錄需要經過運算分析，載入時間可能較長（約 10 ~ 30 秒），此為正常現象，請耐心等候系統處理！</p>
-      </InfoModal>
+      <UsageGuide mode={isScoreMode ? "score" : "audio"} />
     </div>
   );
 }

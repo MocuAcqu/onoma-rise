@@ -198,3 +198,72 @@
   50% { opacity: 1; }
   100% { opacity: 0.5; }
 }
+/* ── 窄螢幕 ─────────────────────────────────── */
+.page2-set {
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .page2-set {
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .page2-set .formula-card {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .play-btn svg {
+    width: 52px;
+    height: 52px;
+  }
+
+  .stair-step {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .harmonic-comparison-area {
+    gap: 0.35rem;
+  }
+
+  .note-info-card {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.6rem 0.3rem;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-freq {
+    font-size: 0.72rem;
+  }
+
+  .math-operator {
+    font-size: 1.1rem;
+  }
+
+  .ratio-selector-container {
+    padding: 4px 6px;
+    flex-shrink: 0;
+  }
+
+  .ratio-dropdown {
+    font-size: 1.2rem;
+    height: 2.25rem;
+  }
+
+  .scroll-piano-container .piano-container {
+    max-width: none;
+  }
+}
+
+.pitch-set-container > * {
+  max-width: 100%;
+}

@@ -47,3 +47,25 @@ body {
   background: linear-gradient(180deg, #FFFFFF 0%, #F6E8FF 78%, #f4f8ff 100%);
   color: #3f3d56;
 }
+
+/* ── 響應式共用設定 ─────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 防止單一元件溢出時整頁可以左右滑動 */
+#root {
+  overflow-x: clip;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

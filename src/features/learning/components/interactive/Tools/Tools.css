@@ -37,6 +37,16 @@
 .circle-comparison strong + strong, .circle-comparison span + span { border-left: 1px solid rgba(55,117,137,.14); }
 .circle-comparison__row { color: #45616d; }
 .circle-comparison__row + .circle-comparison__row { border-top: 1px solid rgba(55,117,137,.12); }
+/* 手機版的分開介紹卡（桌機隱藏，於 650px 以下顯示） */
+.circle-comparison-cards { display: none; gap: .9rem; width: 100%; margin: 1.25rem auto 0; text-align: left; }
+.circle-comparison-card { padding: .9rem 1rem 1rem; border: 1px solid rgba(55,117,137,.2); border-radius: 14px; background: rgba(255,255,255,.8); box-shadow: 0 8px 20px rgba(55,117,137,.07); }
+.circle-comparison-card h3 { margin: 0 0 .55rem; padding-bottom: .5rem; border-bottom: 1px solid rgba(55,117,137,.14); color: #244d5d; font-size: 1.1rem; }
+.circle-comparison-card--chromatic h3 { color: #2f6f86; }
+.circle-comparison-card--fifths h3 { color: #9a5e75; }
+.circle-comparison-card dl { display: grid; gap: .45rem; margin: 0; }
+.circle-comparison-card dl > div { display: grid; grid-template-columns: 2.6rem 1fr; gap: .6rem; align-items: baseline; }
+.circle-comparison-card dt { color: #7b8e97; font-size: .8rem; font-weight: 800; }
+.circle-comparison-card dd { margin: 0; color: #45616d; line-height: 1.55; }
 
 .music-circle { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
 .music-circle__canvas { position: relative; width: min(100%, 460px); aspect-ratio: 1; border-radius: 50%; overflow: visible; background: radial-gradient(circle, #fff 0 24%, #f2f8fb 25% 57%, #e0eef4 58% 100%); box-shadow: inset 0 0 0 1px rgba(55,117,137,.12), 0 12px 28px rgba(55,117,137,.1); }
@@ -86,14 +96,16 @@
   .tools-tool-header .tools-pill { white-space: normal; }
   .music-circle--compact { max-width: min(100%, 330px); }
   .music-circle__canvas { width: min(100%, 390px); }
-  .circle-comparison { border-radius: 12px; }
-  .circle-comparison__head { display: none; }
-  .circle-comparison__row { grid-template-columns: 1fr; }
-  .circle-comparison span { display: grid; grid-template-columns: 5rem 1fr; gap: .5rem; }
-  .circle-comparison span::before { content: attr(data-label); color: #31596b; font-weight: 800; }
-  .circle-comparison strong + strong, .circle-comparison span + span { border-left: 0; border-top: 1px solid rgba(55,117,137,.1); }
+  /* 手機：對照表改成「半音圈」「五度圈」兩張分開的介紹卡 */
+  .circle-comparison { display: none; }
+  .circle-comparison-cards { display: grid; }
   .tools-simple-flow { gap: .35rem; font-size: .9rem; }
   .fifths-wheel__legend { gap: .5rem; font-size: .75rem; }
+  /* 五度圈：手機上讓圓盤吃滿寬度（左右內距縮小），內圈小調文字才不會太小 */
+  .tools-interactive-area:has(.fifths-wheel) { padding-left: .35rem; padding-right: .35rem; }
+  .fifths-wheel__minor-text { font-size: 3.5px; }
+  .fifths-wheel__minor-text.is-long { font-size: 2.3px; }
+  .fifths-wheel__minor-text.is-split { font-size: 2.6px; }
 }
 
 @media (max-width: 360px) {

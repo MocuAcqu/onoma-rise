@@ -82,6 +82,31 @@ export const styles = {
     background: GRADIENTS.primary,
     boxShadow: "0 8px 18px rgba(124,58,237,0.18)",
   },
+  toolbarCompact: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: 12,
+    padding: "16px 14px",
+    borderRadius: 16,
+  },
+  toolbarTitleCompact: {
+    fontSize: 17,
+    minWidth: 0,
+    textAlign: "center",
+  },
+  toolbarRightCompact: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    gap: 12,
+  },
+  modeSwitchCompact: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+  },
+  modeButtonCompact: {
+    minHeight: 40,
+    fontSize: 14,
+  },
   uploadError: { padding: "0 4px", color: "#db2777", fontSize: 14 },
   grid: {
     display: "grid",
@@ -123,6 +148,54 @@ export const styles = {
     justifyContent: "center",
     position: "relative",
   },
+  /* ── 平板（768–1023px）：單欄排列 ── */
+  pageTablet: {
+    padding: "112px 24px 56px",
+  },
+  graphPanelTablet: {
+    height: 520,
+  },
+  rightColumnTablet: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+    alignItems: "start",
+  },
+  /* ── 手機（< 768px） ── */
+  pagePhone: {
+    padding: "84px 12px 48px",
+  },
+  heroPhone: {
+    marginBottom: 20,
+  },
+  heroTitlePhone: {
+    fontSize: 32,
+    letterSpacing: 1,
+  },
+  heroDescPhone: {
+    margin: "6px 0 0",
+    fontSize: 14,
+  },
+  contentPhone: {
+    gap: 14,
+  },
+  graphPanelPhone: {
+    height: "min(62vh, 460px)",
+    minHeight: 320,
+    borderRadius: 16,
+  },
+  mobilePanel: {
+    minWidth: 0,
+  },
+  mobileEmpty: {
+    padding: "28px 20px",
+    borderRadius: 16,
+    background: "rgba(255,255,255,0.86)",
+    border: `1px solid ${BRAND.cardBorder}`,
+    color: BRAND.inkSoft,
+    fontSize: 14,
+    lineHeight: 1.7,
+    textAlign: "center",
+  },
   scoreMelodyWindow: {
     position: "absolute",
     top: 18,
@@ -132,5 +205,43 @@ export const styles = {
     // This card only reports playback state, so Tonnetz nodes beneath it stay
     // interactive even when the card overlaps the graph on a narrow screen.
     pointerEvents: "none",
+  },
+  /* ── Tonnetz 下方：前往樂理知識「調性網路」章節 ── */
+  learnRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    flexWrap: "wrap",
+    padding: "12px 16px",
+    borderRadius: 16,
+    background: "rgba(255,255,255,0.72)",
+    border: `1px solid ${BRAND.cardBorder}`,
+    color: BRAND.inkSoft,
+    fontSize: 14,
+  },
+  learnButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    minHeight: 40,
+    padding: "0 18px",
+    borderRadius: 999,
+    color: "#ffffff",
+    background: GRADIENTS.primary,
+    boxShadow: "0 8px 18px rgba(124,58,237,0.18)",
+    fontSize: 14,
+    fontWeight: 800,
+    textDecoration: "none",
+    whiteSpace: "nowrap",
+  },
+  learnRowPhone: {
+    marginTop: 12,
+    flexDirection: "column",
+    gap: 8,
+  },
+  learnButtonPhone: {
+    width: "100%",
   },
 } satisfies Record<string, CSSProperties>;

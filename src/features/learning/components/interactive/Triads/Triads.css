@@ -183,4 +183,21 @@
     flex-direction: column;
     gap: 4rem;
   }
+
+  /* 三和弦 p1、七和弦 p1：五線譜與音程推導並排太擠，改為上下排列 */
+  .staff-chord-layout {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* 三和弦 p2、七和弦 p2：五線譜與鋼琴並排會超出卡片，改為上下排列 */
+  .chord-comparison-layout {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .staff-with-labels {
+    max-width: 100%;
+  }
 }

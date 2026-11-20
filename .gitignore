@@ -45,3 +45,5 @@ __pycache__/
 # Recognition jobs are runtime data and must live outside Git.
 python-backend/runtime/recognition/*
 !python-backend/runtime/recognition/.gitkeep
+
+.env

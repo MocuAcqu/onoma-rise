@@ -4,6 +4,8 @@ import { calculateInterval } from '../Interval/IntervalUtils';
 import { generateScale } from '../ScaleTypes/ScaleUtils';
 import { SCALE_FORMULAS } from '../ScaleTypes/ScaleUtils';
 import './Triads.css';
+// 音程推導的方框與箭頭樣式（.interval-result 等）定義在音程章節，直接進入本頁時也要載入
+import '../Interval/IntervalDefinition.css';
 
 const MAJOR_KEYS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 

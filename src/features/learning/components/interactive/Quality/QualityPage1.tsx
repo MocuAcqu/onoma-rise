@@ -16,7 +16,7 @@ const QualityPage1 = () => {
     <div className="interval-container">
       <p className="page-content">因為有相同度數但實際距離不同，或不同度數但距離相同的問題，所以為了做區分，會在度數前面使用「完全」或「大/小」這兩種形容詞，其中差1458度稱為「完全」、差2467度稱為「大」。</p>
       
-      <div style={{display: 'flex', alignItems: 'center', gap: '2rem'}}>
+      <div className="interval-piano-row">
         <PianoKeyboard 
           startNote="C4" endNote="E5" 
           onKeyClick={handleKeyClick} 

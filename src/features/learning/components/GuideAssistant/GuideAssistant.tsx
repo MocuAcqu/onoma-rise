@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import type { AnimationItem } from 'lottie-web';
 import { FiPlay, FiX } from 'react-icons/fi';
 import { getGuideLesson } from './guideContent';
+import { useMediaQuery } from '../../../../shared/hooks/useMediaQuery';
 import './GuideAssistant.css';
+
+/** 平板與手機：對話框只短暫出現，避免一直蓋住互動內容 */
+const COMPACT_QUERY = '(max-width: 1023px)';
+const BUBBLE_AUTO_HIDE_MS = 5000;
 
 type Props = { chapterId?: string; pageIndex: number; totalPages: number };
 type ToolDemo = { page: number; target: 'piano' | 'staff' | 'solfege-voice' | 'pitch-class' | 'interval' | 'scale' | 'seventh' | 'tonnetz'; sequence: string[]; label: string };
@@ -19,6 +24,13 @@ const animationPaths = ['/assets/guide/bluewave.json', '/assets/guide/greenb.jso
 export default function GuideAssistant({ chapterId, pageIndex, totalPages }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const [hintStep, setHintStep] = useState(0); const [isOpen, setIsOpen] = useState(false);
+  const [animationPath] = useState(() => animationPaths[Math.floor(Math.random() * animationPaths.length)]);
+  // 「跳躍」系列（*b.json）的角色在畫布中較小，需要另外放大
+  const isJumpAnimation = /b\.json$/.test(animationPath);
+  const isCompact = useMediaQuery(COMPACT_QUERY);
+  const [isBubbleVisible, setIsBubbleVisible] = useState(true);
+  // 每次顯示對話框都重新計時；元件以「章節＋頁碼」為 key，換頁時會重新出現一次
+  const [bubbleShownAt, setBubbleShownAt] = useState(0);
   const lesson = getGuideLesson(chapterId);
   const demo = demos[chapterId ?? '']?.find(item => item.page === pageIndex);
   const hint = lesson.hints[(pageIndex + hintStep) % lesson.hints.length] ?? `第 ${pageIndex + 1} 頁`; 
@@ -35,7 +47,9 @@ export default function GuideAssistant({ chapterId, pageIndex, totalPages }: Pro
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: animationPaths[Math.floor(Math.random() * animationPaths.length)],
+        path: animationPath,
+        // 動畫畫布是 1920×1080，角色只在正中央；以 slice 裁掉左右空白，角色才不會縮得太小
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
       });
     });
 
@@ -43,12 +57,28 @@ export default function GuideAssistant({ chapterId, pageIndex, totalPages }: Pro
       cancelled = true;
       animation?.destroy();
     };
-  }, []);
+  }, [animationPath]);
+
+  useEffect(() => {
+    if (!isCompact || !isBubbleVisible) return;
+    const timer = window.setTimeout(() => setIsBubbleVisible(false), BUBBLE_AUTO_HIDE_MS);
+    return () => window.clearTimeout(timer);
+  }, [isCompact, isBubbleVisible, bubbleShownAt]);
+
+  const showBubble = () => { setIsBubbleVisible(true); setBubbleShownAt(Date.now()); };
+  const nextHint = () => { setHintStep(step => step + 1); showBubble(); };
+  const handleAvatarClick = () => {
+    if (demo) { setIsOpen(true); return; }
+    // 沒有示範的頁面：收起時先叫出對話框，展開時換下一則提示
+    if (isCompact && !isBubbleVisible) showBubble();
+    else nextHint();
+  };
+  const bubbleHidden = isCompact && !isBubbleVisible;
   const playDemo = () => { if (!demo) return; window.dispatchEvent(new CustomEvent('onoma-play-tool-demo', { detail: demo })); setIsOpen(false); };
 
   return <aside className="guide-assistant" aria-label="Onoma 學習小導師">
-    <button className="guide-bubble" onClick={() => setHintStep(step => step + 1)}>{hint}</button>
-    <button className={`guide-avatar ${demo ? 'guide-avatar--available' : ''}`} onClick={() => demo && setIsOpen(true)} aria-label={demo ? '開啟 Onoma 的工具示範' : '此頁沒有額外範例'}><span>{demo ? '點我' : `${pageIndex + 1}/${totalPages}`}</span><div className="guide-lottie" ref={container} /></button>
+    <button className={`guide-bubble ${bubbleHidden ? 'is-hidden' : ''}`} onClick={nextHint} aria-hidden={bubbleHidden} tabIndex={bubbleHidden ? -1 : 0}>{hint}</button>
+    <button className={`guide-avatar ${demo ? 'guide-avatar--available' : ''}`} onClick={handleAvatarClick} aria-label={demo ? '開啟 Onoma 的工具示範' : '顯示 Onoma 的提示'}><span>{demo ? '點我' : `${pageIndex + 1}/${totalPages}`}</span><div className={`guide-lottie ${isJumpAnimation ? 'guide-lottie--jump' : ''}`}><div className="guide-lottie-canvas" ref={container} /></div></button>
     {isOpen && demo && <div className="guide-overlay" role="dialog" aria-modal="true"><section className="guide-panel"><button className="guide-close" onClick={() => setIsOpen(false)} aria-label="關閉"><FiX /></button><span className="guide-kicker">ONOMA 的示範</span><h2>{demo.label}</h2><p>觀察琴鍵、音符或音名是如何被播放的!</p><button className="guide-example-button" onClick={playDemo}><FiPlay /> 開始示範</button></section></div>}
   </aside>;
 }

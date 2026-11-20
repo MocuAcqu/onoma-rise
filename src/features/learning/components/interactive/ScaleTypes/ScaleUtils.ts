@@ -5,8 +5,10 @@ export const SCALE_FORMULAS = {
   naturalMinor: [2, 1, 2, 2, 1, 2, 2], 
   harmonicMinor: [2, 1, 2, 2, 1, 3, 1], 
   melodicMinor: [2, 1, 2, 2, 2, 2, 1],
-  chromatic: [1, 1, 1, 1, 1, 1, 1, 1], 
-  wholeTone: [2, 2, 2, 2, 2, 2, 2, 2], 
+  // 半音音階：12 個半音回到高八度主音（共 13 個音）
+  chromatic: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  // 全音音階：6 個全音回到高八度主音（共 7 個音）
+  wholeTone: [2, 2, 2, 2, 2, 2],
 };
 
 const ROOT_MIDI_MAP: Record<string, number> = {
@@ -26,6 +28,10 @@ const ROOT_MIDI_MAP: Record<string, number> = {
 
 const BASE_LETTERS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
+/** 顯示用：把音名的 b／# 轉成 ♭／♯（例：Gb → G♭、C# → C♯）；計算與播放仍使用原本的寫法 */
+export const formatAccidentals = (name: string) =>
+  name.replace(/^([A-G])b/, '$1♭').replace(/^([A-G])#/, '$1♯');
+
 const LETTER_BASE_STEPS: Record<string, number> = {
   'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11
 };
@@ -38,8 +44,8 @@ export const generateScale = (rootNote: string, formula: number[], isMinor: bool
   const rootLetter = rootNote.charAt(0);
   let currentLetterIndex = BASE_LETTERS.indexOf(rootLetter);
 
-  scale.push({ 
-    noteName: rootNote, 
+  scale.push({
+    noteName: formatAccidentals(rootNote),
     octave: (Math.floor(currentMidi / 12) - 1).toString(),
     fullPitch: Tone.Frequency(currentMidi, "midi").toNote() 
   });
@@ -89,7 +95,7 @@ export const generateScale = (rootNote: string, formula: number[], isMinor: bool
       }
     }
     
-    let tonePitchForPlay = Tone.Frequency(currentMidi, "midi").toNote();
+    const tonePitchForPlay =Tone.Frequency(currentMidi, "midi").toNote();
 
     scale.push({ 
       noteName: finalNoteName, 

@@ -280,3 +280,105 @@
   font-size: 0.9rem;
   color: #aaa;
 }
+
+/* ── 平板 ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .chapter-content-container {
+    padding: 80px 1.25rem 5rem;
+  }
+
+  .content-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .progress-indicator {
+    padding: 0 15%;
+  }
+}
+
+/* ── 手機 ───────────────────────────────────── */
+@media (max-width: 600px) {
+  .chapter-content-container {
+    padding: 72px 0.75rem 6.5rem; /* 底部預留空間給右下角的小導師（76px） */
+  }
+
+  .chapter-main-title {
+    font-size: 1.9rem;
+  }
+
+  .breadcrumbs-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumbs-content {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .content-card {
+    min-height: 0;
+    padding: 1.25rem 0.85rem;
+    border-width: 2px;
+    border-radius: 18px;
+  }
+
+  .progress-indicator {
+    padding: 0 8%;
+  }
+
+  .progress-dot {
+    width: 16px;
+    height: 16px;
+    position: relative;
+  }
+
+  /* 外觀不變，但把可點範圍擴大到約 32×40px，手指比較好點 */
+  .progress-dot::after {
+    content: '';
+    position: absolute;
+    inset: -12px -8px;
+  }
+
+  /* 麵包屑與按讚：加高可點範圍 */
+  .breadcrumbs-content a {
+    display: inline-block;
+    padding: 0.45rem 0;
+  }
+
+  .chapter-stats button {
+    min-height: 40px;
+  }
+
+  .interactive-content {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .page-content {
+    margin-top: 1.25rem;
+  }
+
+  .card-navigation {
+    margin-top: 1.25rem;
+  }
+
+  .card-nav-button {
+    padding: 0.6rem 0.4rem; /* 擴大觸控範圍 */
+  }
+
+  .freq-display-wrapper {
+    gap: 0.75rem;
+  }
+
+  .freq-value {
+    font-size: 1.4rem;
+    width: auto;
+    min-width: 110px;
+  }
+}
+
+/* 互動內容一律不超過卡片寬度 */
+.interactive-content > * {
+  max-width: 100%;
+  min-width: 0;
+}

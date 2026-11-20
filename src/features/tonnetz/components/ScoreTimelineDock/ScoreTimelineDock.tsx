@@ -15,6 +15,8 @@ type Props = {
   harmonicEvents: HarmonicTimelineEvent[];
   activeHarmonicEventId: string | null;
   onSeek: (position: number) => void;
+  /** 手機版分頁：直接展開、置於版面中，而非浮在 Tonnetz 上 */
+  inline?: boolean;
 };
 
 /**
@@ -28,8 +30,10 @@ export default function ScoreTimelineDock({
   harmonicEvents,
   activeHarmonicEventId,
   onSeek,
+  inline = false,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenState, setIsOpen] = useState(false);
+  const isOpen = inline || isOpenState;
   const [activeTab, setActiveTab] = useState<TimelineTab>("melody");
 
   const handleMelodySelect = useCallback(
@@ -42,7 +46,8 @@ export default function ScoreTimelineDock({
   );
 
   return (
-    <div style={styles.dock}>
+    <div style={inline ? styles.dockInline : styles.dock}>
+      {!inline && (
       <button
         type="button"
         aria-expanded={isOpen}
@@ -52,6 +57,7 @@ export default function ScoreTimelineDock({
       >
         {isOpen ? "收合時間軸 ▾" : "展開時間軸 ▴"}
       </button>
+      )}
 
       {isOpen && (
         <div id="score-tonnetz-timeline" style={styles.body}>

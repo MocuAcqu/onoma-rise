@@ -20,7 +20,7 @@ export default function CircleComparisonPage({ focus }: CircleComparisonPageProp
     <span className="tools-kicker">兩種排列方式</span>
     <h2>半音圈與五度圈有何不同？</h2>
     <p className="page-content">半音圈依照實際音高逐格前進，因此適合觀察音與音之間最小的距離。</p>
-    <p className="tools-comparison-note">閱讀表格時，先看「每次差多少」，再看它適合用來理解什麼。</p>
+    <p className="tools-comparison-note">比較時，先看「每次差多少」，再看它適合用來理解什麼。</p>
     <CircleComparison />
   </div>;
 }

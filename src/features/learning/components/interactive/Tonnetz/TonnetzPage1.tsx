@@ -50,7 +50,7 @@ const TonnetzPage1 = () => {
         </div>
       </div>
 
-      <p className="instruction-text">點擊下選單查看調性網路網格點、線、面關係。可滑鼠拖曳網格平移。</p>
+      <p className="instruction-text">點擊下選單查看調性網路網格點、線、面關係。可拖曳網格平移。</p>
     </div>
   );
 };

@@ -269,3 +269,103 @@
   color: white;
   box-shadow: 0 4px 10px rgba(55, 117, 137, 0.3);
 }
+/* 鋼琴 + 計算結果並排；窄螢幕時自動換行 */
+.interval-piano-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 100%;
+}
+
+.flat-keyboard,
+.result-note-box {
+  max-width: 100%;
+}
+
+/* ── 窄螢幕 ─────────────────────────────────── */
+@media (max-width: 700px) {
+  .interval-piano-row {
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .flat-keyboard {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .flat-key {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 2.75rem 0;
+    font-size: 0.72rem;
+  }
+
+  .interval-result {
+    gap: 0.75rem;
+  }
+
+  .result-note-box {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .arrow-line {
+    width: 70px;
+  }
+
+  .rule-flow {
+    gap: 0.3rem;
+  }
+
+  .rule-item {
+    font-size: 1.1rem;
+    padding: 0.3rem 0.35rem;
+  }
+
+  .rule-item.perfect,
+  .rule-item.major {
+    font-size: 1.4rem;
+  }
+
+  .rule-arrow {
+    width: 44px;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+  }
+
+  .quality-lab-v2 {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 0.75rem;
+  }
+
+  .custom-staff-area {
+    width: min(270px, 100%);
+  }
+
+  .custom-staff-area .clef-overlay {
+    left: -4px;
+  }
+
+  .accidental-controls-v2 {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .acc-btn-v2 {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* 平板：平面鍵盤稍微縮窄 */
+@media (min-width: 701px) and (max-width: 900px) {
+  .flat-key {
+    padding: 4rem 0.9rem;
+  }
+}

@@ -41,6 +41,7 @@
 
 .nav-links {
   margin-top: 10px;
+  margin-right: 52px;
   display: flex;
   gap: 2.5rem;
 }
@@ -135,4 +136,52 @@
 .menu-overlay-new {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 1500;
+}
+
+/* 主要頁面連結只在手機版選單中顯示 */
+.user-menu-pages {
+  display: none;
+}
+
+/* ── 平板（直向）與手機 ───────────────────────── */
+@media (max-width: 768px) {
+  .navbar-new {
+    height: 64px;
+    padding: 0 1rem;
+  }
+
+  .navbar-logo-img {
+    margin-top: 10%;
+    width: 60px;
+    height: 60px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger-btn-new {
+    /* 擴大觸控範圍，但不改變線條外觀 */
+    width: 28px;
+    height: 20px;
+    box-sizing: content-box;
+    padding: 10px;
+    margin: -10px;
+  }
+
+  .hamburger-btn-new.active .line:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+  .hamburger-btn-new.active .line:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+  .user-menu {
+    top: 44px;
+    min-width: 220px;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .user-menu-pages {
+    display: block;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    border-bottom: 1px solid #f0f0f0;
+  }
 }

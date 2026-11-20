@@ -158,13 +158,15 @@ const TonnetzGrid: React.FC<TonnetzGridProps> = ({
     return { nodes: Array.from(nodes.values()), lines, faces };
   }, [L, H]);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  // Pointer events：滑鼠與觸控皆可拖曳平移
+  const handleMouseDown = (e: React.PointerEvent) => {
     if (!interactive) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
     setIsDragging(true);
     dragStart.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: React.PointerEvent) => {
     if (!isDragging || !interactive) return;
     
     const newX = e.clientX - dragStart.current.x;
@@ -192,10 +194,11 @@ const TonnetzGrid: React.FC<TonnetzGridProps> = ({
     <div 
       className={`tonnetz-wrapper ${isDragging ? 'dragging' : ''}`}
       style={{ width, height }}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={() => setIsDragging(false)}
-      onMouseLeave={() => setIsDragging(false)}
+      onPointerDown={handleMouseDown}
+      onPointerMove={handleMouseMove}
+      onPointerUp={() => setIsDragging(false)}
+      onPointerCancel={() => setIsDragging(false)}
+      onPointerLeave={() => setIsDragging(false)}
     >
       <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
         <g transform={`translate(${pan.x + 350}, ${pan.y + 200})`}>

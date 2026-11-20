@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import React, { useMemo, useCallback, useEffect, useRef, useState } from 'react';
 import * as Tone from 'tone';
 import './PianoKeyboard.css';
 
@@ -87,11 +87,42 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
     }));
   }, [startNote, endNote]);
 
-  const whiteKeyWidth = 50; 
-  const blackKeyWidth = 30; 
+  // 白鍵最大寬度 50px，黑鍵寬度為白鍵的 60%。
+  // 以百分比定位，讓鍵盤在窄螢幕上等比例縮小；但白鍵不小於 40px（黑鍵 24px），
+  // 再窄就改為左右滑動，避免琴鍵小到點不準。
+  const whiteKeyWidth = 50;
+  const minWhiteKeyWidth = 40;
+  const containerPadding = 10;
+  const whiteKeyTotal = keys.filter((key) => key.type === 'white').length;
 
-  const getBlackKeyStyle = (index: number) => {
-    
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [scrollState, setScrollState] = useState({ overflow: false, atStart: true, atEnd: true });
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    // 只差幾 px 時不算需要滑動（避免為了極小差距顯示滑動提示）
+    const overflow = el.scrollWidth > el.clientWidth + 6;
+    const next = {
+      overflow,
+      atStart: el.scrollLeft <= 1,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 1,
+    };
+    setScrollState(prev => (
+      prev.overflow === next.overflow && prev.atStart === next.atStart && prev.atEnd === next.atEnd ? prev : next
+    ));
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateScrollState();
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [updateScrollState, whiteKeyTotal]);
+
+  const getBlackKeyStyle = (index: number): React.CSSProperties => {
     // 計算這個黑鍵前面有多少個白鍵
     let whiteKeyCount = 0;
     for (let i = 0; i < index; i++) {
@@ -99,11 +130,11 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
         whiteKeyCount++;
       }
     }
-    
-    const leftPosition = whiteKeyCount * whiteKeyWidth - (blackKeyWidth / 2);
 
+    const whitePercent = 100 / Math.max(whiteKeyTotal, 1);
     return {
-      left: `${leftPosition}px`
+      left: `${whiteKeyCount * whitePercent - whitePercent * 0.3}%`,
+      width: `${whitePercent * 0.6}%`,
     };
   };
 
@@ -132,8 +163,41 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
     return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
   }, [playNote]);
 
+  // 鍵盤需要左右滑動時，自動把示範中或標示中的琴鍵捲到可視範圍
+  const focusNote = demoNote ?? highlightNotes[0] ?? null;
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller || !focusNote || scroller.scrollWidth <= scroller.clientWidth + 1) return;
+    const focusMidi = Tone.Frequency(focusNote).toMidi();
+    const target = Array.from(scroller.querySelectorAll<HTMLElement>('.piano-key'))
+      .find(el => Number(el.dataset.midi) === focusMidi);
+    if (!target) return;
+    const sRect = scroller.getBoundingClientRect();
+    const kRect = target.getBoundingClientRect();
+    // 和弦等多個標示音時，以第一個音為起點、靠左留一點空間；示範單音時置中
+    const offset = demoNote ? (sRect.width - kRect.width) / 2 : Math.min(48, sRect.width / 4);
+    scroller.scrollTo({ left: scroller.scrollLeft + kRect.left - sRect.left - offset, behavior: 'smooth' });
+  }, [focusNote, demoNote]);
+
+  // 左右漸層提示：還有琴鍵藏在哪一側
+  const wrapClasses = [
+    'piano-scroll-wrap',
+    scrollState.overflow ? 'is-scrollable' : '',
+    scrollState.overflow && !scrollState.atStart ? 'fade-start' : '',
+    scrollState.overflow && !scrollState.atEnd ? 'fade-end' : '',
+  ].filter(Boolean).join(' ');
+
   return (
-    <div className="piano-container">
+    <div className={wrapClasses}>
+    <div className="piano-scroll" ref={scrollerRef} onScroll={updateScrollState}>
+    <div
+      className="piano-container"
+      style={{
+        width: whiteKeyTotal * whiteKeyWidth + containerPadding * 2,
+        minWidth: whiteKeyTotal * minWhiteKeyWidth + containerPadding * 2,
+      }}
+    >
+      <div className="piano-keys">
       {keys.map(({ note, midi, type, pitch, octave }, index) => {
         const isHighlighted = highlightMidis.includes(midi) || demoNote === note;
       
@@ -142,7 +206,8 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
             key={note}
             className={`piano-key ${type}-key ${isHighlighted ? 'highlighted' : ''}`}
             style={type === 'black' ? getBlackKeyStyle(index) : {}}
-            onMouseDown={() => playNote(note, 0.8, type as 'white' | 'black')} 
+            data-midi={midi}
+            onPointerDown={() => playNote(note, 0.8, type as 'white' | 'black')}
           >
             {type === 'white' && showWhiteKeyPitchNames && (
               <span className="key-label white-label">{pitch.replace('#', '')}{showOctaveNumbers && <span className="octave-number">{octave}</span>}</span>
@@ -152,6 +217,10 @@ const PianoKeyboard: React.FC<PianoKeyboardProps> = ({
             )}
           </button>
       )})}
+      </div>
+    </div>
+    </div>
+    {scrollState.overflow && <p className="piano-scroll-hint" aria-hidden="true">← 左右滑動看更多琴鍵 →</p>}
     </div>
   );
 };

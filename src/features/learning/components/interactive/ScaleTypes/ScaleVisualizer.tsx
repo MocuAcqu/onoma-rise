@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import * as Tone from 'tone';
-import { generateScale, generatePianoKeys} from './ScaleUtils';
+import { generateScale, generatePianoKeys, formatAccidentals } from './ScaleUtils';
 import './ScaleDefinition.css';
 
 type Props = {
@@ -137,7 +137,7 @@ const ScaleVisualizer: React.FC<Props> = ({ formula, scaleName, isMinor = false,
               className={`root-btn ${selectedRoot === root ? 'active' : ''}`}
               onClick={() => setSelectedRoot(root)}
             >
-              {root}
+              {formatAccidentals(root)}
             </button>
           ))}
         </div>
@@ -178,7 +178,7 @@ const ScaleVisualizer: React.FC<Props> = ({ formula, scaleName, isMinor = false,
       </div>
 
       <div className="current-status-label">
-        {actualRootName} {scaleName} {direction === 'down' ? '(下行)' : ''}
+        {formatAccidentals(actualRootName)} {scaleName} {direction === 'down' ? '(下行)' : ''}
       </div>
 
     </div>

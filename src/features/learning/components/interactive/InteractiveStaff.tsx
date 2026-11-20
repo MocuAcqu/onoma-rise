@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import * as Tone from 'tone';
 import './InteractiveStaff.css';
 
@@ -80,14 +80,36 @@ const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes, onKeyClick }
     return () => window.removeEventListener('onoma-play-tool-demo', handleDemo);
   }, [notes, handleNoteClick]);
 
-  const NOTE_SPACING = 60; // 每個音符之間的距離
-  const INITIAL_OFFSET = 30; // 第一個音符距離左邊的初始偏移量
-  
+  // 依五線譜實際寬度調整音符間距，窄螢幕（手機）時自動縮小
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [availableWidth, setAvailableWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const update = () => setAvailableWidth(container.clientWidth);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  const MAX_NOTE_SPACING = 60; // 每個音符之間的最大距離
+  const MIN_NOTE_SPACING = 26;
+  const MAX_INITIAL_OFFSET = 30; // 第一個音符距離左邊的初始偏移量
+  const INITIAL_OFFSET = availableWidth !== null && availableWidth < 420 ? 20 : MAX_INITIAL_OFFSET;
+  const NOTE_SPACING = availableWidth === null || notes.length < 2
+    ? MAX_NOTE_SPACING
+    : Math.max(
+        MIN_NOTE_SPACING,
+        Math.min(MAX_NOTE_SPACING, (availableWidth - INITIAL_OFFSET * 2) / (notes.length - 1)),
+      );
+
   // 計算音符群組的總寬度：最後一個音符的位置 + 額外留白
   const totalNotesWidth = (notes.length - 1) * NOTE_SPACING + INITIAL_OFFSET * 2;
 
   return (
-    <div className="staff-container">
+    <div className="staff-container" ref={containerRef}>
       {[...Array(5)].map((_, i) => (
         <div key={i} className="staff-line"></div>
       ))}
@@ -123,7 +145,7 @@ const InteractiveStaff: React.FC<InteractiveStaffProps> = ({ notes, onKeyClick }
               {/* 標籤區 */}
               <div 
                 className="note-labels"
-                style={{ left: `${baseX}px` }}
+                style={{ left: `${baseX}px`, width: `${Math.min(50, NOTE_SPACING)}px` }}
               >
                 {note.pitchName && <div className="note-pitch-name">{note.pitchName}</div>}
                 {note.solfege && <div className="note-solfege">{note.solfege}</div>}

@@ -39,3 +39,24 @@
   border-radius: 50%;
   background: #e0e0e0;
 }
+.footer-center span,
+.footer-center a {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .footer-center {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+  }
+
+  .footer-center img {
+    width: 44px !important;
+  }
+
+  .footer-center span,
+  .footer-center a {
+    font-size: 0.8rem;
+  }
+}

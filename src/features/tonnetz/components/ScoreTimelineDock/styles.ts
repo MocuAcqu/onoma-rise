@@ -14,6 +14,13 @@ export const styles = {
     alignItems: "flex-start",
     gap: 8,
   },
+  dockInline: {
+    position: "relative",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  },
   toggle: {
     minHeight: 38,
     padding: "0 15px",

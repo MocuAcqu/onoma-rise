@@ -6,6 +6,7 @@ import member2 from '../../assets/images/about/member2.jpg';
 import member3 from '../../assets/images/about/member3.jpg';
 import member4 from '../../assets/images/about/member4.jpg';
 import member5 from '../../assets/images/about/member5.jpg';
+import teamGroupPhoto from '../../assets/images/about/team-group.jpg';
 // 照片放在 src/assets/images/team/ 資料夾
 // 命名規則：member1.jpg、member2.jpg ... 以此類推
 // 加入照片後將 null 替換為 import 的圖片變數
@@ -146,7 +147,12 @@ const AboutPage = () => {
               未來，我們希望音樂辨識能處理更精準、更複雜的音訊，讓調性網路上呈現的軌跡更貼近真實的音樂。在樂理內容上，我們也計畫持續擴充，例如和弦進行與轉調等與調性網路直接相關的主題，讓使用者從看懂和弦，走到看懂音樂如何流動。
             </p>
           </div>
-          <div className="future-card" />
+          <img
+            src={teamGroupPhoto}
+            alt="音擬而起 OnomaRise 團隊合照"
+            className="future-card"
+            loading="lazy"
+          />
         </div>
       </section>
 

@@ -165,3 +165,97 @@
   gap: 3rem;
   width: 100%;
 }
+.scale-degrees-layout5 .staff-section {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ── 窄螢幕 ─────────────────────────────────── */
+@media (max-width: 760px) {
+  .scale-visualizer-container {
+    padding: 1rem 0.75rem;
+    gap: 1rem;
+  }
+
+  .piano-indicator-row,
+  .root-selector-row,
+  .scale-notes-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+
+  .row-label {
+    width: auto;
+    font-size: 0.85rem;
+  }
+
+  .piano-dots-grid {
+    height: 30px;
+  }
+
+  .piano-dot-cell {
+    min-width: 0;
+  }
+
+  .active-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* 12 個主音鍵在手機上一排太擠，改成 6 × 2 */
+  .root-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+
+  .root-btn {
+    min-width: 0;
+    min-height: 38px;
+    padding: 6px 0;
+    font-size: 0.85rem;
+  }
+
+  /* 音階方塊保持至少 36px 寬，音較多時左右滑動 */
+  .scale-blocks-grid {
+    gap: 3px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .scale-block {
+    flex: 1 0 36px;
+    min-width: 36px;
+    height: 60px;
+  }
+
+  .block-note-name {
+    font-size: 1rem;
+  }
+
+  .block-degree-num {
+    font-size: 0.6rem;
+  }
+
+  .direction-controls {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .scale-degrees-layout5 {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .scale-degrees-layout5 .staff-section {
+    width: 100%;
+  }
+
+  .scale-degrees-layout5 .degrees-list-card {
+    min-width: 0;
+    width: 100%;
+  }
+}

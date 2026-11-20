@@ -3,7 +3,9 @@ import ChordStaff from '../ChordStaff';
 import { calculateInterval } from '../Interval/IntervalUtils';
 import { generateScale } from '../ScaleTypes/ScaleUtils';
 import { SCALE_FORMULAS } from '../ScaleTypes/ScaleUtils';
-import '../Triads/Triads.css'; 
+import '../Triads/Triads.css';
+// 音程推導的方框與箭頭樣式定義在音程章節，直接進入本頁時也要載入
+import '../Interval/IntervalDefinition.css'; 
 
 const MAJOR_KEYS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 

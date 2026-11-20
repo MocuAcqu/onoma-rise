@@ -12,8 +12,10 @@
 
 .chord-staff-container {
   position: relative;
-  width: 160px; 
+  width: 160px;
   height: 140px;
+  /* 五線譜內容是固定尺寸，外框不可被旁邊的元素擠窄，否則線條會超出白框 */
+  flex-shrink: 0;
   cursor: pointer;
   background: white;
   border: 1px solid #f0f0f0;

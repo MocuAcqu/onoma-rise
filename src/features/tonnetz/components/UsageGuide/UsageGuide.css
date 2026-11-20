@@ -1,0 +1,332 @@
+/* ── 右上角吉祥物按鈕（放在固定導覽列 80px 下方） ── */
+.usage-guide-mascot {
+  position: fixed;
+  right: clamp(0.5rem, 2vw, 1.75rem);
+  top: 88px;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  filter: drop-shadow(0 10px 14px rgba(113, 75, 135, 0.22));
+  transition: transform 0.2s ease;
+}
+.usage-guide-mascot:hover,
+.usage-guide-mascot:focus-visible {
+  transform: translateY(-6px) rotate(-2deg);
+}
+.usage-guide-mascot:focus-visible {
+  outline: 3px solid #b581d7;
+  outline-offset: -12px;
+  border-radius: 50%;
+}
+.usage-guide-mascot-lottie {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.usage-guide-mascot-label {
+  position: absolute;
+  z-index: 2;
+  bottom: 22px;
+  padding: 0.28rem 0.6rem;
+  color: #fff;
+  background: linear-gradient(135deg, #d6489b, #8b4fd8);
+  border-radius: 999px;
+  font: 800 0.72rem var(--font-main);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── 遮罩與對話框 ───────────────────────────────── */
+.usage-guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  animation: usage-guide-fade 0.2s ease;
+}
+
+.usage-guide-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(480px, 100%);
+  max-height: calc(100vh - 2rem);
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+  background: linear-gradient(145deg, #fff, #fbf5ff);
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-main);
+  outline: none;
+  animation: usage-guide-pop 0.22s ease-out;
+}
+.usage-guide-dialog--viewer {
+  width: min(1100px, 100%);
+}
+
+.usage-guide-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 2.5rem;
+  flex-wrap: wrap;
+}
+.usage-guide-header h2 {
+  margin: 0;
+  color: #40384f;
+  font-size: 1.2rem;
+}
+
+.usage-guide-tabs {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  background: #f1eaf7;
+  border-radius: 999px;
+}
+.usage-guide-tab {
+  padding: 0.38rem 0.95rem;
+  color: #6e6283;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: 800 0.85rem var(--font-main);
+  transition: background 0.2s, color 0.2s;
+}
+.usage-guide-tab.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, #d6489b, #8b4fd8);
+  box-shadow: 0 4px 10px rgba(139, 79, 216, 0.3);
+}
+
+.usage-guide-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #766f91;
+  background: #f4eef8;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.2s, color 0.2s;
+}
+.usage-guide-close:hover {
+  color: #40384f;
+  background: #e9dcf3;
+}
+
+/* ── 詢問階段 ─────────────────────────────────── */
+.usage-guide-prompt p {
+  margin: 0;
+}
+.usage-guide-kicker {
+  color: #a373b7;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+.usage-guide-question {
+  margin-top: 0.35rem !important;
+  color: #40384f;
+  font-size: clamp(1.15rem, 3vw, 1.4rem);
+  font-weight: 800;
+}
+.usage-guide-intro {
+  margin-top: 0.75rem !important;
+  color: #5f586d;
+  line-height: 1.75;
+}
+.usage-guide-hint {
+  margin-top: 0.6rem !important;
+  color: #8a829b;
+  font-size: 0.85rem;
+}
+.usage-guide-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+
+/* ── 按鈕 ─────────────────────────────────────── */
+.usage-guide-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.62rem 1.1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  font: 800 0.9rem var(--font-main);
+  transition: transform 0.15s, opacity 0.2s;
+}
+.usage-guide-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.usage-guide-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.usage-guide-btn--primary {
+  color: #fff;
+  background: linear-gradient(135deg, #d6489b, #8b4fd8);
+  border: 0;
+  box-shadow: 0 6px 14px rgba(139, 79, 216, 0.28);
+}
+.usage-guide-btn--ghost {
+  color: #6e6283;
+  background: #fff;
+  border: 1px solid #e3d6ee;
+}
+
+/* ── 說明頁瀏覽 ───────────────────────────────── */
+.usage-guide-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 0;
+}
+.usage-guide-figure {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #1e1b26;
+  border: 0;
+  border-radius: 14px;
+  cursor: zoom-in;
+}
+.usage-guide-figure img {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 13rem);
+  aspect-ratio: 1901 / 942;
+  object-fit: contain;
+  user-select: none;
+}
+
+.usage-guide-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.usage-guide-nav .usage-guide-btn {
+  min-width: 104px;
+}
+.usage-guide-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.usage-guide-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  background: #ddd0e8;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: width 0.2s, background 0.2s;
+}
+.usage-guide-dot.is-active {
+  width: 22px;
+  background: linear-gradient(135deg, #d6489b, #8b4fd8);
+}
+.usage-guide-count {
+  margin-left: 0.35rem;
+  color: #8a829b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 全螢幕放大 ───────────────────────────────── */
+.usage-guide-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.92);
+  border: 0;
+  cursor: zoom-out;
+  animation: usage-guide-fade 0.18s ease;
+}
+.usage-guide-zoom img {
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+  user-select: none;
+}
+
+@keyframes usage-guide-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes usage-guide-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 平板／手機導覽列高度為 64px */
+@media (max-width: 768px) {
+  .usage-guide-mascot {
+    top: 70px;
+  }
+}
+
+/* ── 手機 ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  .usage-guide-mascot {
+    width: 92px;
+    height: 92px;
+  }
+  .usage-guide-mascot-label {
+    bottom: 10px;
+    font-size: 0.62rem;
+  }
+  .usage-guide-header {
+    padding-right: 2.25rem;
+  }
+  .usage-guide-nav .usage-guide-btn {
+    min-width: 0;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .usage-guide-dot {
+    display: none;
+  }
+  .usage-guide-actions .usage-guide-btn {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .usage-guide-overlay,
+  .usage-guide-dialog,
+  .usage-guide-zoom {
+    animation: none;
+  }
+  .usage-guide-mascot {
+    transition: none;
+  }
+}

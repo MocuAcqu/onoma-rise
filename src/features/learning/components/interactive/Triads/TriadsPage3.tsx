@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import * as Tone from 'tone';
 import PianoKeyboard from '../PianoKeyboard';
+import '../PitchClassSet/PitchClassSet.css';
 
 const RATIOS = [
   { label: '3/2', val: 1.5 },

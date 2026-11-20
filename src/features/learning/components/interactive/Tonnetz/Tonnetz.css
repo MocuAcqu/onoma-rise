@@ -32,6 +32,9 @@
   border: 2px solid #e2e8f0;
   overflow: hidden;
   user-select: none;
+  max-width: 100%;
+  /* 觸控：上下滑動捲動頁面，左右拖曳平移網格 */
+  touch-action: pan-y;
 }
 .tonnetz-wrapper.dragging { cursor: grabbing; }
 

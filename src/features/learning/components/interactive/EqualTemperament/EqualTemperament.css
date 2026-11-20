@@ -187,3 +187,68 @@
 .scale-dot-wrapper.active .note-name-label {
   color: #DA8F86;
 }
+/* ── 窄螢幕 ─────────────────────────────────── */
+.formula-card {
+  max-width: 100%;
+}
+
+@media (max-width: 700px) {
+  .formula-card {
+    padding: 1rem 1.1rem;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+  }
+
+  .formula-main,
+  .formula-result {
+    font-size: 1.3rem;
+  }
+
+  .note-badge {
+    margin-right: 0;
+    width: auto;
+  }
+
+  .chromatic-layout {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .circle-svg {
+    width: min(300px, 100%);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .frequency-axis-container {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .axis-header {
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    margin-bottom: 2.25rem;
+    font-size: 0.85rem;
+  }
+
+  .axis-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .note-name-label {
+    font-size: 0.7rem;
+  }
+
+  .freq-tick-label {
+    font-size: 0.55rem;
+  }
+
+  .scale-dot {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+}

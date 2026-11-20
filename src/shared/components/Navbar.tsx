@@ -3,6 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logoImage from '../../assets/images/navbar-logo.png';
 
+const NAV_LINKS = [
+  { to: '/knowledge', label: '樂理知識' },
+  { to: '/tonnetz', label: '調性網路' },
+  { to: '/about', label: '關於我們' },
+];
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<string | null>(null);
@@ -54,10 +60,10 @@ const Navbar = () => {
           <img src={logoImage} alt="OnomaRise Logo" className="navbar-logo-img" />
         </Link>
 
-        <nav className="nav-links" style={{ marginRight: '52px' }}>
-          <Link to="/knowledge">樂理知識</Link>
-          <Link to="/tonnetz">調性網路</Link>
-          <Link to="/about">關於我們</Link>
+        <nav className="nav-links">
+          {NAV_LINKS.map((link) => (
+            <Link key={link.to} to={link.to}>{link.label}</Link>
+          ))}
         </nav>
 
         <div className="nav-user-section">
@@ -72,6 +78,14 @@ const Navbar = () => {
           </button>
 
           <nav className={`user-menu ${isMenuOpen ? 'open' : ''}`}>
+            {/* 手機版：主要頁面連結收進選單（桌機版以 CSS 隱藏） */}
+            <ul className="user-menu-pages">
+              {NAV_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} onClick={() => setIsMenuOpen(false)}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
             {user ? (
               <>
                 <div className="user-info">Hi, {user}</div>

@@ -7,6 +7,8 @@ type RecognitionToolbarProps = {
   isScoreMode: boolean;
   displayMode: TransformMode;
   isTranscribing: boolean;
+  /** 手機版：工具列改為上下排列、按鈕填滿寬度 */
+  isCompact?: boolean;
   onActivateAudioMode: () => void;
   onActivateScoreMode: () => void;
   onTransformModeChange: (mode: TransformMode) => void;
@@ -17,20 +19,25 @@ export function RecognitionToolbar({
   isScoreMode,
   displayMode,
   isTranscribing,
+  isCompact = false,
   onActivateAudioMode,
   onActivateScoreMode,
   onTransformModeChange,
   onSelectAudioFile,
 }: RecognitionToolbarProps) {
   return (
-    <div style={S.toolbar}>
-      <h2 style={S.toolbarTitle}>音樂辨識</h2>
+    <div style={isCompact ? { ...S.toolbar, ...S.toolbarCompact } : S.toolbar}>
+      <h2 style={isCompact ? { ...S.toolbarTitle, ...S.toolbarTitleCompact } : S.toolbarTitle}>音樂辨識</h2>
 
-      <div style={S.toolbarRight}>
-        <div style={S.modeSwitch} role="group" aria-label="辨識模式">
+      <div style={isCompact ? { ...S.toolbarRight, ...S.toolbarRightCompact } : S.toolbarRight}>
+        <div
+          style={isCompact ? { ...S.modeSwitch, ...S.modeSwitchCompact } : S.modeSwitch}
+          role="group"
+          aria-label="辨識模式"
+        >
           <button
             type="button"
-            style={{ ...S.modeButton, ...(!isScoreMode ? S.modeButtonActive : {}) }}
+            style={{ ...S.modeButton, ...(isCompact ? S.modeButtonCompact : {}), ...(!isScoreMode ? S.modeButtonActive : {}) }}
             aria-pressed={!isScoreMode}
             onClick={onActivateAudioMode}
           >
@@ -38,7 +45,7 @@ export function RecognitionToolbar({
           </button>
           <button
             type="button"
-            style={{ ...S.modeButton, ...(isScoreMode ? S.modeButtonActive : {}) }}
+            style={{ ...S.modeButton, ...(isCompact ? S.modeButtonCompact : {}), ...(isScoreMode ? S.modeButtonActive : {}) }}
             aria-pressed={isScoreMode}
             onClick={onActivateScoreMode}
           >

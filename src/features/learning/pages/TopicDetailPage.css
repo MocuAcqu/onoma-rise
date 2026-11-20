@@ -117,3 +117,32 @@
     grid-template-columns: 1fr; 
   }
 }
+
+/* 直接開啟此頁時也需要卡片進場動畫（原本只定義在 KnowledgePage.css） */
+@keyframes card-slide-up { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+  .topic-detail-container {
+    padding: 72px 1rem 6rem;
+  }
+
+  .topic-main-title {
+    font-size: 1.9rem;
+  }
+
+  .breadcrumbs {
+    font-size: 1rem;
+  }
+
+  .chapters-grid {
+    gap: 1.25rem;
+  }
+
+  .chapter-visual-placeholder {
+    height: 110px;
+  }
+
+  .chapter-content {
+    padding: 1.1rem 1.25rem;
+  }
+}

@@ -1,0 +1,14 @@
+.fit-to-width {
+  display: flex;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.fit-to-width__inner {
+  flex-shrink: 0;
+  width: max-content;
+  transform-origin: top center;
+}

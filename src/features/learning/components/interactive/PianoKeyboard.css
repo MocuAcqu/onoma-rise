@@ -1,12 +1,89 @@
+/* 外層：放左右漸層與滑動提示，本身不捲動。
+   寬度依鋼琴本身決定（不固定 100%），在左右並排的版面中才不會擠壓旁邊的半音圈、五線譜；
+   空間不足時可縮小（min-width: 0），交由 .piano-scroll 左右滑動 */
+.piano-scroll-wrap {
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  margin: 1rem auto;
+}
+
+/* 捲動層：琴鍵寬度到下限（白鍵 40px）後改為左右滑動 */
+.piano-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sunset-pink, #da8f86) transparent;
+  /* 預留陰影空間，避免被捲動層裁切 */
+  padding: 4px 0 14px;
+  border-radius: 8px;
+}
+.piano-scroll::-webkit-scrollbar { height: 6px; }
+.piano-scroll::-webkit-scrollbar-thumb { background: var(--color-sunset-pink, #da8f86); border-radius: 6px; }
+
+.piano-scroll-wrap::before,
+.piano-scroll-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 28px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.piano-scroll-wrap.is-scrollable::before,
+.piano-scroll-wrap.is-scrollable::after {
+  /* 不蓋到下方的滑動提示文字 */
+  bottom: 1.6rem;
+}
+.piano-scroll-wrap::before {
+  left: 0;
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(to right, rgba(34, 34, 34, 0.85), rgba(34, 34, 34, 0));
+}
+.piano-scroll-wrap::after {
+  right: 0;
+  border-radius: 0 8px 8px 0;
+  background: linear-gradient(to left, rgba(34, 34, 34, 0.85), rgba(34, 34, 34, 0));
+}
+.piano-scroll-wrap.fade-start::before,
+.piano-scroll-wrap.fade-end::after {
+  opacity: 1;
+}
+
+.piano-scroll-hint {
+  margin: 0.4rem 0 0;
+  color: #8a829b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .piano-container {
   position: relative;
-  display: flex;
-  height: 220px; 
+  /* 寬度由元件依白鍵數量設定（每鍵 50px），窄螢幕時縮到容器寬度；
+     min-width（白鍵 40px）優先於 max-width，再窄就由 .piano-scroll 左右滑動 */
+  max-width: 100%;
+  height: 220px;
   background: #222;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  margin: 1rem auto;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.piano-keys {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .piano-key {
@@ -14,10 +91,14 @@
   border: 1px solid #ccc;
   cursor: pointer;
   box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  padding: 0;
+  font-family: inherit;
+  touch-action: manipulation;
 }
 
 .white-key {
-  width: 50px;
+  flex: 1 1 0;
+  min-width: 0;
   height: 200px;
   background: white;
   border-bottom-left-radius: 5px;
@@ -34,13 +115,12 @@
 
 .black-key {
   position: absolute;
-  width: 30px;
+  /* left / width 由元件以百分比設定 */
   height: 60%;
   background: #333;
   border-radius: 5px;
   z-index: 1;
   top: 0;
-  margin-left: 0.6rem;
   color: white;
   display: flex;
   flex-direction: column-reverse;
@@ -56,6 +136,7 @@
   font-weight: 600;
   font-size: 1rem;
   pointer-events: none;
+  white-space: nowrap;
 }
 
 .white-label {
@@ -79,4 +160,36 @@
 }
 
 .white-key.highlighted { z-index: 0; }
-.black-key.highlighted { z-index: 2; } 
+.black-key.highlighted { z-index: 2; }
+
+/* 手機：鍵盤高度與字體隨之縮小 */
+@media (max-width: 600px) {
+  .piano-container {
+    height: 170px;
+    padding: 6px;
+  }
+
+  .white-key {
+    height: 158px;
+    padding-bottom: 6px;
+  }
+
+  .key-label {
+    font-size: 0.75rem;
+  }
+
+  .black-label {
+    font-size: 0.6rem;
+  }
+
+  .octave-number {
+    margin-left: 0;
+  }
+}
+
+/* 琴鍵已有最小寬度（白鍵 40px／黑鍵 24px），小螢幕不需再縮小字級 */
+@media (max-width: 380px) {
+  .black-label {
+    font-size: 0.58rem;
+  }
+}

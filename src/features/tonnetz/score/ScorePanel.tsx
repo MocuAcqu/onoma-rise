@@ -227,7 +227,7 @@ export function ScorePanel({
           role="button"
           tabIndex={busy ? -1 : 0}
           aria-disabled={busy}
-          aria-label="拖曳樂譜到這裡，或點擊選擇檔案"
+          aria-label="請拖曳「鋼琴譜」樂譜到這裡，或點擊選擇檔案"
           onClick={chooseFile}
           onKeyDown={(event) => {
             if (event.key === "Enter" || event.key === " ") {
@@ -258,7 +258,7 @@ export function ScorePanel({
           }}
         >
           <span className="score-dropzone-icon" aria-hidden="true">↑</span>
-          <strong>{dragging ? "放開以上傳樂譜" : "拖曳樂譜到這裡"}</strong>
+          <strong>{dragging ? "放開以上傳樂譜" : "請拖曳「鋼琴譜」樂譜到這裡"}</strong>
           <p>或點擊此區選擇 PNG / 單頁 PDF · 最大 20 MB</p>
           <span className="score-button score-dropzone-button" aria-hidden="true">
             選擇檔案

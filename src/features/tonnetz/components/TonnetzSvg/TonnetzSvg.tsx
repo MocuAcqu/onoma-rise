@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { MouseEvent as ReactMouseEvent } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import DiamondLayer from "./DiamondLayer";
 import EdgeLayer from "./EdgeLayer";
 import NodeHaloLayer from "./NodeHaloLayer";
@@ -53,18 +53,79 @@ function TonnetzSvg({
   const [isDragging, setIsDragging] = useState(false);
   const [isHarmonyAdditionActive, setIsHarmonyAdditionActive] = useState(false);
   const dragRef = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(null);
+  // Pointer events cover mouse, touch and pen. Touch devices pan with one
+  // finger and zoom with a two-finger pinch (desktop keeps wheel zoom).
+  const pointersRef = useRef(new Map<number, { x: number; y: number }>());
+  const pinchRef = useRef<{
+    startDistance: number;
+    startZoom: number;
+    worldX: number;
+    worldY: number;
+  } | null>(null);
+  const panRef = useRef(pan);
+  const zoomRef = useRef(zoom);
+  useEffect(() => {
+    panRef.current = pan;
+    zoomRef.current = zoom;
+  }, [pan, zoom]);
 
-  const handleMouseDown = useCallback((event: ReactMouseEvent<SVGSVGElement>) => {
+  const startDrag = useCallback((clientX: number, clientY: number) => {
     dragRef.current = {
-      startX: event.clientX,
-      startY: event.clientY,
-      originX: pan.x,
-      originY: pan.y,
+      startX: clientX,
+      startY: clientY,
+      originX: panRef.current.x,
+      originY: panRef.current.y,
     };
     setIsDragging(true);
-  }, [pan.x, pan.y]);
+  }, []);
 
-  const handleMouseMove = useCallback((event: ReactMouseEvent<SVGSVGElement>) => {
+  const startPinch = useCallback(() => {
+    const container = containerRef.current;
+    const [a, b] = Array.from(pointersRef.current.values());
+    if (!container || !a || !b) return;
+    const rect = container.getBoundingClientRect();
+    const midX = (a.x + b.x) / 2 - rect.left;
+    const midY = (a.y + b.y) / 2 - rect.top;
+    pinchRef.current = {
+      startDistance: Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)),
+      startZoom: zoomRef.current,
+      worldX: (midX - panRef.current.x) / zoomRef.current,
+      worldY: (midY - panRef.current.y) / zoomRef.current,
+    };
+    dragRef.current = null;
+  }, []);
+
+  const handlePointerDown = useCallback((event: ReactPointerEvent<SVGSVGElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (pointersRef.current.size === 1) {
+      startDrag(event.clientX, event.clientY);
+    } else if (pointersRef.current.size === 2) {
+      startPinch();
+    }
+  }, [startDrag, startPinch]);
+
+  const handlePointerMove = useCallback((event: ReactPointerEvent<SVGSVGElement>) => {
+    if (!pointersRef.current.has(event.pointerId)) return;
+    pointersRef.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+    const pinch = pinchRef.current;
+    const container = containerRef.current;
+    if (pinch && container && pointersRef.current.size >= 2) {
+      const [a, b] = Array.from(pointersRef.current.values());
+      const rect = container.getBoundingClientRect();
+      const midX = (a.x + b.x) / 2 - rect.left;
+      const midY = (a.y + b.y) / 2 - rect.top;
+      const distance = Math.hypot(a.x - b.x, a.y - b.y);
+      const nextZoom = Math.min(
+        MAX_ZOOM,
+        Math.max(MIN_ZOOM, pinch.startZoom * (distance / pinch.startDistance)),
+      );
+      setZoom(nextZoom);
+      setPan({ x: midX - pinch.worldX * nextZoom, y: midY - pinch.worldY * nextZoom });
+      return;
+    }
+
     const drag = dragRef.current;
     if (!drag) return;
     const dx = event.clientX - drag.startX;
@@ -72,10 +133,19 @@ function TonnetzSvg({
     setPan({ x: drag.originX + dx, y: drag.originY + dy });
   }, []);
 
-  const endDrag = useCallback(() => {
+  const endPointer = useCallback((event: ReactPointerEvent<SVGSVGElement>) => {
+    pointersRef.current.delete(event.pointerId);
+    if (pointersRef.current.size < 2) pinchRef.current = null;
+
+    const [remaining] = Array.from(pointersRef.current.values());
+    if (remaining) {
+      // Lifting one finger after a pinch continues as a one-finger pan.
+      startDrag(remaining.x, remaining.y);
+      return;
+    }
     dragRef.current = null;
     setIsDragging(false);
-  }, []);
+  }, [startDrag]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -233,10 +303,11 @@ function TonnetzSvg({
           transformOrigin: "0 0",
           transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
         }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={endDrag}
-        onMouseLeave={endDrag}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={endPointer}
+        onPointerCancel={endPointer}
+        onPointerLeave={endPointer}
       >
         <SvgFilters />
         <g

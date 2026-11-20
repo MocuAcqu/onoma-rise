@@ -7,7 +7,7 @@ const PitchClassSetPage3 = () => (
       </p>
     <div className="scroll-piano-container">
       {/* 渲染全部 88 鍵 (A0 到 C8) */}
-      <div style={{ width: '2600px' }}> {/* 給予足夠的寬度以防擠壓 */}
+      <div style={{ width: 'max-content' }}> {/* 依鋼琴實際寬度撐開（52 白鍵 × 50px），由外層 .scroll-piano-container 左右滑動 */}
         <PianoKeyboard 
           startNote="A0" 
           endNote="C8" 
@@ -17,7 +17,7 @@ const PitchClassSetPage3 = () => (
         />
       </div>
     </div>
-    <p className="instruction-text">請左右滑動滑桿，可點擊琴鍵聆聽聲音</p>
+    <p className="instruction-text">請左右滑動鋼琴，可點擊琴鍵聆聽聲音</p>
   </div>
 );
 export default PitchClassSetPage3;

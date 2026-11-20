@@ -147,8 +147,50 @@
   .enharmonic-container {
     flex-direction: column;
   }
+  .enharmonic-container {
+    margin-left: 0;
+    gap: 1rem;
+  }
   .enharmonic-container .piano-container {
-    transform: scale(0.8);
-    transform-origin: center;
+    transform: none;
+    margin: 0 auto;
+  }
+  .diagram-area {
+    width: 100%;
+  }
+  .diagram-row {
+    width: 100%;
+    margin-left: 0;
+    gap: 0.6rem;
+  }
+}
+@media (max-width: 600px) {
+  .accidental-showcase {
+    gap: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .base-note-box {
+    width: min(200px, 100%);
+  }
+  .accidental-buttons {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .acc-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.9rem;
+  }
+  .note-box {
+    font-size: 1.4rem;
+    height: 50px;
+  }
+  .result-box,
+  .input-box {
+    width: 3.6rem;
+  }
+  .arrow-text {
+    font-size: 0.85rem;
   }
 }

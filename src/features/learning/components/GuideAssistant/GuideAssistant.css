@@ -1,10 +1,19 @@
-.guide-assistant{position:fixed;right:clamp(1rem,3vw,2.5rem);bottom:clamp(0rem,0vw,2.25rem);z-index:40;display:flex;flex-direction:column;align-items:flex-end;font-family:var(--font-main)}
-.guide-bubble{width:min(250px,calc(100vw - 9rem));margin:0 -4px -20px 0;padding:.72rem .9rem;color:#5b4c70;background:#fff;border:1px solid #eaddec;border-radius:16px 16px 4px 16px;box-shadow:0 7px 18px rgba(94,70,113,.15);cursor:pointer;font:700 .82rem/1.5 var(--font-main);text-align:left}
-.guide-avatar{position:relative;display:grid;place-items:center;width:250px;height:250px;padding:0;background:transparent;border:0;cursor:pointer;filter:drop-shadow(0 12px 17px rgba(113,75,135,.24));transition:transform .2s; margin-top: -1.5rem}
-.guide-avatar:hover{transform:translateY(-7px) rotate(-2deg)}
-.guide-avatar>span{position:absolute;z-index:2;right:4px;bottom:50px;padding:.3rem .55rem;color:#fff;background:#a179bc;border-radius:999px;font:800 .72rem var(--font-main)}
-.guide-lottie{position:relative;z-index:1;width:250px;height:250px;pointer-events:none}
-.guide-avatar--available::before{content:'';position:absolute;z-index:0;inset:17px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.9) 0%,rgba(193,140,232,.5) 37%,rgba(126,186,239,0) 72%);filter:blur(13px);animation:onoma-available-glow 1.8s ease-in-out infinite;pointer-events:none}
+/* 吉祥物尺寸：桌機 130px／平板 104px／手機 76px（角色約占 78%） */
+.guide-assistant{--mascot-size:130px;position:fixed;right:clamp(.75rem,2.5vw,2.25rem);bottom:clamp(.75rem,2vw,1.75rem);z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;font-family:var(--font-main);pointer-events:none}
+.guide-assistant>*{pointer-events:auto}
+.guide-bubble{width:min(250px,calc(100vw - 2rem));margin:0;padding:.72rem .9rem;color:#5b4c70;background:#fff;border:1px solid #eaddec;border-radius:16px 16px 4px 16px;box-shadow:0 7px 18px rgba(94,70,113,.15);cursor:pointer;font:700 .82rem/1.5 var(--font-main);text-align:left;transform-origin:bottom right;transition:opacity .25s,transform .25s,visibility 0s}
+.guide-bubble.is-hidden{opacity:0;visibility:hidden;transform:translateY(8px) scale(.94);pointer-events:none;transition:opacity .25s,transform .25s,visibility 0s .25s}
+.guide-avatar{position:relative;display:grid;place-items:center;width:var(--mascot-size);height:var(--mascot-size);padding:0;background:transparent;border:0;cursor:pointer;filter:drop-shadow(0 10px 14px rgba(113,75,135,.24));transition:transform .2s}
+@media(hover:hover){.guide-avatar:hover{transform:translateY(-6px) rotate(-2deg)}}
+.guide-avatar>span{position:absolute;z-index:2;right:-4px;bottom:2px;padding:.25rem .5rem;color:#fff;background:#a179bc;border-radius:999px;font:800 .72rem var(--font-main);white-space:nowrap}
+/* 裁切畫布四周空白並稍微放大，角色本身才看得清楚（保留跳躍動作的上方空間） */
+.guide-lottie{position:relative;z-index:1;width:100%;height:100%;overflow:hidden;pointer-events:none}
+/* 兩種動畫的角色在畫布中的大小不同，依實際像素量測分別縮放，讓角色看起來一樣大（約為框高的 74%），
+   並以整段動作的範圍置中；已逐格確認不會超出框 */
+/* lottie 會在 svg 上寫入 inline transform，因此縮放放在外層 canvas 容器 */
+.guide-lottie-canvas{width:100%;height:100%;transform:translate(3.3%,2%) scale(1.47);transform-origin:center}
+.guide-lottie--jump .guide-lottie-canvas{transform:translate(-1.1%,9.6%) scale(1.42)}
+.guide-avatar--available::before{content:'';position:absolute;z-index:0;inset:6%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.9) 0%,rgba(193,140,232,.5) 37%,rgba(126,186,239,0) 72%);filter:blur(13px);animation:onoma-available-glow 1.8s ease-in-out infinite;pointer-events:none}
 .guide-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:1rem;background:rgba(46,35,62,.38);backdrop-filter:blur(4px)}.guide-panel{position:relative;width:min(470px,100%);padding:clamp(1.5rem,4vw,2.4rem);border:1px solid rgba(255,255,255,.8);border-radius:28px;background:linear-gradient(145deg,#fff,#fbf5ff);box-shadow:0 24px 80px rgba(42,28,61,.28);animation:guide-pop .22s ease-out}
 .guide-close{position:absolute;top:.85rem;right:.85rem;display:grid;place-items:center;width:31px;height:31px;color:#766f91;background:#f4eef8;border:0;border-radius:50%;cursor:pointer;font-size:1.15rem}
 .guide-kicker{color:#a373b7;font-size:.75rem;font-weight:900;letter-spacing:.09em}
@@ -12,6 +21,20 @@
 .guide-panel p{margin:0;color:#5f586d;line-height:1.8}
 .guide-example-button{display:inline-flex;align-items:center;gap:.45rem;margin-top:1.35rem;padding:.72rem 1rem;color:#fff;background:linear-gradient(135deg,#b581d7,#779fe0);border:0;border-radius:14px;cursor:pointer;font:800 .9rem var(--font-main)}@keyframes guide-pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes onoma-available-glow{0%,100%{opacity:.55;transform:scale(.88)}50%{opacity:1;transform:scale(1.12)}}
 
-@media(max-width:600px){.guide-assistant{right:.6rem;bottom:.7rem}
-.guide-avatar,.guide-lottie{width:116px;height:116px}
-.guide-bubble{width:min(220px,calc(100vw - 5.5rem));font-size:.71rem}}
+/* 平板 */
+@media(max-width:1023px){
+  .guide-assistant{--mascot-size:104px}
+  .guide-bubble{width:min(230px,calc(100vw - 2rem))}
+}
+
+/* 手機：角色放大到看得清楚，但整體占位縮小；對話框 5 秒後自動收起 */
+@media(max-width:767px){
+  .guide-assistant{--mascot-size:76px;right:.5rem;bottom:.6rem;gap:.3rem}
+  .guide-avatar>span{right:-6px;bottom:-2px;padding:.18rem .42rem;font-size:.62rem}
+  .guide-bubble{width:min(210px,calc(100vw - 2rem));padding:.55rem .7rem;font-size:.72rem;line-height:1.45}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .guide-bubble,.guide-bubble.is-hidden,.guide-avatar{transition:none}
+  .guide-avatar--available::before{animation:none}
+}

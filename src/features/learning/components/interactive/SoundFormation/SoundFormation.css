@@ -219,3 +219,42 @@
     gap: 2rem;
   }
 }
+/* ── 窄螢幕：畫布依容器寬度等比例縮放 ───────────── */
+.molecule-interactive-container {
+  max-width: 100%;
+}
+
+.formation-canvas,
+.waveform-canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 650px) {
+  .molecule-interactive-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 600 / 350;
+    margin: 1rem auto;
+  }
+
+  .formation-canvas {
+    width: 100%;
+    border-width: 2px;
+    border-radius: 14px;
+  }
+
+  .center-piano-btn {
+    width: 68px;
+    height: 68px;
+  }
+
+  .center-piano-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .center-piano-btn span {
+    font-size: 0.7rem;
+  }
+}

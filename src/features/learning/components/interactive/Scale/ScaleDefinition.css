@@ -93,3 +93,45 @@
 .chromatic-step.active .step-label {
   color: var(--color-bright-blue);
 }
+/* ── 窄螢幕 ─────────────────────────────────── */
+.scale-degrees-layout .staff-section {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .scale-degrees-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .scale-degrees-layout .staff-section {
+    width: 100%;
+  }
+
+  .degrees-list-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .degree-item {
+    font-size: 0.9rem;
+  }
+
+  .chromatic-stairs-wrapper {
+    height: 300px;
+  }
+
+  .chromatic-step {
+    flex: 0 1 45px;
+    min-width: 0;
+    margin-left: 2px;
+    bottom: calc(var(--step-index) * 16px);
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+  }
+}

@@ -30,6 +30,8 @@ export const styles = {
     borderRadius: 999,
     padding: "3px 10px",
     fontWeight: 800,
+    whiteSpace: "nowrap",
+    flexShrink: 0,
   },
   modeText: { fontSize: 12, color: BRAND.inkSoft },
   pausedMessage: {

@@ -18,6 +18,7 @@ const ChapterContentPage = lazy(() => import('./features/learning/pages/ChapterC
 const Profile = lazy(() => import('./features/profile/Profile.tsx'));
 const QuizPage = lazy(() => import('./features/learning/pages/QuizPage.tsx'));
 const PlacementResultPage = lazy(() => import('./features/assessment/PlacementResultPage.tsx'));
+const TermsPage = lazy(() => import('./features/legal/TermsPage.tsx'));
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
       { path: 'tonnetz', element: <Suspense fallback={null}><TonnetzPage /></Suspense> },
       { path: 'placement-result', element: <Suspense fallback={null}><PlacementResultPage /></Suspense> },
       { path: 'profile', element: <Suspense fallback={null}><Profile /></Suspense> },
+      { path: 'terms', element: <Suspense fallback={null}><TermsPage /></Suspense> },
     ],
   },
 ]);

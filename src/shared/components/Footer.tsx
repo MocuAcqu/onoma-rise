@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-center">
             <img src={footerLogo} alt="Logo" style={{ width: '60px', opacity: 0.5}} />
             <span>© 2026 OnomaRise.</span>
-            <Link to="/terms">term</Link>
+            <Link to="/terms">terms</Link>
             <Link to="/about">about us</Link>
         </div>
       </div>
